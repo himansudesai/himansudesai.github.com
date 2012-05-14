@@ -1,0 +1,81 @@
+#example-title {
+  color: DarkGoldenRod;
+}
+#reset-button {
+  margin: 10px;
+  margin-left: 110px;
+}
+#action-button-text {
+  color: Olive;
+  font-size: 80%;
+}
+.examples-progress-bar {
+  width: 400px;
+}
+
+#todos {
+  width: 300px;
+}
+
+.myaccordion h2, .myaccordion .ui-accordion {
+  padding: 0px;
+  width: 500px;
+}
+
+.myaccordion .ui-accordion-content{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 35px;
+  width: 465px;
+}
+
+#my-tabs {
+  width: 500px;
+}
+
+.slider {
+  width: 300px;
+}
+
+#vertical-slider, #slider-text-value {
+  margin: 10px;
+  margin-left: 145px;
+}
+
+#vertical-slider {
+  height: 150px;
+}
+
+#spacer {
+  display: inline;
+}
+
+#myaccordion .ui-accordion h2 {
+  padding: 0px;
+  width: 500px;
+}
+
+#tab-display {
+  color: #0074C7;
+  font-weight: 900;
+}
+
+button {
+  background: url('images/ui-bg_gloss-wave_70_ffdd57_500x100.png') repeat-x;
+}
+
+.date-field input {
+  background-color: darkgoldenrod;
+  color: white;
+  width: 7em;
+}
+
+#about-hdr, #about-ftr p {
+  width: 400px;
+  color: DarkGrey;
+  text-align: justify;
+  font-size: 1.0em;
+  line-height: 1.25em;
+  margin: 2.0em 0;
+  text-align: justify;
+}
