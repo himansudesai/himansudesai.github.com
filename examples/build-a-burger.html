@@ -90,6 +90,10 @@
     App.droppableView = App.DroppableView.create();
   </script>
 
+  <script type="text/x-handlebars">
+    <a href="../index.html" STYLE="font: 10pt courier; color: olive">Examples</a> <br/>
+    {{view Cinder.AboutHdr}}
+  </script>
   <div class="css-table" id="yattribute-table">
     <div class="css-cell ingredients-table-cell">
       <span class="title">INGREDIENTS (drag right to include in Recipe )</span>
@@ -100,6 +104,9 @@
     <div class="css-row">
     </div>
   </div>
+  <script type="text/x-handlebars">
+    {{view Cinder.AboutFtr}}
+  </script>
 
   <script language="javascript">
     App.ingredientsView.appendTo("#yattribute-table");
