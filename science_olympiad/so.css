@@ -2,9 +2,8 @@ body {
   background-color: LightCyan;
 }
 
-#title {
-  color: Salmon;
-  font-size: 200%
+h1, h2 {
+  color: IndianRed;
 }
 #bg {
   background: url("SOLogo.jpg") no-repeat;
@@ -19,6 +18,6 @@ body {
   position:absolute;
   left:20px;
   top:0px;
-  font-size: 115%;
+  font-size: 100%;
   font-weight: bold;
 }
