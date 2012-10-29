@@ -1,0 +1,24 @@
+body {
+  background-color: LightCyan;
+}
+
+#title {
+  color: Salmon;
+  font-size: 200%
+}
+#bg {
+  background: url("SOLogo.jpg") no-repeat;
+  background-size: 100%;
+  width: 1000px;
+  height: 900px;
+  opacity: 0.3;
+  z-index: 1
+}
+#fg {
+  z-index: 200;
+  position:absolute;
+  left:20px;
+  top:0px;
+  font-size: 115%;
+  font-weight: bold;
+}
