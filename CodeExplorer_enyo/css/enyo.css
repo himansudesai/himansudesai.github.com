@@ -1,0 +1,200 @@
+﻿body {
+	font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	line-height: 1.4em;
+    background: #eaeaea;
+	color: #4d4d4d;
+	width: 550px;
+	margin: 0 auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-font-smoothing: antialiased;
+	-ms-font-smoothing: antialiased;
+	-o-font-smoothing: antialiased;
+	font-smoothing: antialiased;
+}
+
+.app {
+	background: #fff;
+	background: rgba(255, 255, 255, 0.9);
+	margin: 130px 0 40px 0;
+	border: 1px solid #ccc;
+	position: relative;
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2),
+				0 25px 50px 0 rgba(0, 0, 0, 0.15);
+}
+.app::before {
+	content: '';
+	border-left: 1px solid #F5D6D6;
+	border-right: 1px solid #F5D6D6;
+	width: 2px;
+	position: absolute;
+	top: 0;
+	left: 40px;
+	height: 100%;
+}
+
+.title {
+	font-size: 26px;
+}
+
+.todo-list {
+	line-height: 43px;
+	font-size: 20px;
+	color: #D9D9D9;
+	text-shadow: 0 -1px 0 #BFBFBF;
+}
+
+.todo-new::before {
+	content: '';
+	position: absolute;
+	top: 49px;
+	right: 0;
+	left: 0;
+	height: 15px;
+	z-index: 2;
+	border-bottom: 1px solid #6C615C;
+	background: #8D7D77;
+	background: -webkit-gradient(linear, left top, left bottom, from(rgba(132, 110, 100, 0.8)),to(rgba(101, 84, 76, 0.8)));
+	background: -webkit-linear-gradient(top, rgba(132, 110, 100, 0.8), rgba(101, 84, 76, 0.8));
+	background: -moz-linear-gradient(top, rgba(132, 110, 100, 0.8), rgba(101, 84, 76, 0.8));
+	background: -o-linear-gradient(top, rgba(132, 110, 100, 0.8), rgba(101, 84, 76, 0.8));
+	background: -ms-linear-gradient(top, rgba(132, 110, 100, 0.8), rgba(101, 84, 76, 0.8));
+	background: linear-gradient(top, rgba(132, 110, 100, 0.8), rgba(101, 84, 76, 0.8));
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#9d8b83', EndColorStr='#847670');
+	border-top-left-radius: 1px;
+	border-top-right-radius: 1px;
+}
+
+.todo-new {
+	font-size: 20px;
+	padding-left: 5px;
+	padding-top: 15px;
+	background: rgba(0, 0, 0, 0.02);
+	box-shadow: none;
+    border-bottom: 1px dotted #CCC;
+   	color: #4D4D4D;
+	line-height: 43px;
+}
+.toggle-all {
+	/*
+	background: none;
+	-webkit-appearance: none;
+	-ms-appearance: none;
+	-o-appearance: none;
+	appearance: none;
+	-webkit-transform: rotate(90deg);
+	*/
+}
+
+.toggle-all::before {
+	/*
+	content: '»';
+	font-size: 28px;
+	color: #D9D9D9;
+	padding: 0 25px 7px;
+	*/
+}
+
+.todo-new-input {
+	margin-left: 8px;
+	padding-left: 8px;
+	color: #4D4D4D;
+	border: none;
+	font-size: 24px;
+	line-height: 43px;
+	background: rgba(0, 0, 0, 0.02);
+	width: 85%;
+}
+
+.item {
+	border-bottom: 1px dotted #CCC;
+}
+
+.item:last-child {
+	border-bottom: none;
+}
+
+.item-checkbox {
+	margin-left: 5px;
+}
+
+.item-input {
+	margin-left: 8px;
+	padding-left: 8px;
+	color: #4D4D4D;
+	border: none;
+	font-size: 24px;
+	line-height: 43px;
+	width: 84%;
+}
+
+.item-input.completed {
+	text-decoration: line-through;
+	color: darkGray;
+}
+
+.footer {
+	color: #777;
+	padding: 0 15px;
+	position: absolute;
+	right: 0;
+	bottom: -32px;
+	left: 0;
+	height: 20px;
+	z-index: -1;
+	text-align: center;
+}
+
+.footer::before {
+	content: '';
+	position: absolute;
+	right: 0;
+	bottom: 31px;
+	left: 0;
+	height: 50px;
+	z-index: -2;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3),
+				0 6px 0 -3px rgba(255, 255, 255, 0.8),
+				0 7px 1px -3px rgba(0, 0, 0, 0.3),
+				0 43px 0 -6px rgba(255, 255, 255, 0.8),
+				0 44px 2px -6px rgba(0, 0, 0, 0.2);
+}
+
+.todo-count {
+	float: left;
+	text-align: left;
+}
+
+.clear-completed {
+	float: right;
+	position: relative;
+	margin-top: -20px;
+	line-height: 20px;
+	text-decoration: none;
+	background: rgba(0, 0, 0, 0.1);
+	font-size: 11px;
+	padding: 0 10px;
+	border-radius: 3px;
+	box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.2);
+}
+
+.clear-completed:hover {
+	background: rgba(0, 0, 0, 0.15);
+	box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.3);
+}
+
+button {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+	font-size: 100%;
+	vertical-align: baseline;
+	font-family: inherit;
+	color: inherit;
+	-webkit-appearance: none;
+	-ms-appearance: none;
+	-o-appearance: none;
+	appearance: none;
+}
