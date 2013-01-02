@@ -1,0 +1,11 @@
+Study Types
+=============
+cross-sectional
+experimental/trial
+
+
+incubation period
+
+common source
+	point source
+	continuous source
