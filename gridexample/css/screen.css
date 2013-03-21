@@ -97,7 +97,7 @@ img { max-width: 100%; }
 }
 
 /* One Column */
-@media screen and (min-width: 300px) {
+@media screen and (min-width: 100px) {
 	.category {
 		width: 90%;
 		margin: 0 5% 20px 5%;
@@ -108,7 +108,7 @@ img { max-width: 100%; }
 }
 
 /* Two Column */
-@media screen and (min-width:500px) {
+@media screen and (min-width:300px) {
 	.category {
 		width: 47%;
 		margin: 0 3% 20px 0;
@@ -119,7 +119,7 @@ img { max-width: 100%; }
 }
 
 /* Three Column */
-@media screen and (min-width:800px) {
+@media screen and (min-width:500px) {
 	.category {
 		width: 31%;
 		margin: 0 2% 20px 0;
@@ -129,7 +129,7 @@ img { max-width: 100%; }
 }
 
 /* Four Column */
-@media screen and (min-width:1200px) {
+@media screen and (min-width:800px) {
 	.category {
 		width: 23%;
 		margin: 20px 2% 0 0;
@@ -139,7 +139,7 @@ img { max-width: 100%; }
 }
 
 /* Five Column */
-@media screen and (min-width:1600px) {
+@media screen and (min-width:1200px) {
 	.category {
 		width: 15%;
 		margin: 20px 2% 0 0;
@@ -149,7 +149,7 @@ img { max-width: 100%; }
 }
 
 /* Six Column */
-@media screen and (min-width:1800px) {
+@media screen and (min-width:1600px) {
 	.category {
 		width: 13%;
 		margin: 20px 2% 0 0;
@@ -159,7 +159,7 @@ img { max-width: 100%; }
 }
 
 /* Eight Column */
-@media screen and (min-width:2000px) {
+@media screen and (min-width:1800px) {
 	.category {
 		width: 10%;
 		margin: 20px 2% 0 0;
@@ -169,7 +169,7 @@ img { max-width: 100%; }
 }
 
 /* Ten(?) Column */
-@media screen and (min-width:2200px) {
+@media screen and (min-width:2000px) {
 	.category {
 		width: 7%;
 		margin: 20px 2% 0 0;
@@ -179,7 +179,7 @@ img { max-width: 100%; }
 }
 
 /* More than Ten(?) Column */
-@media screen and (min-width:2400px) {
+@media screen and (min-width:2200px) {
 	.category {
 		width: 5%;
         height: 0px;
