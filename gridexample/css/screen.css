@@ -69,6 +69,22 @@ img { max-width: 100%; }
 
 /* Column Control Media Queries */
 
+body {
+    background-color: #444444;
+}
+
+.category {
+    overflow: auto;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background-color: #222222;
+}
+
+.content {
+    padding: 10px;
+}
+
 @media screen and (min-width:500px) {
 	body {
 		max-width: 2400px;
@@ -93,7 +109,7 @@ img { max-width: 100%; }
 
 .category:hover {
     background-color: olive;
-    opacity: 0.1;
+    opacity: 0.6;
 }
 
 /* One Column */
@@ -103,7 +119,6 @@ img { max-width: 100%; }
 		margin: 0 5% 20px 5%;
         height: 0px;
 		padding-bottom: 90%;
-        background-color: aliceblue;
 	}
 }
 
@@ -114,7 +129,6 @@ img { max-width: 100%; }
 		margin: 0 3% 20px 0;
         height: 0px;
 		padding-bottom: 47%;
-        background-color: aliceblue;
 	}
 }
 
@@ -124,7 +138,6 @@ img { max-width: 100%; }
 		width: 31%;
 		margin: 0 2% 20px 0;
 		padding-bottom: 31%;
-        background-color: blanchedalmond;
 	}
 }
 
@@ -134,7 +147,6 @@ img { max-width: 100%; }
 		width: 23%;
 		margin: 20px 2% 0 0;
 		padding-bottom: 23%;
-        background-color: lavender;
 	}
 }
 
@@ -144,7 +156,6 @@ img { max-width: 100%; }
 		width: 15%;
 		margin: 20px 2% 0 0;
 		padding-bottom: 15%;
-        background-color: ivory;
 	}
 }
 
@@ -154,7 +165,6 @@ img { max-width: 100%; }
 		width: 13%;
 		margin: 20px 2% 0 0;
 		padding-bottom: 13%;
-        background-color: lightgray;
 	}
 }
 
@@ -164,7 +174,6 @@ img { max-width: 100%; }
 		width: 10%;
 		margin: 20px 2% 0 0;
 		padding-bottom: 10%;
-        background-color: mistyrose;
 	}
 }
 
@@ -174,7 +183,6 @@ img { max-width: 100%; }
 		width: 7%;
 		margin: 20px 2% 0 0;
 		padding-bottom: 7%;
-        background-color: honeydew;
 	}
 }
 
@@ -185,7 +193,6 @@ img { max-width: 100%; }
         height: 0px;
 		margin: 20px 2% 0 0;
 		padding-bottom: 5%;
-        background-color: powderblue;
 	}
 }
 
