@@ -142,7 +142,7 @@ body {
 }
 
 /* Four Column */
-@media screen and (min-width:800px) {
+@media screen and (min-width:600px) {
 	.category {
 		width: 23%;
 		margin: 20px 2% 0 0;
@@ -151,25 +151,25 @@ body {
 }
 
 /* Five Column */
-@media screen and (min-width:1200px) {
+@media screen and (min-width:800px) {
 	.category {
-		width: 15%;
+		width: 18%;
 		margin: 20px 2% 0 0;
-		padding-bottom: 15%;
+		padding-bottom: 18%;
 	}
 }
 
 /* Six Column */
-@media screen and (min-width:1600px) {
+@media screen and (min-width:1200px) {
 	.category {
-		width: 13%;
+		width: 14%;
 		margin: 20px 2% 0 0;
-		padding-bottom: 13%;
+		padding-bottom: 14%;
 	}
 }
 
 /* Eight Column */
-@media screen and (min-width:1800px) {
+@media screen and (min-width:1600px) {
 	.category {
 		width: 10%;
 		margin: 20px 2% 0 0;
@@ -178,21 +178,21 @@ body {
 }
 
 /* Ten(?) Column */
-@media screen and (min-width:2000px) {
+@media screen and (min-width:1800px) {
 	.category {
-		width: 7%;
+		width: 8%;
 		margin: 20px 2% 0 0;
-		padding-bottom: 7%;
+		padding-bottom: 8%;
 	}
 }
 
 /* More than Ten(?) Column */
-@media screen and (min-width:2200px) {
+@media screen and (min-width:2000px) {
 	.category {
-		width: 5%;
+		width: 7%;
         
 		margin: 20px 2% 0 0;
-		padding-bottom: 5%;
+		padding-bottom: 7%;
 	}
 }
 
