@@ -128,13 +128,12 @@ body {
 	.category {
 		width: 47%;
 		margin: 0 3% 20px 0;
-        height: 0px;
 		padding-bottom: 47%;
 	}
 }
 
 /* Three Column */
-@media screen and (min-width:500px) {
+@media screen and (min-width:450px) {
 	.category {
 		width: 31%;
 		margin: 0 2% 20px 0;
@@ -191,7 +190,7 @@ body {
 @media screen and (min-width:2200px) {
 	.category {
 		width: 5%;
-        height: 0px;
+        
 		margin: 20px 2% 0 0;
 		padding-bottom: 5%;
 	}
