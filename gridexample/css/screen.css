@@ -1,9 +1,3 @@
-/*	Authors		Craig Rozynski craigrozynski.com, dinosaurswithlaserz.com 
-							Marco Lago marcolago.com
-		Version		2.0 2011-07-15 */
-
-/* CSS Reset (customised) */
-
 html, body, div, span, h1, h2, h3, h4, h5, h6, p, em, img, small, strong {
 	margin: 0;
 	padding: 0;
@@ -13,16 +7,9 @@ html, body, div, span, h1, h2, h3, h4, h5, h6, p, em, img, small, strong {
 }
 body { display: block; }
 html { overflow-y: scroll; }
-a:hover, a:active { outline: none; }
-small { font-size: 85%; }
-strong, th { font-weight: bold; }
+
 ::-moz-selection{ background: #3b7cbf; color: #fff; text-shadow: none; }
 ::selection { background: #3b7cbf; color: #fff; text-shadow: none; }
-a:link { -webkit-tap-highlight-color: #3b7cbf; }
-.ie7 img { -ms-interpolation-mode: bicubic; }
-h1, h2, h3, h4, h5, h6 { font-weight: bold; }
-
-/* Primary Styles */
   
 body {
 	padding: 10px;
@@ -30,62 +17,49 @@ body {
 	color: #515047;
 	background-color: #F2F1DB;
 }
-a, a:link, a:visited, a:active, .title, .category {
+
+.category {
 	float: left;
 	width: 100%;
 	height: auto;
 	margin-bottom: 30px;
 	text-decoration: none;
+    position: relative;
+    left: 0;
+    top: 0;
+/*    overflow: auto; */
 }
-h1, h2, h3 { font-size: 3em; }
-h1 {
-	color: #515047;
-	line-height: 0.8;
-	letter-spacing: -0.05em;
-}
-h2 {
-	color: #d4d3c0;
-	line-height: 0.9;
-	letter-spacing: -0.05em;
-}
-h3 {
-	color: #3b7cbf;
-	line-height: 0.9;
-	letter-spacing: -0.05em;
-}
-p {
-	font-size: 1.25em; 
-	line-height: 1.15;
-	margin: 0.75em 0;
-	color: #b9b8a4;
-}
-small {
-	font-size: 1em; 
-	color: #3b7cbf;
-}
+
 img { max-width: 100%; }
 
-/* Media Queries */
-
-/* Column Control Media Queries */
-
 body {
-    background-color: #ededed;
+    background-color: #EDEDED;
 }
 
+/*
 .category {
     overflow: auto;
-/*
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
-*/
-/*    background-color: #222222;*/
+    background-color: #222222;
 }
+*/
 
 .category .content {
     padding: 5px;
-    z-index: 1;
+}
+
+.category:hover {
+    background-color: #ffb80d;  
+}
+
+.category .content .ikon {
+    max-width: 25px;
+    max-height: 25px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
 }
 
 @media screen and (min-width:500px) {
@@ -108,11 +82,6 @@ body {
 		overflow: hidden;
 	}
 	div, h2 { position: absolute; }
-}
-
-.category:hover {
-    background-color: #ffb80d;
-    
 }
 
 /* One Column */
