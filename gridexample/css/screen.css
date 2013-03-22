@@ -197,34 +197,4 @@ body {
 	}
 }
 
-/* Font Size Control Media Queries */
-
-@media screen and (min-width:500px) {
-	h1, h2, h3 { font-size: 2em; }
-	p { font-size: 1em; line-height: 1.2; }
-}
-@media screen and (min-width:600px) {
-	h1, h2, h3 { font-size: 2.5em; }
-}
-@media screen and (min-width:700px) {
-	h1, h2, h3 { font-size: 3em; }
-	p { font-size: 1.25em; }
-}
-@media screen and (min-width:800px) {
-	h1, h2, h3 { font-size: 2.5em; }
-	p { font-size: 1em; }
-}
-@media screen and (min-width:1000px) {
-	h1, h2, h3 { font-size: 3.25em; }
-	p { font-size: 1.25em; }
-}
-@media screen and (min-width:1200px) {
-	p { font-size: 1em; }
-}
-@media screen and (min-width:1400px) {
-	p { font-size: 1.25em; }
-}
-@media screen and (min-width:1600px) {
-	h1, h2, h3 { font-size: 4em; }
-}
 
