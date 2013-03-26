@@ -52,18 +52,29 @@ enyo.kind({
                         }
                       ]
                     },
-                    {kind: "enyo.Scroller", classes: "content-panel", fit: true, components: [ {name: "MyMiddlePanel", content: "bar"}]}
+                    {kind: "enyo.Scroller", classes: "content-panel", fit: true, components: [
+                        {classes: "onyx-toolbar-inline", id: "thumbnailsON-toolbar", style: "white-space: nowrap;", components: [
+                            {content: "Thumbnails"},
+                            {kind:"onyx.ToggleButton", onChange:"toggleChanged", style: "background-color: #ffb80d;", value: true}
+                        ]},
+                        {name: "ThumbnailsPanel", content: "Thumbnails here..."}
+                    ]}
                 ]
             }
 		]},
         {name: "basicPopup", kind: "onyx.Popup", floating: true, centered: true, modal: true, scrim: true,
-            style: "background-color: #C7AA63; padding: 10px", onHide: "popupHidden", components: [
-                { tag: 'img', name: 'popupContents', src: 'img/puppy2.jpg' }
+            style: "background-color: #grey; padding: 0px", onHide: "popupHidden", components: [
+                { tag: 'img', name: 'popupMain', src: '' },
+                { tag: 'img', name: 'popupIcon', id: 'popup-ikon', src: '' }
             ]
         }
 	],
+    toggleChanged: function(){
+        alert("You've been toggled");
+    },
     thumbnailClicked: function(inSender, inEvent) {
-        this.$.popupContents.setAttribute('src', 'img/puppy' + inSender.index + '.jpg');
+        this.$.popupMain.setAttribute('src', 'img/puppy' + inSender.index + '.jpg');
+        this.$.popupIcon.setAttribute('src', 'img/icon' + inSender.index + '.png');
         this.$.basicPopup.show();
     },
 	doLogin: function(inSender, inEvent) {
@@ -71,7 +82,7 @@ enyo.kind({
         for (var i=0; i<numImages; i++) {
             this.createComponent({
                 kind: Thumbnail,
-                container: this.$.MyMiddlePanel,
+                container: this.$.ThumbnailsPanel,
                 index: RandomNumber.next()
             });
         }
