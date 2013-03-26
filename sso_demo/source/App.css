@@ -49,3 +49,7 @@
     max-height: 100%;
     width: auto;
 }
+
+#thumbnailsON-toolbar {
+    padding-top: 10px;
+}

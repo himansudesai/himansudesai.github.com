@@ -1,19 +1,6 @@
-html, body, div, span, h1, h2, h3, h4, h5, h6, p, em, img, small, strong {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font: inherit;
-	vertical-align: baseline;
-}
-body { display: block; }
-html { overflow-y: scroll; }
 
-::-moz-selection{ background: #3b7cbf; color: #fff; text-shadow: none; }
-::selection { background: #3b7cbf; color: #fff; text-shadow: none; }
-  
 body {
 	padding: 10px;
-	font: 1em "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", sans-serif;
 	color: #515047;
 	background-color: #F2F1DB;
 }
@@ -48,16 +35,6 @@ body {
     background-color: #EDEDED;
 }
 
-/*
-.category {
-    overflow: auto;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    background-color: #222222;
-}
-*/
-
 .category .content {
     padding: 5px;
 }
@@ -66,12 +43,20 @@ body {
     background-color: #ffb80d;  
 }
 
-.category .content .ikon {
+.ikon {
     max-width: 23px;
     max-height: 23px;
     position: absolute;
     top: 6px;
     right: 6px;
+}
+
+#popup-ikon {
+    max-width: 28px;
+    max-height: 28px;
+    position: absolute;
+    top: 1px;
+    right: 1px;
 }
 
 @media screen and (min-width:500px) {
@@ -81,11 +66,7 @@ body {
 		padding: 10px;
 		overflow: hidden;
 	}
-	a {
-		-webkit-transition: background-color .3s linear;
-		-moz-transition: -color .3s linear;
-		transition: background-color .3s linear;
-	}
+	
 }
 
 /* One Column */
