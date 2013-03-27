@@ -4,12 +4,17 @@ enyo.kind({
     classes: "category",
     tag: "div",
     index: 0,
+    url: '',
     ontap: "thumbnailClicked",
     create: function() {
         this.inherited(arguments);
-        this.setContent(this.label);
-        this.$.icon.setAttribute('src', 'img/icon' + this.index + '.png');
-        this.$.main.setAttribute('src', 'img/puppy' + this.index + '.jpg');
+        if (this.url) {
+            this.$.icon.setAttribute('src', 'img/icon' + this.index + '.png');
+            this.$.main.setAttribute('src', this.url);
+        } else {
+            this.$.icon.setAttribute('src', 'img/icon' + this.index + '.png');
+            this.$.main.setAttribute('src', 'img/puppy' + this.index + '.jpg');
+        }
     },
     components: [
         { tag: 'div', classes: "content", components: [
@@ -56,6 +61,7 @@ enyo.kind({
                             {content: "Thumbnails"},
                             {kind:"onyx.ToggleButton", name: "toggleButton", onChange:"toggleChanged", style: "background-color: #ffb80d;", value: true}
                         ]},
+                        // Only one of the two panels below, will be visible at any one time, and will be controlled by a toggle button
                         {name: "ThumbnailsPanel", content: "Thumbnails here...", style: "width: 95%; height: 95%;"},
                         {name: "ThumbnailsJSONPanel", content: "Thumbnails here...", style: "width: 95%; height: 95%;"}
                     ]}
@@ -81,14 +87,30 @@ enyo.kind({
         this.$.topPanels.render();
     },
     thumbnailClicked: function(inSender, inEvent) {
-        this.$.popupMain.setAttribute('src', 'img/puppy' + inSender.index + '.jpg');
+        if (inSender.url) {
+            this.$.popupMain.setAttribute('src', inSender.url);
+        } else {
+            this.$.popupMain.setAttribute('src', 'img/puppy' + inSender.index + '.jpg');
+        }
         this.$.popupIcon.setAttribute('src', 'img/icon' + inSender.index + '.png');
         this.$.basicPopup.show();
     },
-	doLogin: function(inSender, inEvent) {
+	doLogin: function(inSender, inEvent) { 
+        var jsonArry = [];
+
+        // Thumbnails are currently coded to work with images stored on the local hard
+        // drive but are starting to get a bit smarter.  They can optionally take a
+        // web URL as a parameter.  Create one thumbnail with a hardcoded web URL.
+        this.createComponent({
+            kind: Thumbnail,
+            container: this.$.ThumbnailsPanel,
+            index: 0,
+            url: "http://www.phlmetropolis.com/Cats.jpg"
+        });
+
+        // Create a random number of Thumbnails, based on local files
         var numImages = RandomNumber.next() * 5;
         numImages = numImages || 5;
-        var jsonArry = [];
         for (var i=0; i<numImages; i++) {
             var idx = RandomNumber.next();
             this.createComponent({
@@ -96,8 +118,10 @@ enyo.kind({
                 container: this.$.ThumbnailsPanel,
                 index: idx
             });
+            // Create JSON data corresponding to the thumbnail created above
             jsonArry.push({fileName: 'img/puppy' + idx + '.jpg', iconName: 'img/icon' + idx + '.png'});
         }
+        // 
         this.createComponent({
             kind: onyx.TextArea,
             container: this.$.ThumbnailsJSONPanel,

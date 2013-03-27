@@ -36,10 +36,15 @@ body {
 }
 
 .category .content {
-    padding: 5px;
+    padding: 5px 5px 0px 5px;
 }
 
+/*
 .category:hover {
+    background-color: #ffb80d;  
+}
+*/
+.category .content:hover {
     background-color: #ffb80d;  
 }
 
