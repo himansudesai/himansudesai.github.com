@@ -23,12 +23,11 @@ enyo.kind({
 	name: "App",
 	kind: "FittableRows",
 	fit: true,
-    showingThumbnails: true,
 	components: [
 		{kind: "enyo.Scroller", fit: true, components: [
             {
                 kind: "Panels",
-                name: "myPanels",
+                name: "topPanels",
                 fit: true,
                 classes: "app-panels",
                 components: [
@@ -55,9 +54,10 @@ enyo.kind({
                     {kind: "enyo.Scroller", classes: "content-panel", fit: true, components: [
                         {classes: "onyx-toolbar-inline", id: "thumbnailsON-toolbar", style: "white-space: nowrap;", components: [
                             {content: "Thumbnails"},
-                            {kind:"onyx.ToggleButton", onChange:"toggleChanged", style: "background-color: #ffb80d;", value: true}
+                            {kind:"onyx.ToggleButton", name: "toggleButton", onChange:"toggleChanged", style: "background-color: #ffb80d;", value: true}
                         ]},
-                        {name: "ThumbnailsPanel", content: "Thumbnails here..."}
+                        {name: "ThumbnailsPanel", content: "Thumbnails here...", style: "width: 95%; height: 95%;"},
+                        {name: "ThumbnailsJSONPanel", content: "Thumbnails here...", style: "width: 95%; height: 95%;"}
                     ]}
                 ]
             }
@@ -70,8 +70,15 @@ enyo.kind({
         }
 	],
     toggleChanged: function(){
-        this.showingThumbnails = !this.showingThumbnails;
-        alert("Showing Thumbnails " + this.showingThumbnails);
+        var toggleButton = this.$.toggleButton;
+        if (toggleButton.getActive()) {
+            this.$.ThumbnailsJSONPanel.hide();
+            this.$.ThumbnailsPanel.show();
+        } else {
+            this.$.ThumbnailsPanel.hide();
+            this.$.ThumbnailsJSONPanel.show();
+        }
+        this.$.topPanels.render();
     },
     thumbnailClicked: function(inSender, inEvent) {
         this.$.popupMain.setAttribute('src', 'img/puppy' + inSender.index + '.jpg');
@@ -80,14 +87,25 @@ enyo.kind({
     },
 	doLogin: function(inSender, inEvent) {
         var numImages = RandomNumber.next() * 5;
+        numImages = numImages || 5;
+        var jsonArry = [];
         for (var i=0; i<numImages; i++) {
+            var idx = RandomNumber.next();
             this.createComponent({
                 kind: Thumbnail,
                 container: this.$.ThumbnailsPanel,
-                index: RandomNumber.next()
+                index: idx
             });
+            jsonArry.push({fileName: 'img/puppy' + idx + '.jpg', iconName: 'img/icon' + idx + '.png'});
         }
-        this.$.myPanels.setIndex(1);
-        this.$.myPanels.render();
+        this.createComponent({
+            kind: onyx.TextArea,
+            container: this.$.ThumbnailsJSONPanel,
+            value: JSON.stringify(jsonArry, null, 4),
+            style: "width: 100%; height: 90%; border: none; background-color: #E0E0E0", defaultFocus: true, onchange: "textChange"
+        });
+        this.$.ThumbnailsJSONPanel.hide();
+        this.$.topPanels.setIndex(1);
+        this.$.topPanels.render();
     }
 });
