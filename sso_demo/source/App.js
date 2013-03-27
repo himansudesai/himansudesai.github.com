@@ -9,11 +9,13 @@ enyo.kind({
     create: function() {
         this.inherited(arguments);
         if (this.url) {
+//            this.setStyle("background:url(" + this.url + "); background-size: 100%; background-repeat: no-repeat");
             this.$.icon.setAttribute('src', 'img/icon' + this.index + '.png');
             this.$.main.setAttribute('src', this.url);
         } else {
             this.$.icon.setAttribute('src', 'img/icon' + this.index + '.png');
             this.$.main.setAttribute('src', 'img/puppy' + this.index + '.jpg');
+
         }
     },
     components: [
@@ -107,6 +109,17 @@ enyo.kind({
             index: 0,
             url: "http://www.phlmetropolis.com/Cats.jpg"
         });
+        
+        // Thumbnails are currently coded to work with images stored on the local hard
+        // drive but are starting to get a bit smarter.  They can optionally take a
+        // web URL as a parameter.  Create one thumbnail with a hardcoded web URL.
+        this.createComponent({
+            kind: Thumbnail,
+            container: this.$.ThumbnailsPanel,
+            index: 0,
+            url: "http://www.sparkyhub.com/wp-content/uploads/2012/04/30-cute-puppies-you-will-want-to-take-home-with-you-7.jpg"
+        });
+
 
         // Create a random number of Thumbnails, based on local files
         var numImages = RandomNumber.next() * 5;
@@ -126,6 +139,8 @@ enyo.kind({
             kind: onyx.TextArea,
             container: this.$.ThumbnailsJSONPanel,
             value: JSON.stringify(jsonArry, null, 4),
+            classes: "enyo-unselectable",
+            disabled: true,
             style: "width: 100%; height: 90%; border: none; background-color: #E0E0E0", defaultFocus: true, onchange: "textChange"
         });
         this.$.ThumbnailsJSONPanel.hide();
