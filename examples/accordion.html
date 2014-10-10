@@ -2,9 +2,10 @@
 <html>
 <head>
   <title>Cinder - Accordion</title>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script type="text/javascript" src="../lib/jquery-ui-1.8.18.custom.min.js"></script>
-  <script src="http://cloud.github.com/downloads/emberjs/ember.js/ember-0.9.7.min.js"></script>
+  <script src="../lib/jquery-1.10.2.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+  <script src="../lib/handlebars-1.0.0.js"></script>
+  <script src="../lib/ember-1.7.0.js"></script>
   <script type="text/javascript" src="../lib/cinder.js"></script>
   <LINK REL=StyleSheet HREF="../css/jquery-ui-1.8.18.custom.css" TYPE="text/css" MEDIA=screen>
   <LINK REL=StyleSheet HREF="../css/examples.css" TYPE="text/css" MEDIA=screen>
@@ -50,21 +51,33 @@
         this.set('content', App.cats);
       }
     });
+
+    App.ApplicationController = Ember.Controller.extend({
+      actions: {
+        cats: function() {
+          App.myAccordion.cats();
+        },
+        dogs: function() {
+          App.myAccordion.dogs();
+        }
+      }
+    });
+
   </script>
 
   <script type="text/x-handlebars">
     <a href="../index.html" STYLE="font: 10pt courier; color: olive">Examples</a> <br/>
-  
+
     {{view Cinder.AboutHdr}}
     <h2 id="example-title">Accordion</h2>
     {{view App.accordionView valueObjectBinding="App.myAccordion" header="h2"
           class="myaccordion" collapsible=true active="-1" animated="bounceslide"}}
-    {{#view Em.Button target="App.myAccordion" action="dogs"}}
+    <button id="dogs-button" {{action "dogs"}}>
       Dogs
-    {{/view}}
-    {{#view Em.Button target="App.myAccordion" action="cats"}}
+    </button>
+    <button id="cats-button" {{action "cats"}}>
       Cats
-    {{/view}}
+    </button>
     <br/>
     <span id="action-button-text">(use buttons to modify data model)</span>
     {{view Cinder.AboutFtr}}

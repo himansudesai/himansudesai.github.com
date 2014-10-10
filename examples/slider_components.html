@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cinder - Slider</title>
+  <script src="../lib/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript" src="../lib/jquery-ui.js"></script>
+  <script src="../lib/handlebars-1.0.0.js"></script>
+  <script src="../lib/ember.js"></script>
+  <script type="text/javascript" src="../lib/cinder2.js"></script>
+  <LINK REL=StyleSheet HREF="../css/jquery-ui-1.8.18.custom.css" TYPE="text/css" MEDIA=screen>
+  <LINK REL=StyleSheet HREF="../css/examples.css" TYPE="text/css" MEDIA=screen>
+</head>
+<body>
+  <script language="javascript">
+    var App = Ember.Application.create({LOG_TRANSITIONS: true});
+    Cinder.hookupComponents(App);
+
+    // App specific subclass - for non-default options
+    // and reacting directly to events
+    // App.sliderView = Cinder.SliderView.extend({
+    //   stop: function(event, slider) {
+    //     console.log('Slider changed to ' + slider.value);
+    //   }
+    // });
+
+    App.slider = Em.Object.create({
+      'value': 50,
+      'reset': function() {
+        this.set('value', 50);
+      },
+      'valueObserver' : function() {
+      }.observes('value')
+    });
+
+  </script>
+
+  <script type="text/x-handlebars">
+    <a href="../index.html" STYLE="font: 10pt courier; color: olive">Examples</a> <br/>
+    <h2 id="example-title">Slider</h2>
+    {{ jquery-slider valueObjectBinding="App.slider" }}
+    <div id="slider-text-value">
+      {{App.slider.value}}
+    </div>
+    {{ jquery-slider valueObjectBinding="App.slider"}}
+  </script>
+
+</body>
+</html>

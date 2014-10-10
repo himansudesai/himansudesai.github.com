@@ -2,9 +2,10 @@
 <html>
 <head>
   <title>Cinder - Slider</title>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script type="text/javascript" src="../lib/jquery-ui-1.8.18.custom.min.js"></script>
-  <script src="http://cloud.github.com/downloads/emberjs/ember.js/ember-0.9.7.min.js"></script>
+  <script src="../lib/jquery-1.10.2.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+  <script src="../lib/handlebars-1.0.0.js"></script>
+  <script src="../lib/ember-1.7.0.js"></script>
   <script type="text/javascript" src="../lib/cinder.js"></script>
   <LINK REL=StyleSheet HREF="../css/jquery-ui-1.8.18.custom.css" TYPE="text/css" MEDIA=screen>
   <LINK REL=StyleSheet HREF="../css/examples.css" TYPE="text/css" MEDIA=screen>
@@ -29,7 +30,16 @@
       'valueObserver' : function() {
       }.observes('value')
     });
+
+    App.ApplicationController = Ember.Controller.extend({
+      actions: {
+        resetSlider: function() {
+          App.slider.reset();
+        }
+      }
+    });
   </script>
+
 
   <script type="text/x-handlebars">
     <a href="../index.html" STYLE="font: 10pt courier; color: olive">Examples</a> <br/>
@@ -41,11 +51,13 @@
       {{App.slider.value}}
     </div>
     {{view App.sliderView valueObjectBinding="App.slider" class="slider"}}
-    {{#view Em.Button id="reset-button" target="App.slider" action="reset"}}
+
+    <button id="reset-button" {{action "resetSlider"}}>
       Reset Data
-    {{/view}}
+    </button>
+
     {{view Cinder.AboutFtr}}
   </script>
-  
+
 </body>
 </html>
