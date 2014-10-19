@@ -3,7 +3,7 @@
 <head>
   <title>Build a Touch Burger</title>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script type="text/javascript" src="../lib/jquery-ui-1.8.18.custom.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
   <script type="text/javascript" src="../lib/jquery.ui.touch-punch.min.js"></script>
   <script src="http://cloud.github.com/downloads/emberjs/ember.js/ember-0.9.8.min.js"></script>
   <script type="text/javascript" src="../lib/cinder.js"></script>
@@ -17,7 +17,7 @@
   <script language="javascript">
     var App = Ember.Application.create();
 
-    App.selectedIngredients = Ember.ArrayProxy.create({ 
+    App.selectedIngredients = Ember.ArrayProxy.create({
       'content': Ember.A([]),
       contentDidChange: function(newArrayProxy) {
         if (newArrayProxy && this.dragInfo.item) {
@@ -41,10 +41,10 @@
         ingredientNames.pushObject(newElement);
         ingredientNames = ingredientNames.sort();
         ingredientNames.forEach(function(ele, idx) {
-          childViews.pushObject(App.ItemView.create({ name: ele }));  
+          childViews.pushObject(App.ItemView.create({ name: ele }));
         });
       }
-    });    
+    });
 
     App.ItemView = Cinder.DraggableView.extend({
       template: Ember.Handlebars.compile('{{name}}'),
@@ -54,7 +54,7 @@
 
     var ingredients = ['Bottom Bun', 'Lettuce', 'Onions', 'Tomatoes', 'Bacon Strips', 'Fried Egg', 'Guacamole', 'Ketchup', 'Mustard', 'Mayo', 'Patty', 'Pickles', 'Jalapenos', 'Top Bun', 'Cheese', 'Seasonings'].sort();
     ingredients.forEach(function(ele, idx){
-      App.ingredientsView.get("childViews").pushObject(App.ItemView.create({ name: ele }));  
+      App.ingredientsView.get("childViews").pushObject(App.ItemView.create({ name: ele }));
     });
 
     App.DroppableView = Cinder.DroppableView.extend({
