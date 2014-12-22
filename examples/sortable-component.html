@@ -16,15 +16,7 @@
     Cinder.hookupComponents(App);
 
     App.cars = Ember.ArrayProxy.create({
-      'content': Ember.A(['Accord', 'Bronco', 'Camaro', 'Dart', 'Explorer', 'Focus', 'Golf' ]),
-      contentDidChange: function(newArrayProxy) {
-        if (newArrayProxy) {
-          console.log('current collection = ' + newArrayProxy.content);
-          console.log('element that moved = ' + this.dragInfo.item);
-          console.log('old item = ' + this.dragInfo.oldIndex);
-          console.log('new item = ' + this.dragInfo.newIndex);
-        }
-      }
+      'content': Ember.A(['Accord', 'Bronco', 'Camaro', 'Dart', 'Explorer', 'Focus', 'Golf' ])
     });
 
     App.ApplicationController = Ember.Controller.extend({
