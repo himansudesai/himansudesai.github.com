@@ -115,6 +115,15 @@ button {
   margin: 2.0em 0;
   text-align: justify;
 }
+.hdrftr {
+  width: 400px;
+  color: DarkGrey;
+  text-align: justify;
+  font-size: 80%;
+  line-height: 1.25em;
+  margin: 2.0em 0;
+  text-align: justify;
+}
 .css-table {
   display: table;
 }
