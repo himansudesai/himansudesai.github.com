@@ -1,42 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Cinder - Button (Ember Component)</title>
+  <title>Cinder - Tooltip (Ember Component)</title>
   <script src="../lib/jquery-1.10.2.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
   <script src="../lib/handlebars-1.0.0.js"></script>
   <script src="http://builds.emberjs.com/canary/ember.debug.js"></script>
   <script type="text/javascript" src="../lib/cinder.js"></script>
   <LINK REL=StyleSheet HREF="../css/jquery-ui-1.8.18.custom.css" TYPE="text/css" MEDIA=screen>
-  <LINK REL=StyleSheet HREF="../css/examples.css" TYPE="text/css" MEDIA=screen>
+    <LINK REL=StyleSheet HREF="../css/examples.css" TYPE="text/css" MEDIA=screen>
 </head>
 <body>
   <script language="javascript">
     var App = Ember.Application.create({LOG_TRANSITIONS: true});
     Cinder.hookupComponents(App);
 
-    App.greeting = Em.Object.create({
-      'label': 'Hello',
-      'greeting': 'Hello, how are you?',
-      click: function() {
-        alert(this.get('greeting'));
-      },
-      modify: function() {
-        this.set('label', 'Hello... Newman!');
-        this.set('greeting', "Perhaps your invitation was ....\"Lost in the Mail\"");
-      }
+    App.tooltip = Em.Object.create({
+      value: "We ask for your age only for statistical purposes.",
     });
 
-    App.modifyGreeting = Em.Object.create({
-      'label': 'Modify Greeting',
+    App.modifyTooltipButton = Em.Object.create({
+      'label': 'Modify Tooltip',
       click: function() {
-        App.greeting.modify();
+        App.tooltip.set('value', "Your age may be used against you");
       }
     });
 
     App.ApplicationController = Ember.Controller.extend({
-      greeting: App.greeting,
-      modifyGreeting: App.modifyGreeting
+      tooltip: App.tooltip,
+      age: 0,
+      modifyTooltip: App.modifyTooltipButton
     });
 
   </script>
@@ -44,11 +37,14 @@
   <script type="text/x-handlebars">
     <a href="../index.html" STYLE="font: 10pt courier; color: olive">Examples</a> <br/>
     {{cinder-about-header}}
-    <h2 id="example-title">Button (Ember Component)</h2>
-    {{cinder-jqui-button buttonBinding="greeting"}}
-    <br/>
-    {{cinder-jqui-button buttonBinding="modifyGreeting"}}
-    <p style="color: Olive; font-style: italic">(click the top button before/after clicking the bottom button)</p>
+    <h2 id="example-title">Tooltip (Ember Component)</h2>
+    <label>Your age:</label>
+    {{#cinder-jqui-tooltip valueObjectBinding="tooltip"}}
+    {{input value=age}}
+    {{/cinder-jqui-tooltip}}
+    <br/><br/>
+    {{cinder-jqui-button buttonBinding="modifyTooltip"}}
+    <p style="color: Olive; font-style: italic">(hover over input for tooltip before/after clicking on ModifyTooltip)</p>
     {{cinder-about-footer}}
   </script>
 
