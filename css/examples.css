@@ -1,7 +1,18 @@
+#title, #examples-list a{
+  color: #C09010;
+}
+
+#examples-list a {
+  font-weight: bold;
+  font-size: 1.2em;
+  line-height: 1.2em;
+  text-decoration: none;
+}
+
 #menu-backdrop {
   height: 200px;
 }
-.ui-menu {
+.ui-menu, .ui-selectmenu-button {
   width: 150px;
 }
 #example-title {
