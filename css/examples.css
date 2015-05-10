@@ -46,7 +46,12 @@
 #todos {
   width: 300px;
 }
-.myaccordion h2, .myaccordion .ui-accordion {
+
+.myaccordion {
+  width: 480px;
+}
+
+.myaccordion h2 {
   padding: 0px;
   width: 500px;
   margin-bottom: 3px;
@@ -60,9 +65,14 @@
 .myaccordion .ui-accordion-content{
   padding-top: 10px;
   padding-bottom: 10px;
-  padding-left: 35px;
-  width: 427px;
+  padding-left: 15px;
+  width: 426px;
   height: 360px !important;
+}
+
+.ui-accordion-header {
+  padding-left: 40px;
+  margin-bottom: 0px;
 }
 
 .ui-accordion .ui-accordion-header a {
