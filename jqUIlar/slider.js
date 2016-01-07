@@ -29,16 +29,18 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                 function jqUIlarSlider(elementRef) {
                     this.domElement = elementRef.nativeElement;
                     this.stop = new core_1.EventEmitter();
-                    this.val = undefined;
+                    this.val = 0;
                     this.slider = undefined;
+                    this.orientation = 'horizontal';
                 }
                 jqUIlarSlider.prototype.ngAfterContentInit = function () {
                     var _this = this;
                     var slidey = this.domElement.querySelectorAll('.jquilar-slider');
-                    $(slidey).slider();
                     this.slider = slidey;
-                    var curVal = this.val ? this.val : 0;
-                    $(slidey).slider('value', curVal);
+                    $(slidey).slider({
+                        value: this.val,
+                        orientation: this.orientation
+                    });
                     $(slidey).slider({
                         stop: function (event, ui) {
                             _this.stop.next(ui.value);
@@ -46,22 +48,21 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                     });
                 };
                 jqUIlarSlider.prototype.ngOnChanges = function (changes) {
-                    console.log('ngOnChanges-------------------');
-                    if (changes['val']) {
-                        if (this.slider) {
-                            $(this.slider).slider('value', changes['val'].currentValue);
-                        }
-                        else {
-                            this.val = changes['val'].currentValue;
-                        }
+                    for (var _i = 0, changes_1 = changes; _i < changes_1.length; _i++) {
+                        var change = changes_1[_i];
+                        this[change] = changes[change] ? changes[change].currentValue : this[change];
                     }
+                    $(this.slider).slider({
+                        orientation: this.orientation,
+                        value: this.val
+                    });
                 };
                 jqUIlarSlider = __decorate([
                     core_1.Component({
                         selector: 'jquilar-slider',
-                        inputs: ['val'],
+                        inputs: ['val', 'orientation'],
                         events: ['stop'],
-                        template: '<div><div class="jquilar-slider"></div></div>'
+                        template: '<div class="jquilar-slider"></div>'
                     }),
                     __param(0, core_3.Inject(core_2.ElementRef)), 
                     __metadata('design:paramtypes', [core_2.ElementRef])

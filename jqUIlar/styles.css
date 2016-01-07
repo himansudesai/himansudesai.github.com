@@ -1,3 +1,12 @@
+#slider1 .jquilar-slider{
+  width: 400px;
+}
+#slider2 .jquilar-slider {
+  height: 200px;
+}
+#slider3 .jquilar-slider{
+  width: 400px;
+}
 .centered {
   text-align: center;
 }

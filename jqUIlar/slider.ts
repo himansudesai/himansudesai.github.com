@@ -5,9 +5,9 @@ import { Inject } from 'angular2/core';
 // Annotation section
 @Component({
   selector: 'jquilar-slider',
-  inputs: ['val'],
+  inputs: ['val', 'orientation'],
   events: ['stop'],
-  template: '<div><div class="jquilar-slider"></div></div>'
+  template: '<div class="jquilar-slider"></div>'
 })
 
 export class jqUIlarSlider {
@@ -15,36 +15,37 @@ export class jqUIlarSlider {
   stop: EventEmitter<number>;
   domElement: any;
   slider: any;
+  orientation: string;
 
   constructor( @Inject(ElementRef) elementRef: ElementRef) {
       this.domElement = elementRef.nativeElement;
       this.stop = new EventEmitter();
-      this.val = undefined;
+      this.val = 0;
       this.slider = undefined;
+      this.orientation = 'horizontal';
     }
 
   ngAfterContentInit() {
     const slidey = this.domElement.querySelectorAll('.jquilar-slider');
-    $(slidey).slider();
     this.slider = slidey;
-    const curVal = this.val ? this.val : 0;
-    $(slidey).slider('value', curVal);
+    $(slidey).slider({
+      value: this.val,
+      orientation: this.orientation
+    });
     $(slidey).slider({
       stop: ( event, ui ) => {
         this.stop.next(ui.value);
-
       }
     });
   }
 
   ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
-    console.log('ngOnChanges-------------------');
-    if (changes['val']) {
-      if (this.slider) {
-        $(this.slider).slider('value', changes['val'].currentValue);
-      } else {
-        this.val = changes['val'].currentValue;
-      }
+    for (let change of changes) {
+      this[change] = changes[change] ? changes[change].currentValue : this[change];
     }
+    $(this.slider).slider({
+      orientation: this.orientation,
+      value: this.val
+    });
   }
 }

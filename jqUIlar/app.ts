@@ -11,11 +11,12 @@ import { jqUIlarSlider } from './slider.js';
 
 @View({
   template: `
-    <jquilar-slider [val]="val" (stop)="sliderStopped($event)"></jquilar-slider>
-    <div class="centered gold big">{{val}}</div>
-    <jquilar-slider [val]="val" (stop)="sliderStopped($event)"></jquilar-slider>
+    <div class="gold big">Model value: {{val}}</div>
+    <jquilar-slider id="slider1" [val]="val" (stop)="sliderStopped($event)"></jquilar-slider><br/>
+    <jquilar-slider id="slider2" [orientation]="'vertical'" [val]="val" (stop)="sliderStopped($event)"></jquilar-slider><br/>
+    <jquilar-slider id="slider3" [val]="val" (stop)="sliderStopped($event)"></jquilar-slider>
     <br/>
-    <button class="whiteongold" role="button" (click)="resetValue()">Reset value to 50</button>
+    <button class="whiteongold" role="button" (click)="resetValue()">Reset model value to 50</button>
   `,
   directives: [jqUIlarSlider]
 })
