@@ -5,7 +5,7 @@ import { Inject } from 'angular2/core';
 // Annotation section
 @Component({
   selector: 'jquilar-slider',
-  inputs: ['val', 'orientation'],
+  inputs: ['val', 'orientation', 'step'],
   events: ['stop'],
   template: '<div class="jquilar-slider"></div>'
 })
@@ -16,6 +16,7 @@ export class jqUIlarSlider {
   domElement: any;
   slider: any;
   orientation: string;
+  step: number;
 
   constructor( @Inject(ElementRef) elementRef: ElementRef) {
       this.domElement = elementRef.nativeElement;
@@ -23,6 +24,7 @@ export class jqUIlarSlider {
       this.val = 0;
       this.slider = undefined;
       this.orientation = 'horizontal';
+      this.step = 1;
     }
 
   ngAfterContentInit() {
@@ -30,7 +32,8 @@ export class jqUIlarSlider {
     this.slider = slidey;
     $(slidey).slider({
       value: this.val,
-      orientation: this.orientation
+      orientation: this.orientation,
+      step: this.step
     });
     $(slidey).slider({
       stop: ( event, ui ) => {
@@ -40,12 +43,13 @@ export class jqUIlarSlider {
   }
 
   ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
-    for (let change of changes) {
+    for (let change in changes) {
       this[change] = changes[change] ? changes[change].currentValue : this[change];
     }
     $(this.slider).slider({
       orientation: this.orientation,
-      value: this.val
+      value: this.val,
+      step: this.step,
     });
   }
 }

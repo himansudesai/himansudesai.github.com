@@ -32,6 +32,7 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                     this.val = 0;
                     this.slider = undefined;
                     this.orientation = 'horizontal';
+                    this.step = 1;
                 }
                 jqUIlarSlider.prototype.ngAfterContentInit = function () {
                     var _this = this;
@@ -39,7 +40,8 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                     this.slider = slidey;
                     $(slidey).slider({
                         value: this.val,
-                        orientation: this.orientation
+                        orientation: this.orientation,
+                        step: this.step
                     });
                     $(slidey).slider({
                         stop: function (event, ui) {
@@ -48,19 +50,19 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                     });
                 };
                 jqUIlarSlider.prototype.ngOnChanges = function (changes) {
-                    for (var _i = 0, changes_1 = changes; _i < changes_1.length; _i++) {
-                        var change = changes_1[_i];
+                    for (var change in changes) {
                         this[change] = changes[change] ? changes[change].currentValue : this[change];
                     }
                     $(this.slider).slider({
                         orientation: this.orientation,
-                        value: this.val
+                        value: this.val,
+                        step: this.step,
                     });
                 };
                 jqUIlarSlider = __decorate([
                     core_1.Component({
                         selector: 'jquilar-slider',
-                        inputs: ['val', 'orientation'],
+                        inputs: ['val', 'orientation', 'step'],
                         events: ['stop'],
                         template: '<div class="jquilar-slider"></div>'
                     }),

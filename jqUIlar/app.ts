@@ -8,11 +8,10 @@ import { jqUIlarSlider } from './slider.js';
 @Component({
   selector: 'jquilar',
 })
-
 @View({
   template: `
     <div class="gold big">Model value: {{val}}</div>
-    <jquilar-slider id="slider1" [val]="val" (stop)="sliderStopped($event)"></jquilar-slider><br/>
+    <jquilar-slider id="slider1" [val]="val" [step]="2" (stop)="sliderStopped($event)"></jquilar-slider><br/>
     <jquilar-slider id="slider2" [orientation]="'vertical'" [val]="val" (stop)="sliderStopped($event)"></jquilar-slider><br/>
     <jquilar-slider id="slider3" [val]="val" (stop)="sliderStopped($event)"></jquilar-slider>
     <br/>

@@ -42,7 +42,7 @@ System.register(["angular2/platform/browser", "angular2/core", './slider.js'], f
                         selector: 'jquilar',
                     }),
                     core_1.View({
-                        template: "\n    <div class=\"gold big\">Model value: {{val}}</div>\n    <jquilar-slider id=\"slider1\" [val]=\"val\" (stop)=\"sliderStopped($event)\"></jquilar-slider><br/>\n    <jquilar-slider id=\"slider2\" [orientation]=\"'vertical'\" [val]=\"val\" (stop)=\"sliderStopped($event)\"></jquilar-slider><br/>\n    <jquilar-slider id=\"slider3\" [val]=\"val\" (stop)=\"sliderStopped($event)\"></jquilar-slider>\n    <br/>\n    <button class=\"whiteongold\" role=\"button\" (click)=\"resetValue()\">Reset model value to 50</button>\n  ",
+                        template: "\n    <div class=\"gold big\">Model value: {{val}}</div>\n    <jquilar-slider id=\"slider1\" [val]=\"val\" [step]=\"2\" (stop)=\"sliderStopped($event)\"></jquilar-slider><br/>\n    <jquilar-slider id=\"slider2\" [orientation]=\"'vertical'\" [val]=\"val\" (stop)=\"sliderStopped($event)\"></jquilar-slider><br/>\n    <jquilar-slider id=\"slider3\" [val]=\"val\" (stop)=\"sliderStopped($event)\"></jquilar-slider>\n    <br/>\n    <button class=\"whiteongold\" role=\"button\" (click)=\"resetValue()\">Reset model value to 50</button>\n  ",
                         directives: [slider_js_1.jqUIlarSlider]
                     }), 
                     __metadata('design:paramtypes', [core_1.NgZone])
