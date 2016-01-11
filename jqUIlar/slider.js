@@ -13,7 +13,7 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
         return function (target, key) { decorator(target, key, paramIndex); }
     };
     var core_1, core_2, core_3;
-    var jqUIlarSlider;
+    var jqUIlarSlider, jqUIlarDatePicker;
     return {
         setters:[
             function (core_1_1) {
@@ -24,7 +24,7 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                 core_3 = core_2_1;
             }],
         execute: function() {
-            // Annotation section
+            // jquery-ui slider
             jqUIlarSlider = (function () {
                 function jqUIlarSlider(elementRef) {
                     this.domElement = elementRef.nativeElement;
@@ -35,23 +35,19 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                     this.step = 1;
                 }
                 jqUIlarSlider.prototype.ngAfterContentInit = function () {
-                    var _this = this;
-                    var slidey = this.domElement.querySelectorAll('.jquilar-slider');
-                    this.slider = slidey;
-                    $(slidey).slider({
-                        value: this.val,
-                        orientation: this.orientation,
-                        step: this.step
-                    });
-                    $(slidey).slider({
-                        stop: function (event, ui) {
-                            _this.stop.next(ui.value);
-                        }
-                    });
                 };
                 jqUIlarSlider.prototype.ngOnChanges = function (changes) {
+                    var _this = this;
                     for (var change in changes) {
                         this[change] = changes[change] ? changes[change].currentValue : this[change];
+                    }
+                    if (!this.slider) {
+                        this.slider = this.domElement.querySelectorAll('.jquilar-slider');
+                        $(this.slider).slider({
+                            stop: function (event, ui) {
+                                _this.stop.next(ui.value);
+                            }
+                        });
                     }
                     $(this.slider).slider({
                         orientation: this.orientation,
@@ -72,6 +68,56 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                 return jqUIlarSlider;
             }());
             exports_1("jqUIlarSlider", jqUIlarSlider);
+            // jquery-ui datepicker
+            jqUIlarDatePicker = (function () {
+                function jqUIlarDatePicker(elementRef) {
+                    this.domElement = elementRef.nativeElement;
+                    this.select = new core_1.EventEmitter();
+                    this.datepicker = undefined;
+                    this.val = undefined;
+                }
+                jqUIlarDatePicker.prototype.ngAfterContentInit = function () {
+                    var _this = this;
+                    if (!this.datepicker) {
+                        this.datepicker = $(this.domElement).find('.jquilar-datepicker');
+                        $(this.datepicker).datepicker({
+                            onSelect: function (dateText, ui) {
+                                _this.select.next(dateText);
+                            }
+                        });
+                        $(this.datepicker).datepicker("setDate", new Date());
+                    }
+                };
+                jqUIlarDatePicker.prototype.ngOnChanges = function (changes) {
+                    var _this = this;
+                    for (var change in changes) {
+                        this[change] = changes[change] ? changes[change].currentValue : this[change];
+                    }
+                    if (!this.datepicker) {
+                        this.datepicker = $(this.domElement).find('.jquilar-datepicker');
+                    }
+                    if (this.val) {
+                        $(this.datepicker).val(this.val);
+                    }
+                    $(this.datepicker).datepicker({
+                        onSelect: function (dateText, ui) {
+                            _this.select.next(dateText);
+                        }
+                    });
+                };
+                jqUIlarDatePicker = __decorate([
+                    core_1.Component({
+                        selector: 'jquilar-datepicker',
+                        inputs: ['val'],
+                        events: ['select'],
+                        template: '<input type="text" class="jquilar-datepicker">'
+                    }),
+                    __param(0, core_3.Inject(core_2.ElementRef)), 
+                    __metadata('design:paramtypes', [core_2.ElementRef])
+                ], jqUIlarDatePicker);
+                return jqUIlarDatePicker;
+            }());
+            exports_1("jqUIlarDatePicker", jqUIlarDatePicker);
         }
     }
 });

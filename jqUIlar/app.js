@@ -26,24 +26,31 @@ System.register(["angular2/platform/browser", "angular2/core", './slider.js'], f
             JQUIlar = (function () {
                 function JQUIlar(_ngZone) {
                     this._ngZone = _ngZone;
-                    this.val = 50;
+                    this.sliderVal = 50;
+                    this.dateVal = '02/03/2004';
                 }
                 JQUIlar.prototype.sliderStopped = function (newVal) {
                     var _this = this;
                     this._ngZone.run(function () {
-                        _this.val = newVal;
+                        _this.sliderVal = newVal;
                     });
                 };
-                JQUIlar.prototype.resetValue = function () {
-                    this.val = 50;
+                JQUIlar.prototype.dateSelected = function (date) {
+                    var _this = this;
+                    this._ngZone.run(function () {
+                        _this.dateVal = date;
+                    });
+                };
+                JQUIlar.prototype.resetSlider = function () {
+                    this.sliderVal = 50;
                 };
                 JQUIlar = __decorate([
                     core_1.Component({
                         selector: 'jquilar',
                     }),
                     core_1.View({
-                        template: "\n    <div class=\"gold big\">Model value: {{val}}</div>\n    <jquilar-slider id=\"slider1\" [val]=\"val\" [step]=\"2\" (stop)=\"sliderStopped($event)\"></jquilar-slider><br/>\n    <jquilar-slider id=\"slider2\" [orientation]=\"'vertical'\" [val]=\"val\" (stop)=\"sliderStopped($event)\"></jquilar-slider><br/>\n    <jquilar-slider id=\"slider3\" [val]=\"val\" (stop)=\"sliderStopped($event)\"></jquilar-slider>\n    <br/>\n    <button class=\"whiteongold\" role=\"button\" (click)=\"resetValue()\">Reset model value to 50</button>\n  ",
-                        directives: [slider_js_1.jqUIlarSlider]
+                        template: "\n    <h1 class=\"section-header\">\n      Slider\n    </h1>\n    <div class=\"gold big\">Slider object value: {{sliderVal}}</div>\n    <jquilar-slider id=\"slider1\" [val]=\"sliderVal\" [step]=\"2\" (stop)=\"sliderStopped($event)\"></jquilar-slider><br/>\n    <jquilar-slider id=\"slider2\" [orientation]=\"'vertical'\" [val]=\"sliderVal\" (stop)=\"sliderStopped($event)\"></jquilar-slider><br/>\n    <jquilar-slider id=\"slider3\" [val]=\"sliderVal\" (stop)=\"sliderStopped($event)\"></jquilar-slider>\n    <br/>\n    <button class=\"whiteongold\" role=\"button\" (click)=\"resetSlider()\">Reset slider object</button><br/><br/>\n    <h1 class=\"section-header\">\n      Date Picker\n    </h1>\n    <jquilar-datepicker [val]=\"dateVal\" (select)=\"dateSelected($event)\" class=\"gold\"></jquilar-datepicker>\n    <jquilar-datepicker [val]=\"dateVal\" (select)=\"dateSelected($event)\" class=\"gold\"></jquilar-datepicker>\n  ",
+                        directives: [slider_js_1.jqUIlarSlider, slider_js_1.jqUIlarDatePicker]
                     }), 
                     __metadata('design:paramtypes', [core_1.NgZone])
                 ], JQUIlar);
