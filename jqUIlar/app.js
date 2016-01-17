@@ -1,4 +1,4 @@
-System.register(["angular2/platform/browser", "angular2/core", './slider.js'], function(exports_1) {
+System.register(["angular2/platform/browser", "angular2/core", './jquilar.js'], function(exports_1) {
     "use strict";
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -9,7 +9,7 @@ System.register(["angular2/platform/browser", "angular2/core", './slider.js'], f
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var browser_1, core_1, slider_js_1;
+    var browser_1, core_1, jquilar_js_1;
     var JQUIlar;
     return {
         setters:[
@@ -19,15 +19,15 @@ System.register(["angular2/platform/browser", "angular2/core", './slider.js'], f
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (slider_js_1_1) {
-                slider_js_1 = slider_js_1_1;
+            function (jquilar_js_1_1) {
+                jquilar_js_1 = jquilar_js_1_1;
             }],
         execute: function() {
             JQUIlar = (function () {
                 function JQUIlar(_ngZone) {
                     this._ngZone = _ngZone;
                     this.sliderVal = 50;
-                    this.dateVal = '02/03/2004';
+                    this.dateVal = undefined; // or something like "01/10/2015"
                 }
                 JQUIlar.prototype.sliderStopped = function (newVal) {
                     var _this = this;
@@ -44,13 +44,16 @@ System.register(["angular2/platform/browser", "angular2/core", './slider.js'], f
                 JQUIlar.prototype.resetSlider = function () {
                     this.sliderVal = 50;
                 };
+                JQUIlar.prototype.resetDate = function () {
+                    this.dateVal = undefined;
+                };
                 JQUIlar = __decorate([
                     core_1.Component({
                         selector: 'jquilar',
                     }),
                     core_1.View({
-                        template: "\n    <h1 class=\"section-header\">\n      Slider\n    </h1>\n    <div class=\"gold big\">Slider object value: {{sliderVal}}</div>\n    <jquilar-slider id=\"slider1\" [val]=\"sliderVal\" [step]=\"2\" (stop)=\"sliderStopped($event)\"></jquilar-slider><br/>\n    <jquilar-slider id=\"slider2\" [orientation]=\"'vertical'\" [val]=\"sliderVal\" (stop)=\"sliderStopped($event)\"></jquilar-slider><br/>\n    <jquilar-slider id=\"slider3\" [val]=\"sliderVal\" (stop)=\"sliderStopped($event)\"></jquilar-slider>\n    <br/>\n    <button class=\"whiteongold\" role=\"button\" (click)=\"resetSlider()\">Reset slider object</button><br/><br/>\n    <h1 class=\"section-header\">\n      Date Picker\n    </h1>\n    <jquilar-datepicker [val]=\"dateVal\" (select)=\"dateSelected($event)\" class=\"gold\"></jquilar-datepicker>\n    <jquilar-datepicker [val]=\"dateVal\" (select)=\"dateSelected($event)\" class=\"gold\"></jquilar-datepicker>\n  ",
-                        directives: [slider_js_1.jqUIlarSlider, slider_js_1.jqUIlarDatePicker]
+                        template: "\n    <br/>\n    <h2 class=\"section-header\">\n      Slider\n    </h2>\n    <div class=\"muted big\">Slider object value: {{sliderVal}}</div>\n    <jquilar-slider id=\"slider1\" [val]=\"sliderVal\" [step]=\"2\" (stop)=\"sliderStopped($event)\"></jquilar-slider><br/>\n    <jquilar-slider id=\"slider2\" [orientation]=\"'vertical'\" [val]=\"sliderVal\" (stop)=\"sliderStopped($event)\"></jquilar-slider><br/>\n    <jquilar-slider id=\"slider3\" [val]=\"sliderVal\" (stop)=\"sliderStopped($event)\"></jquilar-slider>\n    <br/>\n    <button class=\"whiteonslategrey\" role=\"button\" (click)=\"resetSlider()\">Reset slider object</button><br/><br/>\n    <h2 class=\"section-header\">\n      Date Picker\n    </h2>\n    <jquilar-datepicker [val]=\"dateVal\" (select)=\"dateSelected($event)\" class=\"gold\"></jquilar-datepicker>\n    <jquilar-datepicker [val]=\"dateVal\" (select)=\"dateSelected($event)\" class=\"gold\"></jquilar-datepicker><br/><br/>\n    <button class=\"whiteonslategrey\" role=\"button\" (click)=\"resetDate()\">Reset date object</button><br/><br/>\n  ",
+                        directives: [jquilar_js_1.jqUIlarSlider, jquilar_js_1.jqUIlarDatePicker]
                     }), 
                     __metadata('design:paramtypes', [core_1.NgZone])
                 ], JQUIlar);

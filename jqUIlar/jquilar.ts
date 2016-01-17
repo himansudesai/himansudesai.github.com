@@ -90,13 +90,15 @@ export class jqUIlarDatePicker {
     if (!this.datepicker) {
       this.datepicker = $(this.domElement).find('.jquilar-datepicker');
     }
-    if (this.val) {
-      $(this.datepicker).val(this.val);
-    }
     $(this.datepicker).datepicker({
       onSelect: (dateText, ui) => {
         this.select.next(dateText);
       }
     });
+    if (this.val) {
+      $(this.datepicker).val(this.val);
+    } else {
+      $(this.datepicker).datepicker("setDate", new Date());
+    }
   }
 }

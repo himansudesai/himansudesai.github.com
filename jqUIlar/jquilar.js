@@ -96,14 +96,17 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                     if (!this.datepicker) {
                         this.datepicker = $(this.domElement).find('.jquilar-datepicker');
                     }
-                    if (this.val) {
-                        $(this.datepicker).val(this.val);
-                    }
                     $(this.datepicker).datepicker({
                         onSelect: function (dateText, ui) {
                             _this.select.next(dateText);
                         }
                     });
+                    if (this.val) {
+                        $(this.datepicker).val(this.val);
+                    }
+                    else {
+                        $(this.datepicker).datepicker("setDate", new Date());
+                    }
                 };
                 jqUIlarDatePicker = __decorate([
                     core_1.Component({
@@ -121,4 +124,4 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
         }
     }
 });
-//# sourceMappingURL=slider.js.map
+//# sourceMappingURL=jquilar.js.map

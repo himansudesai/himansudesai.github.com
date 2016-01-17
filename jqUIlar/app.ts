@@ -3,37 +3,39 @@ import {Component, View, EventEmitter, NgZone} from "angular2/core";
 import { NgFor } from "angular2/common";
 import { OnChanges, SimpleChange, OnInit, AfterContentInit, AfterViewInit, OnDestroy, ElementRef } from 'angular2/core';
 import {Inject} from 'angular2/core';
-import { jqUIlarSlider, jqUIlarDatePicker } from './slider.js';
+import { jqUIlarSlider, jqUIlarDatePicker } from './jquilar.js';
 
 @Component({
   selector: 'jquilar',
 })
 @View({
   template: `
-    <h1 class="section-header">
+    <br/>
+    <h2 class="section-header">
       Slider
-    </h1>
-    <div class="gold big">Slider object value: {{sliderVal}}</div>
+    </h2>
+    <div class="muted big">Slider object value: {{sliderVal}}</div>
     <jquilar-slider id="slider1" [val]="sliderVal" [step]="2" (stop)="sliderStopped($event)"></jquilar-slider><br/>
     <jquilar-slider id="slider2" [orientation]="'vertical'" [val]="sliderVal" (stop)="sliderStopped($event)"></jquilar-slider><br/>
     <jquilar-slider id="slider3" [val]="sliderVal" (stop)="sliderStopped($event)"></jquilar-slider>
     <br/>
-    <button class="whiteongold" role="button" (click)="resetSlider()">Reset slider object</button><br/><br/>
-    <h1 class="section-header">
+    <button class="whiteonslategrey" role="button" (click)="resetSlider()">Reset slider object</button><br/><br/>
+    <h2 class="section-header">
       Date Picker
-    </h1>
+    </h2>
     <jquilar-datepicker [val]="dateVal" (select)="dateSelected($event)" class="gold"></jquilar-datepicker>
-    <jquilar-datepicker [val]="dateVal" (select)="dateSelected($event)" class="gold"></jquilar-datepicker>
+    <jquilar-datepicker [val]="dateVal" (select)="dateSelected($event)" class="gold"></jquilar-datepicker><br/><br/>
+    <button class="whiteonslategrey" role="button" (click)="resetDate()">Reset date object</button><br/><br/>
   `,
   directives: [jqUIlarSlider, jqUIlarDatePicker]
 })
 
 class JQUIlar {
   sliderVal: number;
-  pal: number;
+  dateVal: string;
   constructor(private _ngZone: NgZone) {
     this.sliderVal = 50;
-    this.dateVal = '02/03/2004';
+    this.dateVal = undefined; // or something like "01/10/2015"
   }
 
   sliderStopped(newVal) {
@@ -50,6 +52,10 @@ class JQUIlar {
 
   resetSlider() {
     this.sliderVal = 50;
+  }
+
+  resetDate() {
+    this.dateVal = undefined;
   }
 
 }
