@@ -23,7 +23,7 @@ import { jqUIlarSlider, jqUIlarDatePicker } from './jquilar.js';
     <h2 class="section-header">
       Date Picker
     </h2>
-    <jquilar-datepicker [val]="dateVal" (select)="dateSelected($event)" class="gold"></jquilar-datepicker>
+    <jquilar-datepicker [val]="dateVal" [changeMonth]="true" [changeYear]="true" (select)="dateSelected($event)" class="gold"></jquilar-datepicker>
     <jquilar-datepicker [val]="dateVal" (select)="dateSelected($event)" class="gold"></jquilar-datepicker><br/><br/>
     <button class="whiteonslategrey" role="button" (click)="resetDate()">Reset date object</button><br/><br/>
   `,

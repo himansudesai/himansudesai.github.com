@@ -53,7 +53,7 @@ export class jqUIlarSlider {
 // jquery-ui datepicker
 @Component({
   selector: 'jquilar-datepicker',
-  inputs: ['val'],
+  inputs: ['val', 'changeMonth', 'changeYear'],
   events: ['select'],
   template: '<input type="text" class="jquilar-datepicker">'
 })
@@ -90,7 +90,11 @@ export class jqUIlarDatePicker {
     if (!this.datepicker) {
       this.datepicker = $(this.domElement).find('.jquilar-datepicker');
     }
+    const cm = this.changeMonth ? this.changeMonth : false;
+    const cy = this.changeYear ? this.changeYear : false;
     $(this.datepicker).datepicker({
+      changeMonth: cm,
+      changeYear: cy,
       onSelect: (dateText, ui) => {
         this.select.next(dateText);
       }

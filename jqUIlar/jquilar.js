@@ -96,7 +96,11 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                     if (!this.datepicker) {
                         this.datepicker = $(this.domElement).find('.jquilar-datepicker');
                     }
+                    var cm = this.changeMonth ? this.changeMonth : false;
+                    var cy = this.changeYear ? this.changeYear : false;
                     $(this.datepicker).datepicker({
+                        changeMonth: cm,
+                        changeYear: cy,
                         onSelect: function (dateText, ui) {
                             _this.select.next(dateText);
                         }
@@ -111,7 +115,7 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                 jqUIlarDatePicker = __decorate([
                     core_1.Component({
                         selector: 'jquilar-datepicker',
-                        inputs: ['val'],
+                        inputs: ['val', 'changeMonth', 'changeYear'],
                         events: ['select'],
                         template: '<input type="text" class="jquilar-datepicker">'
                     }),
