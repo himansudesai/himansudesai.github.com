@@ -1,6 +1,11 @@
 .section-header {
   color: darkgoldenrod;
   border-bottom: 1px solid #CCC;
+  font-size: 250%;
+}
+.code-snippet {
+  font-size: 25%;
+  color: grey;
 }
 #slider1 .jquilar-slider{
   width: 400px;
