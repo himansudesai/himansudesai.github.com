@@ -19,22 +19,22 @@ import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar } from './jquilar.
     <jquilar-slider id="slider2" [orientation]="'vertical'" [value]="sliderVal" (stop)="sliderStopped($event)"></jquilar-slider><br/>
     <jquilar-slider id="slider3" [value]="sliderVal" (stop)="sliderStopped($event)"></jquilar-slider>
     <br/>
-    <button class="whiteonslategrey" role="button" (click)="resetSlider()">Reset slider object</button><br/><br/>
-    <h2 class="section-header">
+    <button class="whiteonbluishslategrey" role="button" (click)="resetSlider()">Reset slider object</button><br/><br/>
+    <div class="section-header">
       <span>Date Picker</span><p class="code-snippet">&lt;jquilar-datepicker [value]=&quot;dateObj&quot; (select)=&quot;func($event)&quot;&gt;&lt;/jquilar-datepicker&gt;</p>
-    </h2>
+    </div>
     <jquilar-datepicker [value]="dateVal" [changeMonth]="true" [changeYear]="true" (select)="dateSelected($event)" class="gold"></jquilar-datepicker>
     <jquilar-datepicker [value]="dateVal" (select)="dateSelected($event)" class="gold"></jquilar-datepicker><br/><br/>
-    <button class="whiteonslategrey" role="button" (click)="resetDate()">Reset date object</button><br/><br/>
-    <h2 class="section-header">
+    <button class="whiteonbluishslategrey" role="button" (click)="resetDate()">Reset date object</button><br/><br/>
+    <div class="section-header">
       <span>Progress Bar</span><p class="code-snippet">&lt;jquilar-progressbar [value]=&quot;progressVal&quot; (change)=&quot;progressChanged($event)&quot; class=&quot;gold&quot;&gt;&lt;/jquilar-progressbar&gt;</p>
-    </h2>
+    </div>
     <div class="muted big">Current value: {{progressVal}}</div>
     <jquilar-progressbar [value]="progressVal" (change)="progressChanged($event)" class="gold"></jquilar-progressbar><br/>
     <jquilar-progressbar [value]="progressVal" (select)="progressChanged($event)" class="gold"></jquilar-progressbar><br/>
-    <button class="whiteonslategrey" role="button" (click)="decProgressBar()">-10</button>
-    <button class="whiteonslategrey" role="button" (click)="resetProgressBar()">Reset Progress Object</button>
-    <button class="whiteonslategrey" role="button" (click)="incProgressBar()">+10</button><br/><br/>
+    <button class="whiteonbluishslategrey" role="button" (click)="decProgressBar()">-10</button>
+    <button class="whiteonbluishslategrey" role="button" (click)="resetProgressBar()">Reset Progress Object</button>
+    <button class="whiteonbluishslategrey" role="button" (click)="incProgressBar()">+10</button><br/><br/>
   `,
   directives: [jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar]
 })

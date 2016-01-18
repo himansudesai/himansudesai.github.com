@@ -35,9 +35,9 @@
 .gold {
   color: darkgoldenrod;
 }
-.whiteonslategrey {
+.whiteonbluishslategrey {
   color: white;
-  background-color: slategrey;
+  background-color: #6784A1;
 }
 .ui.menu .item img.logo {
     margin-right: 1.5em;
