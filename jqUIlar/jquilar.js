@@ -13,7 +13,7 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
         return function (target, key) { decorator(target, key, paramIndex); }
     };
     var core_1, core_2, core_3;
-    var jqUIlarSlider, jqUIlarDatePicker;
+    var jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar;
     return {
         setters:[
             function (core_1_1) {
@@ -29,7 +29,7 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                 function jqUIlarSlider(elementRef) {
                     this.domElement = elementRef.nativeElement;
                     this.stop = new core_1.EventEmitter();
-                    this.val = 0;
+                    this.value = 0;
                     this.slider = undefined;
                     this.orientation = 'horizontal';
                     this.step = 1;
@@ -51,14 +51,14 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                     }
                     $(this.slider).slider({
                         orientation: this.orientation,
-                        value: this.val,
+                        value: this.value,
                         step: this.step,
                     });
                 };
                 jqUIlarSlider = __decorate([
                     core_1.Component({
                         selector: 'jquilar-slider',
-                        inputs: ['val', 'orientation', 'step'],
+                        inputs: ['value', 'orientation', 'step'],
                         events: ['stop'],
                         template: '<div class="jquilar-slider"></div>'
                     }),
@@ -74,7 +74,7 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                     this.domElement = elementRef.nativeElement;
                     this.select = new core_1.EventEmitter();
                     this.datepicker = undefined;
-                    this.val = undefined;
+                    this.value = undefined;
                 }
                 jqUIlarDatePicker.prototype.ngAfterContentInit = function () {
                     var _this = this;
@@ -105,8 +105,8 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                             _this.select.next(dateText);
                         }
                     });
-                    if (this.val) {
-                        $(this.datepicker).val(this.val);
+                    if (this.value) {
+                        $(this.datepicker).val(this.value);
                     }
                     else {
                         $(this.datepicker).datepicker("setDate", new Date());
@@ -115,7 +115,7 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                 jqUIlarDatePicker = __decorate([
                     core_1.Component({
                         selector: 'jquilar-datepicker',
-                        inputs: ['val', 'changeMonth', 'changeYear'],
+                        inputs: ['value', 'changeMonth', 'changeYear'],
                         events: ['select'],
                         template: '<input type="text" class="jquilar-datepicker">'
                     }),
@@ -125,6 +125,56 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                 return jqUIlarDatePicker;
             }());
             exports_1("jqUIlarDatePicker", jqUIlarDatePicker);
+            // jquery-ui progressbar
+            jqUIlarProgressBar = (function () {
+                function jqUIlarProgressBar(elementRef) {
+                    this.domElement = elementRef.nativeElement;
+                    this.change = new core_1.EventEmitter();
+                    this.progressbar = undefined;
+                    this.value = 0;
+                }
+                jqUIlarProgressBar.prototype.ngAfterContentInit = function () {
+                    var _this = this;
+                    if (!this.progressbar) {
+                        this.progressbar = $(this.domElement).find('.jquilar-progressbar');
+                        $(this.progressbar).progressbar({
+                            onChange: function (x, ui) {
+                                _this.change.next(x);
+                            }
+                        });
+                        $(this.progressbar).progressbar({
+                            value: this.value
+                        });
+                    }
+                };
+                jqUIlarProgressBar.prototype.ngOnChanges = function (changes) {
+                    var _this = this;
+                    for (var change in changes) {
+                        this[change] = changes[change] ? changes[change].currentValue : this[change];
+                    }
+                    if (!this.progressbar) {
+                        this.progressbar = $(this.domElement).find('.jquilar-progressbar');
+                    }
+                    $(this.progressbar).progressbar({
+                        value: this.value,
+                        onSelect: function (x, ui) {
+                            _this.change.next(x);
+                        }
+                    });
+                };
+                jqUIlarProgressBar = __decorate([
+                    core_1.Component({
+                        selector: 'jquilar-progressbar',
+                        inputs: ['value'],
+                        events: ['change'],
+                        template: '<div class="jquilar-progressbar">'
+                    }),
+                    __param(0, core_3.Inject(core_2.ElementRef)), 
+                    __metadata('design:paramtypes', [core_2.ElementRef])
+                ], jqUIlarProgressBar);
+                return jqUIlarProgressBar;
+            }());
+            exports_1("jqUIlarProgressBar", jqUIlarProgressBar);
         }
     }
 });
