@@ -53,7 +53,10 @@ form.form:after {
   clear: both;
   visibility: hidden;
 }
-
+.jquilar-sortable {
+  list-style-type: none;
+  padding-left: 0;
+}
 .votes {
   display: flex;
   align-items: center;

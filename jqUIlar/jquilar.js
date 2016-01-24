@@ -13,7 +13,7 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
         return function (target, key) { decorator(target, key, paramIndex); }
     };
     var core_1, core_2, core_3;
-    var jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar;
+    var jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable;
     return {
         setters:[
             function (core_1_1) {
@@ -143,7 +143,7 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                             }
                         });
                         $(this.progressbar).progressbar({
-                            value: this.value
+                            value: this.value,
                         });
                     }
                 };
@@ -167,7 +167,7 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                         selector: 'jquilar-progressbar',
                         inputs: ['value'],
                         events: ['change'],
-                        template: '<div class="jquilar-progressbar">'
+                        template: '<div class="jquilar-progressbar"></div>'
                     }),
                     __param(0, core_3.Inject(core_2.ElementRef)), 
                     __metadata('design:paramtypes', [core_2.ElementRef])
@@ -175,6 +175,59 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                 return jqUIlarProgressBar;
             }());
             exports_1("jqUIlarProgressBar", jqUIlarProgressBar);
+            // jquery-ui sortable
+            jqUIlarSortable = (function () {
+                function jqUIlarSortable(elementRef) {
+                    this.domElement = elementRef.nativeElement;
+                    this.sort = new core_1.EventEmitter();
+                    this.sortable = undefined;
+                    this.list = [];
+                }
+                jqUIlarSortable.prototype.ngAfterContentInit = function () {
+                    var _this = this;
+                    console.log('ngAfterContentInit for sortable');
+                    if (!this.sortable) {
+                        this.sortable = $(this.domElement).find('.jquilar-sortable');
+                        for (var i = 0; i < this.list.length; i++) {
+                            $(this.sortable).append('<li class="ui-state-default">' + this.list[i] + '</li>');
+                        }
+                        $(this.sortable).sortable({
+                            stop: function (x, ui) {
+                                _this.sort.next(x);
+                            }
+                        });
+                    }
+                };
+                jqUIlarSortable.prototype.ngOnChanges = function (changes) {
+                    var _this = this;
+                    console.log('ngOnChanges for sortable');
+                    for (var change in changes) {
+                        this[change] = changes[change] ? changes[change].currentValue : this[change];
+                    }
+                    this.sortable = $(this.domElement).find('.jquilar-sortable');
+                    $(this.sortable).empty();
+                    for (var i = 0; i < this.list.length; i++) {
+                        $(this.sortable).append('<li class="ui-state-default">' + this.list[i] + '</li>');
+                    }
+                    $(this.sortable).sortable({
+                        stop: function (x, ui) {
+                            _this.sort.next(x);
+                        }
+                    });
+                };
+                jqUIlarSortable = __decorate([
+                    core_1.Component({
+                        selector: 'jquilar-sortable',
+                        inputs: ['list'],
+                        events: ['sort'],
+                        template: '<ul class="jquilar-sortable"></ul>'
+                    }),
+                    __param(0, core_3.Inject(core_2.ElementRef)), 
+                    __metadata('design:paramtypes', [core_2.ElementRef])
+                ], jqUIlarSortable);
+                return jqUIlarSortable;
+            }());
+            exports_1("jqUIlarSortable", jqUIlarSortable);
         }
     }
 });

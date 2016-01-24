@@ -29,6 +29,7 @@ System.register(["angular2/platform/browser", "angular2/core", './jquilar.js'], 
                     this.sliderVal = 50;
                     this.dateVal = undefined; // or something like "01/10/2015"
                     this.progressVal = 50;
+                    this.sortableList = ['Apple', 'Banana', 'Cherry'];
                 }
                 JQUIlar.prototype.sliderStopped = function (newVal) {
                     var _this = this;
@@ -67,13 +68,30 @@ System.register(["angular2/platform/browser", "angular2/core", './jquilar.js'], 
                         this.progressVal += 10;
                     }
                 };
+                JQUIlar.prototype.listSorted = function (x) {
+                    var _this = this;
+                    var y = $(x.target).find('li');
+                    var tempArray = [];
+                    for (var i = 0; i < y.length; i++) {
+                        tempArray.push(y[i].textContent);
+                    }
+                    this._ngZone.run(function () {
+                        _this.sortableList = tempArray;
+                    });
+                };
+                JQUIlar.prototype.veggiesSortableList = function () {
+                    this.sortableList = ['Asparagus', 'Broccoli', 'Celery'];
+                };
+                JQUIlar.prototype.fruitsSortableList = function () {
+                    this.sortableList = ['Apple', 'Banana', 'Cherry'];
+                };
                 JQUIlar = __decorate([
                     core_1.Component({
                         selector: 'jquilar',
                     }),
                     core_1.View({
-                        template: "\n    <br/>\n    <div class=\"section-header\">\n      <span>Slider</span><p class=\"code-snippet\">\n&lt;jquilar-slider [valueObj]=&quot;some_val&quot; (stop)=&quot;func($event)&quot;&gt;&lt;/jquilar-slider&gt;/jquilar-slider&gt;</p>\n    </div>\n    <div class=\"muted big\">Slider object value: {{sliderVal}}</div>\n    <jquilar-slider id=\"slider1\" [value]=\"sliderVal\" [step]=\"2\" (stop)=\"sliderStopped($event)\"></jquilar-slider><br/>\n    <jquilar-slider id=\"slider2\" [orientation]=\"'vertical'\" [value]=\"sliderVal\" (stop)=\"sliderStopped($event)\"></jquilar-slider><br/>\n    <jquilar-slider id=\"slider3\" [value]=\"sliderVal\" (stop)=\"sliderStopped($event)\"></jquilar-slider>\n    <br/>\n    <button class=\"whiteonbluishslategrey\" role=\"button\" (click)=\"resetSlider()\">Reset slider object</button><br/><br/>\n    <div class=\"section-header\">\n      <span>Date Picker</span><p class=\"code-snippet\">&lt;jquilar-datepicker [value]=&quot;dateObj&quot; (select)=&quot;func($event)&quot;&gt;&lt;/jquilar-datepicker&gt;</p>\n    </div>\n    <jquilar-datepicker [value]=\"dateVal\" [changeMonth]=\"true\" [changeYear]=\"true\" (select)=\"dateSelected($event)\" class=\"gold\"></jquilar-datepicker>\n    <jquilar-datepicker [value]=\"dateVal\" (select)=\"dateSelected($event)\" class=\"gold\"></jquilar-datepicker><br/><br/>\n    <button class=\"whiteonbluishslategrey\" role=\"button\" (click)=\"resetDate()\">Reset date object</button><br/><br/>\n    <div class=\"section-header\">\n      <span>Progress Bar</span><p class=\"code-snippet\">&lt;jquilar-progressbar [value]=&quot;progressVal&quot; (change)=&quot;progressChanged($event)&quot; class=&quot;gold&quot;&gt;&lt;/jquilar-progressbar&gt;</p>\n    </div>\n    <div class=\"muted big\">Current value: {{progressVal}}</div>\n    <jquilar-progressbar [value]=\"progressVal\" (change)=\"progressChanged($event)\" class=\"gold\"></jquilar-progressbar><br/>\n    <jquilar-progressbar [value]=\"progressVal\" (select)=\"progressChanged($event)\" class=\"gold\"></jquilar-progressbar><br/>\n    <button class=\"whiteonbluishslategrey\" role=\"button\" (click)=\"decProgressBar()\">-10</button>\n    <button class=\"whiteonbluishslategrey\" role=\"button\" (click)=\"resetProgressBar()\">Reset Progress Object</button>\n    <button class=\"whiteonbluishslategrey\" role=\"button\" (click)=\"incProgressBar()\">+10</button><br/><br/>\n  ",
-                        directives: [jquilar_js_1.jqUIlarSlider, jquilar_js_1.jqUIlarDatePicker, jquilar_js_1.jqUIlarProgressBar]
+                        template: "\n    <br/>\n    <div class=\"section-header\">\n      <span>Slider</span><p class=\"code-snippet\">\n&lt;jquilar-slider [valueObj]=&quot;some_val&quot; (stop)=&quot;func($event)&quot;&gt;&lt;/jquilar-slider&gt;/jquilar-slider&gt;</p>\n    </div>\n    <div class=\"muted big\">Current value: {{sliderVal}}</div>\n    <jquilar-slider id=\"slider1\" [value]=\"sliderVal\" [step]=\"2\" (stop)=\"sliderStopped($event)\"></jquilar-slider><br/>\n    <jquilar-slider id=\"slider2\" [orientation]=\"'vertical'\" [value]=\"sliderVal\" (stop)=\"sliderStopped($event)\"></jquilar-slider><br/>\n    <jquilar-slider id=\"slider3\" [value]=\"sliderVal\" (stop)=\"sliderStopped($event)\"></jquilar-slider>\n    <br/>\n    <button class=\"whiteonbluishslategrey\" role=\"button\" (click)=\"resetSlider()\">Reset data</button><br/><br/>\n    <div class=\"section-header\">\n      <span>Date Picker</span><p class=\"code-snippet\">&lt;jquilar-datepicker [value]=&quot;dateObj&quot; (select)=&quot;func($event)&quot;&gt;&lt;/jquilar-datepicker&gt;</p>\n    </div>\n    <jquilar-datepicker [value]=\"dateVal\" [changeMonth]=\"true\" [changeYear]=\"true\" (select)=\"dateSelected($event)\" class=\"gold\"></jquilar-datepicker>\n    <jquilar-datepicker [value]=\"dateVal\" (select)=\"dateSelected($event)\" class=\"gold\"></jquilar-datepicker><br/><br/>\n    <button class=\"whiteonbluishslategrey\" role=\"button\" (click)=\"resetDate()\">Reset data</button><br/><br/>\n    <div class=\"section-header\">\n      <span>Progress Bar</span><p class=\"code-snippet\">&lt;jquilar-progressbar [value]=&quot;progressVal&quot; (change)=&quot;progressChanged($event)&quot; class=&quot;gold&quot;&gt;&lt;/jquilar-progressbar&gt;</p>\n    </div>\n    <div class=\"muted big\">Current value: {{progressVal}}</div>\n    <jquilar-progressbar [value]=\"progressVal\" (change)=\"progressChanged($event)\" class=\"gold\"></jquilar-progressbar><br/>\n    <jquilar-progressbar [value]=\"progressVal\" (select)=\"progressChanged($event)\" class=\"gold\"></jquilar-progressbar><br/>\n    <button class=\"whiteonbluishslategrey\" role=\"button\" (click)=\"decProgressBar()\">-10</button>\n    <button class=\"whiteonbluishslategrey\" role=\"button\" (click)=\"resetProgressBar()\">Reset data</button>\n    <button class=\"whiteonbluishslategrey\" role=\"button\" (click)=\"incProgressBar()\">+10</button><br/><br/>\n    <div class=\"section-header\">\n      <span>Sortable</span><p class=\"code-snippet\">&lt;jquilar-sortable [list]=&quot;myList&quot; (sort)=&quot;func($event)&quot;&gt;&lt;/jquilar-sortable&gt;</p>\n    </div>\n    <div class=\"muted big\">Current value: {{sortableList}}</div>\n    <jquilar-sortable [list]=\"sortableList\" (sort)=\"listSorted($event)\" class=\"gold\"></jquilar-sortable>\n    <button class=\"whiteonbluishslategrey\" role=\"button\" (click)=\"fruitsSortableList()\">Reset data</button>\n    <button class=\"whiteonbluishslategrey\" role=\"button\" (click)=\"veggiesSortableList()\">Veggies</button>\n    <button class=\"whiteonbluishslategrey\" role=\"button\" (click)=\"fruitsSortableList()\">Fruits</button><br/><br/>\n  ",
+                        directives: [jquilar_js_1.jqUIlarSlider, jquilar_js_1.jqUIlarDatePicker, jquilar_js_1.jqUIlarProgressBar, jquilar_js_1.jqUIlarSortable]
                     }), 
                     __metadata('design:paramtypes', [core_1.NgZone])
                 ], JQUIlar);
