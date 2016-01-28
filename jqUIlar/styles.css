@@ -57,6 +57,9 @@ form.form:after {
   list-style-type: none;
   padding-left: 0;
 }
+.grey {
+  color: grey;
+}
 .votes {
   display: flex;
   align-items: center;

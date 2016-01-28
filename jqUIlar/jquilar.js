@@ -13,7 +13,7 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
         return function (target, key) { decorator(target, key, paramIndex); }
     };
     var core_1, core_2, core_3;
-    var jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable;
+    var jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, jqUIlarMenu;
     return {
         setters:[
             function (core_1_1) {
@@ -185,7 +185,6 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                 }
                 jqUIlarSortable.prototype.ngAfterContentInit = function () {
                     var _this = this;
-                    console.log('ngAfterContentInit for sortable');
                     if (!this.sortable) {
                         this.sortable = $(this.domElement).find('.jquilar-sortable');
                         for (var i = 0; i < this.list.length; i++) {
@@ -200,7 +199,6 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                 };
                 jqUIlarSortable.prototype.ngOnChanges = function (changes) {
                     var _this = this;
-                    console.log('ngOnChanges for sortable');
                     for (var change in changes) {
                         this[change] = changes[change] ? changes[change].currentValue : this[change];
                     }
@@ -228,6 +226,53 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                 return jqUIlarSortable;
             }());
             exports_1("jqUIlarSortable", jqUIlarSortable);
+            // jquery-ui menu
+            jqUIlarMenu = (function () {
+                function jqUIlarMenu(elementRef) {
+                    this.domElement = elementRef.nativeElement;
+                    this.select = new core_1.EventEmitter();
+                    this.menu = [];
+                    this.jqMenu = undefined;
+                }
+                jqUIlarMenu.prototype.ngAfterContentInit = function () {
+                    console.log('MENU - ngAfterContentInit');
+                    this.jqM = $(this.domElement).find('.jquilar-menu');
+                    // $(this.jqMenu).empty();
+                    // for (let i=0; i<this.menu.length; i++) {
+                    //   $(this.jqMenu).append('<li>' + this.menu[i] + '</li>');
+                    // }
+                    // $(this.jqMenu).menu();
+                };
+                jqUIlarMenu.prototype.ngOnChanges = function (changes) {
+                    var _this = this;
+                    console.log('ngOnChanges for menu');
+                    for (var change in changes) {
+                        this[change] = changes[change] ? changes[change].currentValue : this[change];
+                    }
+                    this.jqMenu = $(this.domElement).find('.jquilar-menu');
+                    $(this.jqMenu).empty();
+                    for (var i = 0; i < this.menu.length; i++) {
+                        $(this.jqMenu).append('<li>' + this.menu[i] + '</li>');
+                    }
+                    $(this.jqMenu).menu({
+                        select: function (x, ui) {
+                            _this.select.next(x);
+                        }
+                    });
+                };
+                jqUIlarMenu = __decorate([
+                    core_1.Component({
+                        selector: 'jquilar-menu',
+                        inputs: ['menu'],
+                        events: ['select'],
+                        template: '<ul class="jquilar-menu"></ul>'
+                    }),
+                    __param(0, core_3.Inject(core_2.ElementRef)), 
+                    __metadata('design:paramtypes', [core_2.ElementRef])
+                ], jqUIlarMenu);
+                return jqUIlarMenu;
+            }());
+            exports_1("jqUIlarMenu", jqUIlarMenu);
         }
     }
 });

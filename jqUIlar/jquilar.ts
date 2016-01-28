@@ -182,7 +182,6 @@ export class jqUIlarSortable {
   }
 
   ngAfterContentInit() {
-    console.log('ngAfterContentInit for sortable');
     if (!this.sortable) {
       this.sortable = $(this.domElement).find('.jquilar-sortable');
       for (let i=0; i<this.list.length; i++) {
@@ -197,7 +196,6 @@ export class jqUIlarSortable {
   }
 
   ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
-    console.log('ngOnChanges for sortable');
     for (let change in changes) {
       this[change] = changes[change] ? changes[change].currentValue : this[change];
     }
@@ -209,6 +207,56 @@ export class jqUIlarSortable {
     $(this.sortable).sortable({
       stop: (x, ui) => {
         this.sort.next(x);
+      }
+    });
+  }
+}
+
+
+// jquery-ui menu
+@Component({
+  selector: 'jquilar-menu',
+  inputs: ['menu'],
+  events: ['select'],
+  template: '<ul class="jquilar-menu"></ul>'
+})
+
+export class jqUIlarMenu {
+  menu: Array<string>;
+  select: EventEmitter<number>;
+  domElement: any;
+  jqMenu: any;
+
+  constructor( @Inject(ElementRef) elementRef: ElementRef) {
+    this.domElement = elementRef.nativeElement;
+    this.select = new EventEmitter();
+    this.menu = [];
+    this.jqMenu = undefined;
+  }
+
+  ngAfterContentInit() {
+    console.log('MENU - ngAfterContentInit');
+    this.jqM = $(this.domElement).find('.jquilar-menu');
+    // $(this.jqMenu).empty();
+    // for (let i=0; i<this.menu.length; i++) {
+    //   $(this.jqMenu).append('<li>' + this.menu[i] + '</li>');
+    // }
+    // $(this.jqMenu).menu();
+  }
+
+  ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
+    console.log('ngOnChanges for menu');
+    for (let change in changes) {
+      this[change] = changes[change] ? changes[change].currentValue : this[change];
+    }
+    this.jqMenu = $(this.domElement).find('.jquilar-menu');
+    $(this.jqMenu).empty();
+    for (let i=0; i<this.menu.length; i++) {
+      $(this.jqMenu).append('<li>' + this.menu[i] + '</li>');
+    }
+    $(this.jqMenu).menu({
+      select: (x, ui) => {
+        this.select.next(x);
       }
     });
   }

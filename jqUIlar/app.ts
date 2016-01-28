@@ -3,13 +3,17 @@ import {Component, View, EventEmitter, NgZone} from "angular2/core";
 import { NgFor } from "angular2/common";
 import { OnChanges, SimpleChange, OnInit, AfterContentInit, AfterViewInit, OnDestroy, ElementRef } from 'angular2/core';
 import {Inject} from 'angular2/core';
-import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable } from './jquilar.js';
+import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, jqUIlarMenu} from './jquilar.js';
 
 @Component({
   selector: 'jquilar',
 })
 @View({
   template: `
+    <br/>
+    <p class="grey">jquilar.js is on github @ https://github.com/himansudesai/jquilar.js</p>
+    <p class="grey">currently supported: Slider, Date Picker, Progress Bar, Sortable, Menu</p>
+    <p class="grey">support for all widgets and interactions coming soon...</p>
     <br/>
     <div class="section-header">
       <span>Slider</span><p class="code-snippet">\n&lt;jquilar-slider [valueObj]=&quot;some_val&quot; (stop)=&quot;func($event)&quot;&gt;&lt;/jquilar-slider&gt;/jquilar-slider&gt;</p>
@@ -43,8 +47,13 @@ import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable }
     <button class="whiteonbluishslategrey" role="button" (click)="fruitsSortableList()">Reset data</button>
     <button class="whiteonbluishslategrey" role="button" (click)="veggiesSortableList()">Veggies</button>
     <button class="whiteonbluishslategrey" role="button" (click)="fruitsSortableList()">Fruits</button><br/><br/>
+    <div class="section-header">
+      <span>Menu</span><p class="code-snippet">&lt;jquilar-menu [menu]=&quot;myList&quot; (select)=&quot;func($event)&quot;&gt;&lt;/jquilar-menu&gt;</p>
+    </div>
+    <div class="muted big">Current value: {not sure}</div>
+    <jquilar-menu [menu]="myMenu" (select)="menuSelected($event)" class="gold"></jquilar-menu>
   `,
-  directives: [jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable]
+  directives: [jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, jqUIlarMenu]
 })
 
 class JQUIlar {r
@@ -52,11 +61,13 @@ class JQUIlar {r
   dateVal: string;
   progressVal: number;
   sortableList: Array<string>;
+  myMenu: Array<string>;
   constructor(private _ngZone: NgZone) {
     this.sliderVal = 50;
     this.dateVal = undefined; // or something like "01/10/2015"
     this.progressVal = 50;
     this.sortableList = ['Apple', 'Banana', 'Cherry'];
+    this.myMenu = ['One', 'Two', 'Three'];
   }
 
   sliderStopped(newVal) {
@@ -115,6 +126,10 @@ class JQUIlar {r
   }
   fruitsSortableList() {
     this.sortableList = ['Apple', 'Banana', 'Cherry'];
+  }
+
+  menuSelected() {
+    alert('the menu has been selected');
   }
 
 }
