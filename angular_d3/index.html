@@ -20,19 +20,27 @@
 
   var svg = d3.select('body')
       .append("svg")
-      .attr("width", 400)
+      .attr("width", 600)
       .attr("height", 400);
 
-      drawLine(svg, 113, 155, 264, 155);
-      drawLine(svg, 113, 155, 113, 255);
-      drawLine(svg, 264, 155, 264, 255);
-      drawLine(svg, 113, 255, 264, 255);
+      drawLine(svg, 213, 155, 366, 155);
+      drawLine(svg, 213, 336, 366, 336);
+      drawLine(svg, 213, 366, 366, 366);
+      drawLine(svg, 213, 155, 213, 366);
+      drawLine(svg, 366, 155, 366, 366);
 
-      drawText(svg, 'Repo', 130, 70);
-      drawText(svg, '+Addr', 160, 52);
-      drawText(svg, '-Credit', 190, 15);
-      drawText(svg, 'Lien', 220, 70);
-      drawText(svg, 'Arrest', 250, 33);
+      drawVText(svg, '230.73.120.127', 230, 20);
+      drawVText(svg, '206.190.36.105', 260, 20);
+      drawVText(svg, '192.64.119.237', 290, 20);
+      drawVText(svg, '173.194.121.50', 320, 20);
+      drawVText(svg, '204.79.197.200', 350, 20);
+      drawText(svg, 'Transaction Score', 114, 175);
+      drawText(svg, 'Repossesion', 140, 205);
+      drawText(svg, 'Multiple Addresses', 106, 235);
+      drawText(svg, 'Negative Credit', 123, 265);
+      drawText(svg, 'Lien', 177, 295);
+      drawText(svg, 'Arrest', 170, 325);
+      drawText(svg, 'Total Risk', 150, 355);
 
     var render = function(dat) {
       var circle = svg.selectAll("circle")
@@ -40,8 +48,8 @@
       circle.enter()
       .append('circle');
 
-      circle.attr("cx", function(d) { return d.column * 30 + 100 })
-      .attr("cy", function(d) { return d.row * 30 + 142; })
+      circle.attr("cx", function(d) { return d.column * 30 + 200 })
+      .attr("cy", function(d) { return d.row * 30 + 140; })
       .attr("r", function(d) { return d.value/8; })
       .attr("stroke", function(d) { return (d.selected ? '#000' : "#BBB") } )
       .attr("stroke-width", function(d) { return (d.selected ? 3 : 1) } )
@@ -51,20 +59,40 @@
     }
     dat = [
       { id: 1, row: 1, column: 1, value: 50, color: "orange" },
+      { id: 4, row: 1, column: 2, value: 50, color: "magenta" },
+      { id: 7, row: 1, column: 3, value: 50, color: "salmon" },
+      { id: 10, row: 1, column: 4, value: 50, color: "slategrey" },
+      { id: 13, row: 1, column: 5, value: 50, color: "blanchedalmond" },
       { id: 2, row: 2, column: 1, value: 90, color: "deepskyblue" },
+      { id: 5, row: 2, column: 2, value: 70, color: "navy" },
+      { id: 8, row: 2, column: 3, value: 70, color: "forestgreen" },
+      { id: 11, row: 2, column: 4, value: 20, color: "indianred" },
+      { id: 14, row: 2, column: 5, value: 70, color: "yellow" },
       { id: 3, row: 3, column: 1, value: 70, color: "#E6F20C"},
-      { id: 4,  row: 1, column: 2, value: 50, color: "magenta" },
-      { id: 5,  row: 2, column: 2, value: 70, color: "navy" },
-      { id: 6,  row: 3, column: 2, value: 90, color: "limegreen"},
-      { id: 7,  row: 1, column: 3, value: 50, color: "salmon" },
-      { id: 8,  row: 2, column: 3, value: 70, color: "forestgreen" },
-      { id: 9,  row: 3, column: 3, value: 90, color: "darkgoldenrod"},
-      { id: 10,  row: 1, column: 4, value: 50, color: "slategrey" },
-      { id: 11,  row: 2, column: 4, value: 20, color: "indianred" },
-      { id: 12,  row: 3, column: 4, value: 90, color: "brown"},
-      { id: 13,  row: 1, column: 5, value: 50, color: "blanchedalmond" },
-      { id: 14,  row: 2, column: 5, value: 70, color: "yellow" },
-      { id: 15,  row: 3, column: 5, value: 90, color: "orange"}
+      { id: 6, row: 3, column: 2, value: 90, color: "limegreen"},
+      { id: 9, row: 3, column: 3, value: 90, color: "darkgoldenrod"},
+      { id: 12, row: 3, column: 4, value: 90, color: "brown"},
+      { id: 15, row: 3, column: 5, value: 90, color: "orange"},
+      { id: 16, row: 4, column: 1, value: 70, color: "purple"},
+      { id: 17, row: 4, column: 2, value: 90, color: "brown"},
+      { id: 18, row: 4, column: 3, value: 90, color: "orchid"},
+      { id: 19, row: 4, column: 4, value: 90, color: "chocolate"},
+      { id: 20, row: 4, column: 5, value: 90, color: "tomato"},
+      { id: 21, row: 5, column: 1, value: 70, color: "purple"},
+      { id: 22, row: 5, column: 2, value: 90, color: "brown"},
+      { id: 23, row: 5, column: 3, value: 90, color: "orchid"},
+      { id: 24, row: 5, column: 4, value: 90, color: "chocolate"},
+      { id: 25, row: 5, column: 5, value: 90, color: "tomato"},
+      { id: 26, row: 6, column: 1, value: 70, color: "purple"},
+      { id: 27, row: 6, column: 2, value: 90, color: "brown"},
+      { id: 28, row: 6, column: 3, value: 90, color: "orchid"},
+      { id: 29, row: 6, column: 4, value: 90, color: "chocolate"},
+      { id: 30, row: 6, column: 5, value: 90, color: "tomato"},
+      { id: 31, row: 7, column: 1, value: 70, color: "purple"},
+      { id: 32, row: 7, column: 2, value: 90, color: "brown"},
+      { id: 33, row: 7, column: 3, value: 90, color: "orchid"},
+      { id: 34, row: 7, column: 4, value: 90, color: "chocolate"},
+      { id: 35, row: 7, column: 5, value: 90, color: "tomato"}
     ];
 
     render(dat);
@@ -92,13 +120,21 @@
           .attr("stroke", '#AAA')
     }
 
+    function drawVText(container, text, x, y) {
+      container.append("text")
+          .attr("x", x)
+          .attr("y", y)
+          .attr("font-size", 8)
+          .attr("writing-mode", "tb")
+          .attr("glyph-orientation-vertical", "0")
+          .text(text)
+    }
+
     function drawText(container, text, x, y) {
       container.append("text")
           .attr("x", x)
           .attr("y", y)
-          .attr("dy", ".35em")
-          .attr("writing-mode", "tb")
-          .attr("glyph-orientation-vertical", "0")
+          .attr("font-size", 12)
           .text(text)
     }
 
