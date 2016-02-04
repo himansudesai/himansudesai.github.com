@@ -7,6 +7,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.14/d3.js"></script>
 </head>
 <body style="background-color: floralwhite">
+
   <script>
 
   var dat = [];
@@ -19,19 +20,19 @@
 
   var svg = d3.select('body')
       .append("svg")
-      .attr("width", 500)
-      .attr("height", 800);
+      .attr("width", 400)
+      .attr("height", 400);
 
+      drawLine(svg, 113, 155, 264, 155);
+      drawLine(svg, 113, 155, 113, 255);
+      drawLine(svg, 264, 155, 264, 255);
       drawLine(svg, 113, 255, 264, 255);
-      drawLine(svg, 113, 255, 113, 355);
-      drawLine(svg, 264, 255, 264, 355);
-      drawLine(svg, 113, 355, 264, 355);
 
-      drawText(svg, 'repo', 130, 170);
-      drawText(svg, '+addr', 160, 152);
-      drawText(svg, '-credit', 190, 115);
-      drawText(svg, 'lien', 220, 170);
-      drawText(svg, 'arrest', 250, 133);
+      drawText(svg, 'Repo', 130, 70);
+      drawText(svg, '+Addr', 160, 52);
+      drawText(svg, '-Credit', 190, 15);
+      drawText(svg, 'Lien', 220, 70);
+      drawText(svg, 'Arrest', 250, 33);
 
     var render = function(dat) {
       var circle = svg.selectAll("circle")
@@ -40,7 +41,7 @@
       .append('circle');
 
       circle.attr("cx", function(d) { return d.column * 30 + 100 })
-      .attr("cy", function(d) { return d.row * 30 + 242; })
+      .attr("cy", function(d) { return d.row * 30 + 142; })
       .attr("r", function(d) { return d.value/8; })
       .attr("stroke", function(d) { return (d.selected ? '#000' : "#BBB") } )
       .attr("stroke-width", function(d) { return (d.selected ? 3 : 1) } )
@@ -66,15 +67,6 @@
       { id: 15,  row: 3, column: 5, value: 90, color: "orange"}
     ];
 
-// +addr
-// -credit
-// lien
-// arrest
-// bnkrpcy
-// repo
-
-
-
     render(dat);
     setTimeout(function() {
       dat[0].color = "deeppink";
@@ -89,7 +81,6 @@
       dat[0].selected = true;
       render(dat);
     }, 1500);
-
 
 
     function drawLine(container, x1, y1, x2, y2) {
@@ -113,6 +104,11 @@
 
   </script>
   <br/>
+  <div style="width: 400px; border: 1px ridge grey; background-color: #ffffe5; padding: 10px;">
+    At w3schools.com <span style="background-color: #ff9900; color: white">you</span> will learn how to make a website. We offer free tutorials in all web development technologies.
+    At w3schools.com <span style="background-color: deepskyblue; color: white">you</span> will learn how to make a website. We offer free tutorials in all web development technologies.
+    At w3schools.com <span style="background-color: deeppink; color: white">you</span> will learn how to make a website. We offer free tutorials in all web development technologies.
+  </div><br/>
   <button style="background-color: lightslategrey; color: white; font-size: 32">Change Data</button>
 </body>
 </html>
