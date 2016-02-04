@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Angular - D3</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.14/d3.js"></script>
+</head>
+<body style="background-color: floralwhite">
+  <script>
+
+  var dat = [];
+  var select = function(id) {
+    for (var i=0; i<dat.length; i++) {
+      dat[i].selected = (dat[i].id === id) ? true : false;
+    }
+    render(dat);
+  }
+
+  var svg = d3.select('body')
+      .append("svg")
+      .attr("width", 500)
+      .attr("height", 800);
+
+      drawLine(svg, 113, 255, 264, 255);
+      drawLine(svg, 113, 255, 113, 355);
+      drawLine(svg, 264, 255, 264, 355);
+      drawLine(svg, 113, 355, 264, 355);
+
+      drawText(svg, 'repo', 130, 170);
+      drawText(svg, '+addr', 160, 152);
+      drawText(svg, '-credit', 190, 115);
+      drawText(svg, 'lien', 220, 170);
+      drawText(svg, 'arrest', 250, 133);
+
+    var render = function(dat) {
+      var circle = svg.selectAll("circle")
+          .data(dat);
+      circle.enter()
+      .append('circle');
+
+      circle.attr("cx", function(d) { return d.column * 30 + 100 })
+      .attr("cy", function(d) { return d.row * 30 + 242; })
+      .attr("r", function(d) { return d.value/8; })
+      .attr("stroke", function(d) { return (d.selected ? '#000' : "#BBB") } )
+      .attr("stroke-width", function(d) { return (d.selected ? 3 : 1) } )
+      .style("fill", function(d) { return d.color });
+      circle.exit().remove();
+      d3.selectAll("circle").on("click", function(d) {select(d.id)});
+    }
+    dat = [
+      { id: 1, row: 1, column: 1, value: 50, color: "orange" },
+      { id: 2, row: 2, column: 1, value: 90, color: "deepskyblue" },
+      { id: 3, row: 3, column: 1, value: 70, color: "#E6F20C"},
+      { id: 4,  row: 1, column: 2, value: 50, color: "magenta" },
+      { id: 5,  row: 2, column: 2, value: 70, color: "navy" },
+      { id: 6,  row: 3, column: 2, value: 90, color: "limegreen"},
+      { id: 7,  row: 1, column: 3, value: 50, color: "salmon" },
+      { id: 8,  row: 2, column: 3, value: 70, color: "forestgreen" },
+      { id: 9,  row: 3, column: 3, value: 90, color: "darkgoldenrod"},
+      { id: 10,  row: 1, column: 4, value: 50, color: "slategrey" },
+      { id: 11,  row: 2, column: 4, value: 20, color: "indianred" },
+      { id: 12,  row: 3, column: 4, value: 90, color: "brown"},
+      { id: 13,  row: 1, column: 5, value: 50, color: "blanchedalmond" },
+      { id: 14,  row: 2, column: 5, value: 70, color: "yellow" },
+      { id: 15,  row: 3, column: 5, value: 90, color: "orange"}
+    ];
+
+// +addr
+// -credit
+// lien
+// arrest
+// bnkrpcy
+// repo
+
+
+
+    render(dat);
+    setTimeout(function() {
+      dat[0].color = "deeppink";
+      // dat.push([110, "cyan"]);
+      render(dat);
+    }, 500);
+    setTimeout(function() {
+      dat.pop();
+      render(dat);
+    }, 1000);
+    setTimeout(function() {
+      dat[0].selected = true;
+      render(dat);
+    }, 1500);
+
+
+
+    function drawLine(container, x1, y1, x2, y2) {
+      container.append("line")
+          .attr("x1", x1)
+          .attr("y1", y1)
+          .attr("x2", x2)
+          .attr("y2", y2)
+          .attr("stroke", '#AAA')
+    }
+
+    function drawText(container, text, x, y) {
+      container.append("text")
+          .attr("x", x)
+          .attr("y", y)
+          .attr("dy", ".35em")
+          .attr("writing-mode", "tb")
+          .attr("glyph-orientation-vertical", "0")
+          .text(text)
+    }
+
+  </script>
+  <br/>
+  <button style="background-color: lightslategrey; color: white; font-size: 32">Change Data</button>
+</body>
+</html>
