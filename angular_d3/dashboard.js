@@ -38,17 +38,14 @@ var Dashboard = function Dashboard(dat) {
   this.svg = svg;
 
   var numCols = this.dat.length;
-  this.drawLine(213, 155, 215 + (30 * numCols), 155);
-  this.drawLine(213, 336, 215 + (30 * numCols), 336);
-  this.drawLine(213, 366, 215 + (30 * numCols), 366);
-  this.drawLine(213, 155, 213, 366);
-  this.drawLine(213 + (30 * numCols), 155, 215 + (30 * numCols), 366);
+  this.drawLine(212, 155, 218 + (30 * numCols), 155);
+  this.drawLine(212, 336, 218 + (30 * numCols), 336);
+  this.drawLine(212, 366, 218 + (30 * numCols), 366);
+  this.drawLine(212, 155, 212, 366);
+  this.drawLine(218 + (30 * numCols), 155, 218 + (30 * numCols), 366);
 
   for (var i=0; i<this.dat.length; i++) {
-    var entry = this.dat[i];
-    var keys = Object.keys(entry);
-    var ip = keys[0];
-    this.drawText(ip, 230 + i * 30, 20, 8, 'tb');
+    this.drawText((Object.keys(this.dat[i]))[0], 230 + i * 30, 20, 8, 'tb');
   }
   this.drawText('Transaction Score', 114, 175, 12, 'lr');
   this.drawText('Repossesion', 140, 205, 12, 'lr');
@@ -67,70 +64,44 @@ Dashboard.prototype.render = function() {
     var keys = Object.keys(entry);
     var ip = keys[0];
     var cur = entry[ip];
-    d3Data.push({
-      column: i,
-      row: 0,
-      value: cur['Transaction Score'],
-      color: cats['Transaction Score'].color
+    var index = 0;
+    ['Transaction Score', 'Repossesion', 'Multiple Addresses', 'Negative Credit', 'Lien', 'Arrest', 'Risk'].forEach(function(cat) {
+      d3Data.push({
+        column: i,
+        row: index++,
+        value: cur[cat].val,
+        color: cats[cat].color,
+        id: cur[cat].id
+      })
     });
-    d3Data.push({
-      column: i,
-      row: 1,
-      value: cur['Repossesion'],
-      color: cats['Repossesion'].color
-    });
-    d3Data.push({
-      column: i,
-      row: 2,
-      value: cur['Multiple Addresses'],
-      color: cats['Multiple Addresses'].color
-    });
-    d3Data.push({
-      column: i,
-      row: 3,
-      value: cur['Negative Credit'],
-      color: cats['Negative Credit'].color
-    });
-    d3Data.push({
-      column: i,
-      row: 4,
-      value: cur['Lien'],
-      color: cats['Lien'].color
-    });
-    d3Data.push({
-      column: i,
-      row: 5,
-      value: cur['Arrest'],
-      color: cats['Arrest'].color
-    });
-    d3Data.push({
-      column: i,
-      row: 6,
-      value: cur['Risk'],
-      color: cats['Risk'].color
-    });
+    this.d3Data = d3Data;
   }
 
-  var circle = svg.selectAll("circle")
-      .data(d3Data);
-  circle.enter().append('circle');
+  this.reRender();
+}
 
+Dashboard.prototype.reRender = function() {
+  var circle = svg.selectAll("circle")
+      .data(this.d3Data);
+  circle.enter().append('circle');
   circle.attr("cx", function(d) { return d.column * 30 + 230 })
-  .attr("cy", function(d) { return d.row * 30 + 170; })
-  .attr("r", function(d) { return d.value/8; })
-  .attr("stroke", function(d) { return (d.selected ? '#000' : "#BBB") } )
-  .attr("stroke-width", function(d) { return (d.selected ? 3 : 1) } )
-  .style("fill", function(d) { return d.color });
+      .attr("cy", function(d) { return d.row * 30 + 170; })
+      .attr("r", function(d) { return d.value / 8; })
+      .attr("stroke", function(d) { return (d.selected ? '#000' : "#BBB") } )
+      .attr("stroke-width", function(d) { return (d.selected ? 3 : 1) } )
+      .style("fill", function(d) { return d.color });
   circle.exit().remove();
   var self = this;
-  d3.selectAll("circle").on("click", function(d) {self.select(d.id)});
+  d3.selectAll("circle").on("click", function(d) { self.select(d.id) });
 }
 
 Dashboard.prototype.select = function(id) {
-  for (var i=0; i<this.dat.length; i++) {
-    this.dat[i].selected = (this.dat[i].id === id) ? true : false;
+  if (id) {
+    for (var i=0; i<this.d3Data.length; i++) {
+      this.d3Data[i].selected = (this.d3Data[i].id === id) ? true : false;
+    }
+    this.reRender();
   }
-  this.render();
 }
 
 Dashboard.prototype.drawLine = function(x1, y1, x2, y2) {
