@@ -5,138 +5,97 @@
   <meta name="viewport" content="width=device-width">
   <title>Angular - D3</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.14/d3.js"></script>
+  <script src="./dashboard.js"></script>
 </head>
 <body style="background-color: floralwhite">
 
   <script>
 
-  var dat = [];
-  var select = function(id) {
-    for (var i=0; i<dat.length; i++) {
-      dat[i].selected = (dat[i].id === id) ? true : false;
-    }
-    render(dat);
-  }
+  var svg;
 
-  var svg = d3.select('body')
-      .append("svg")
-      .attr("width", 600)
-      .attr("height", 400);
-
-      drawLine(svg, 213, 155, 366, 155);
-      drawLine(svg, 213, 336, 366, 336);
-      drawLine(svg, 213, 366, 366, 366);
-      drawLine(svg, 213, 155, 213, 366);
-      drawLine(svg, 366, 155, 366, 366);
-
-      drawVText(svg, '230.73.120.127', 230, 20);
-      drawVText(svg, '206.190.36.105', 260, 20);
-      drawVText(svg, '192.64.119.237', 290, 20);
-      drawVText(svg, '173.194.121.50', 320, 20);
-      drawVText(svg, '204.79.197.200', 350, 20);
-      drawText(svg, 'Transaction Score', 114, 175);
-      drawText(svg, 'Repossesion', 140, 205);
-      drawText(svg, 'Multiple Addresses', 106, 235);
-      drawText(svg, 'Negative Credit', 123, 265);
-      drawText(svg, 'Lien', 177, 295);
-      drawText(svg, 'Arrest', 170, 325);
-      drawText(svg, 'Total Risk', 150, 355);
-
-    var render = function(dat) {
-      var circle = svg.selectAll("circle")
-          .data(dat);
-      circle.enter()
-      .append('circle');
-
-      circle.attr("cx", function(d) { return d.column * 30 + 200 })
-      .attr("cy", function(d) { return d.row * 30 + 140; })
-      .attr("r", function(d) { return d.value/8; })
-      .attr("stroke", function(d) { return (d.selected ? '#000' : "#BBB") } )
-      .attr("stroke-width", function(d) { return (d.selected ? 3 : 1) } )
-      .style("fill", function(d) { return d.color });
-      circle.exit().remove();
-      d3.selectAll("circle").on("click", function(d) {select(d.id)});
-    }
     dat = [
-      { id: 1, row: 1, column: 1, value: 50, color: "orange" },
-      { id: 4, row: 1, column: 2, value: 50, color: "magenta" },
-      { id: 7, row: 1, column: 3, value: 50, color: "salmon" },
-      { id: 10, row: 1, column: 4, value: 50, color: "slategrey" },
-      { id: 13, row: 1, column: 5, value: 50, color: "blanchedalmond" },
-      { id: 2, row: 2, column: 1, value: 90, color: "deepskyblue" },
-      { id: 5, row: 2, column: 2, value: 70, color: "navy" },
-      { id: 8, row: 2, column: 3, value: 70, color: "forestgreen" },
-      { id: 11, row: 2, column: 4, value: 20, color: "indianred" },
-      { id: 14, row: 2, column: 5, value: 70, color: "yellow" },
-      { id: 3, row: 3, column: 1, value: 70, color: "#E6F20C"},
-      { id: 6, row: 3, column: 2, value: 90, color: "limegreen"},
-      { id: 9, row: 3, column: 3, value: 90, color: "darkgoldenrod"},
-      { id: 12, row: 3, column: 4, value: 90, color: "brown"},
-      { id: 15, row: 3, column: 5, value: 90, color: "orange"},
-      { id: 16, row: 4, column: 1, value: 70, color: "purple"},
-      { id: 17, row: 4, column: 2, value: 90, color: "brown"},
-      { id: 18, row: 4, column: 3, value: 90, color: "orchid"},
-      { id: 19, row: 4, column: 4, value: 90, color: "chocolate"},
-      { id: 20, row: 4, column: 5, value: 90, color: "tomato"},
-      { id: 21, row: 5, column: 1, value: 70, color: "purple"},
-      { id: 22, row: 5, column: 2, value: 90, color: "brown"},
-      { id: 23, row: 5, column: 3, value: 90, color: "orchid"},
-      { id: 24, row: 5, column: 4, value: 90, color: "chocolate"},
-      { id: 25, row: 5, column: 5, value: 90, color: "tomato"},
-      { id: 26, row: 6, column: 1, value: 70, color: "purple"},
-      { id: 27, row: 6, column: 2, value: 90, color: "brown"},
-      { id: 28, row: 6, column: 3, value: 90, color: "orchid"},
-      { id: 29, row: 6, column: 4, value: 90, color: "chocolate"},
-      { id: 30, row: 6, column: 5, value: 90, color: "tomato"},
-      { id: 31, row: 7, column: 1, value: 70, color: "purple"},
-      { id: 32, row: 7, column: 2, value: 90, color: "brown"},
-      { id: 33, row: 7, column: 3, value: 90, color: "orchid"},
-      { id: 34, row: 7, column: 4, value: 90, color: "chocolate"},
-      { id: 35, row: 7, column: 5, value: 90, color: "tomato"}
+      {
+        '230.73.120.127': {
+          'Transaction Score' : 80,
+          'Repossesion' : 40,
+          'Multiple Addresses' : 50,
+          'Negative Credit' : 60,
+          'Lien' : 80,
+          'Arrest' : 40,
+          'Risk' : 70
+        }
+      },
+      {
+        '230.73.120.127': {
+          'Transaction Score' : 40,
+          'Repossesion' : 40,
+          'Multiple Addresses' : 50,
+          'Negative Credit' : 60,
+          'Lien' : 80,
+          'Arrest' : 40,
+          'Risk' : 70
+        }
+      },
+      {
+        '206.190.36.105': {
+          'Transaction Score' : 40,
+          'Repossesion' : 40,
+          'Multiple Addresses' : 50,
+          'Negative Credit' : 60,
+          'Lien' : 80,
+          'Arrest' : 40,
+          'Risk' : 70
+        }
+      },
+      {
+        '192.64.119.237': {
+          'Transaction Score' : 40,
+          'Repossesion' : 40,
+          'Multiple Addresses' : 50,
+          'Negative Credit' : 60,
+          'Lien' : 80,
+          'Arrest' : 100,
+          'Risk' : 70
+        }
+      },
+      {
+        '204.79.197.200': {
+          'Transaction Score' : 40,
+          'Repossesion' : 40,
+          'Multiple Addresses' : 50,
+          'Negative Credit' : 60,
+          'Lien' : 80,
+          'Arrest' : 40,
+          'Risk' : 100
+        }
+      },
+      {
+        '192.64.119.237': {
+          'Transaction Score' : 40,
+          'Repossesion' : 40,
+          'Multiple Addresses' : 50,
+          'Negative Credit' : 60,
+          'Lien' : 80,
+          'Arrest' : 100,
+          'Risk' : 70
+        }
+      }
     ];
 
-    render(dat);
-    setTimeout(function() {
-      dat[0].color = "deeppink";
-      // dat.push([110, "cyan"]);
-      render(dat);
-    }, 500);
-    setTimeout(function() {
-      dat.pop();
-      render(dat);
-    }, 1000);
-    setTimeout(function() {
-      dat[0].selected = true;
-      render(dat);
-    }, 1500);
+    var dashboard = new Dashboard(dat);
+    // setTimeout(function() {
+    //   dat[0].color = "deeppink";
+    //   dashboard.render();
+    // }, 500);
+    // setTimeout(function() {
+    //   dat.pop();
+    //   dashboard.render();
+    // }, 1000);
+    // setTimeout(function() {
+    //   dat[0].selected = true;
+    //   dashboard.render(dat);
+    // }, 1500);
 
-
-    function drawLine(container, x1, y1, x2, y2) {
-      container.append("line")
-          .attr("x1", x1)
-          .attr("y1", y1)
-          .attr("x2", x2)
-          .attr("y2", y2)
-          .attr("stroke", '#AAA')
-    }
-
-    function drawVText(container, text, x, y) {
-      container.append("text")
-          .attr("x", x)
-          .attr("y", y)
-          .attr("font-size", 8)
-          .attr("writing-mode", "tb")
-          .attr("glyph-orientation-vertical", "0")
-          .text(text)
-    }
-
-    function drawText(container, text, x, y) {
-      container.append("text")
-          .attr("x", x)
-          .attr("y", y)
-          .attr("font-size", 12)
-          .text(text)
-    }
 
   </script>
   <br/>
