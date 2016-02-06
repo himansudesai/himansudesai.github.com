@@ -20,6 +20,10 @@ body {
 #slider1 .ui-slider-handle, #slider2 .ui-slider-handle, #slider3 .ui-slider-handle, #slider4 .ui-slider-handle, #slider5 .ui-slider-handle, #slider6 .ui-slider-handle {
   height: 14px;
 }
+.bold {
+  font-weight: bold;
+  font-size: 110%;
+}
 .tbl {
   display: table;
 }

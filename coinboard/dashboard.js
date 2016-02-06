@@ -30,23 +30,22 @@ var cats = {
 }
 
 var Dashboard = function Dashboard(dat, cb) {
-  this.dat = dat;
   this.selected = cb;
   svg = d3.select('.dashboard')
       .append("svg")
-      .attr("width", 600)
+      .attr("width", 900)
       .attr("height", 370);
   this.svg = svg;
 
-  var numCols = this.dat.length;
+  var numCols = dat.length;
   this.drawLine(212, 155, 218 + (30 * numCols), 155);
   this.drawLine(212, 336, 218 + (30 * numCols), 336);
   this.drawLine(212, 366, 218 + (30 * numCols), 366);
   this.drawLine(212, 155, 212, 366);
   this.drawLine(218 + (30 * numCols), 155, 218 + (30 * numCols), 366);
 
-  for (var i=0; i<this.dat.length; i++) {
-    this.drawText((Object.keys(this.dat[i]))[0], 230 + i * 30, 20, 8, 'tb');
+  for (var i=0; i<dat.length; i++) {
+    this.drawText((Object.keys(dat[i]))[0], 230 + i * 30, 20, 8, 'tb');
   }
   this.drawText('Block Score', 140, 175, 12, 'lr');
   this.drawText('Repossesion', 136, 205, 12, 'lr');
@@ -55,10 +54,11 @@ var Dashboard = function Dashboard(dat, cb) {
   this.drawText('Lien', 180, 295, 12, 'lr');
   this.drawText('Arrest', 168, 325, 12, 'lr');
   this.drawText('Total Risk', 150, 355, 12, 'lr');
-  this.render();
+  this.render(dat);
 }
 
-Dashboard.prototype.render = function() {
+Dashboard.prototype.render = function(dat) {
+  this.dat = dat;
   var d3Data = [];
   for (var i=0; i<this.dat.length; i++) {
     var entry = this.dat[i];
@@ -75,10 +75,10 @@ Dashboard.prototype.render = function() {
         id: cur[cat].id
       })
     });
-    this.d3Data = d3Data;
+    // this.d3Data = d3Data;
   }
-
-  this.reRender();
+  this.d3Data = d3Data;
+  if (this.d3Data.length > 0) this.reRender();
 }
 
 Dashboard.prototype.reRender = function() {
