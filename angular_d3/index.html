@@ -11,6 +11,9 @@
 
   <script>
 
+  var selected = function(what) {
+    alert(what + ' was selected');
+  }
   var svg;
 
     dat = [
@@ -60,7 +63,7 @@
       }
     ];
 
-    var dashboard = new Dashboard(dat);
+    var dashboard = new Dashboard(dat, selected);
     // setTimeout(function() {
     //   dat[0].color = "deeppink";
     //   dashboard.render();

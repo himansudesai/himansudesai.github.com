@@ -32,10 +32,10 @@ var cats = {
 var Dashboard = function Dashboard(dat, cb) {
   this.dat = dat;
   this.selected = cb;
-  svg = d3.select('body')
+  svg = d3.select('.dashboard')
       .append("svg")
       .attr("width", 600)
-      .attr("height", 400);
+      .attr("height", 370);
   this.svg = svg;
 
   var numCols = this.dat.length;
@@ -48,12 +48,12 @@ var Dashboard = function Dashboard(dat, cb) {
   for (var i=0; i<this.dat.length; i++) {
     this.drawText((Object.keys(this.dat[i]))[0], 230 + i * 30, 20, 8, 'tb');
   }
-  this.drawText('Transaction Score', 114, 175, 12, 'lr');
-  this.drawText('Repossesion', 140, 205, 12, 'lr');
-  this.drawText('Multiple Addresses', 106, 235, 12, 'lr');
-  this.drawText('Negative Credit', 123, 265, 12, 'lr');
-  this.drawText('Lien', 177, 295, 12, 'lr');
-  this.drawText('Arrest', 170, 325, 12, 'lr');
+  this.drawText('Block Score', 140, 175, 12, 'lr');
+  this.drawText('Repossesion', 136, 205, 12, 'lr');
+  this.drawText('Multiple Addresses', 102, 235, 12, 'lr');
+  this.drawText('Negative Credit', 119, 265, 12, 'lr');
+  this.drawText('Lien', 180, 295, 12, 'lr');
+  this.drawText('Arrest', 168, 325, 12, 'lr');
   this.drawText('Total Risk', 150, 355, 12, 'lr');
   this.render();
 }

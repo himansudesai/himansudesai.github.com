@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Coin Dashboard</title>
+    <link rel="icon" type="image/png" href="resources/images/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" href="resources/images/favicon.ico" />
+    <!-- Libraries -->
+    <script src="node_modules/es6-shim/es6-shim.js"></script>
+    <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="node_modules/rxjs/bundles/Rx.js"></script>
+    <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.14/d3.js"></script>
+    <script src="./dashboard.js"></script>
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="resources/vendor/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.8.18.custom.css">
+  </head>
+  <body>
+
+    <!-- Configure System.js, our module loader -->
+    <script>
+      System.config({
+        packages: {
+          app: {
+            format: 'register',
+            defaultExtension: 'js'
+          }
+        }
+      });
+      System.import('app.js')
+            .then(null, console.error.bind(console));
+    </script>
+
+    <!-- Menu Bar -->
+    <div class="ui menu">
+      <div class="ui container coin-heading">
+        <div class="header item borderless">
+          <h2 id="page-title" class="ui header">
+            <img src="./bitcoin_logo.png" alt="angular-logo" width="25" height="25">Coin Dashboard
+          </h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui main text container">
+      <jquilar></jquilar>
+    </div>
+
+  </body>
+</html>

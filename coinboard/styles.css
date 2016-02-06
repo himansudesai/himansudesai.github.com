@@ -1,0 +1,118 @@
+body {
+  background-color: floralwhite;
+}
+.coin-heading {
+  background-color: dimgrey;
+}
+.section-header {
+  color: darkgoldenrod;
+  border-bottom: 1px solid #CCC;
+  font-size: 250%;
+}
+.code-snippet {
+  font-size: 25%;
+  color: grey;
+}
+#slider1 .jquilar-slider, #slider2 .jquilar-slider, #slider3 .jquilar-slider,  #slider4 .jquilar-slider,  #slider5 .jquilar-slider,  #slider6 .jquilar-slider{
+  width: 200px;
+  height: 8px;
+}
+#slider1 .ui-slider-handle, #slider2 .ui-slider-handle, #slider3 .ui-slider-handle, #slider4 .ui-slider-handle, #slider5 .ui-slider-handle, #slider6 .ui-slider-handle {
+  height: 14px;
+}
+.tbl {
+  display: table;
+}
+.cell {
+  display: table-cell;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.highlight {
+  color: black;
+  /*color: #FFFFCC;*/
+  background-color: orange;
+  /*background-color: orangered;*/
+}
+#fraud-db-results {
+  border: 1px solid lightgrey;
+  background-color: dimgrey;
+  min-width: 550px;
+  color: white;
+  padding: 10px;
+  font-size: 14px;
+}
+.inline {
+  display: inline-block;
+}
+.centered {
+  text-align: center;
+}
+.angular-red {
+  color: #C33E41;
+}
+#page-title {
+  color: #ffae1a;
+}
+.big {
+  font-size: 3vh;
+  font-weight: bold;
+}
+.small {
+  font-size: 1.5vh;
+}
+.muted {
+  color: #767676;
+}
+.gold {
+  color: darkgoldenrod;
+}
+.whiteonbluishslategrey {
+  color: white;
+  background-color: #6784A1;
+}
+.ui.menu .item img.logo {
+    margin-right: 1.5em;
+}
+form.ui.segment.form {
+  background-color: #F1F9FF;
+  margin-top: 2em;
+}
+form.form:after {
+  content: '';
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.jquilar-sortable {
+  list-style-type: none;
+  padding-left: 0;
+}
+.grey {
+  color: grey;
+}
+.votes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #E6E6E6;
+  padding: 1em 0;
+  border-radius: 5px;
+}
+
+.ui.grid.posts {
+  margin-top: 2em;
+}
+
+.meta {
+  color: #9A9A9A
+}
+
+.ui.grid>.row>.column.votes {
+  display: flex;
+}
+
+ul.ui.list li:before {
+  content: '';
+}
