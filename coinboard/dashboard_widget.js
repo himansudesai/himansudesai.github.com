@@ -33,11 +33,9 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                     this.hash = 0;
                 }
                 DashboardWidget.prototype.ngAfterContentInit = function () {
-                    console.log('DW - ngAfterContentInit');
                 };
                 DashboardWidget.prototype.ngOnChanges = function (changes) {
                     var _this = this;
-                    console.log('DW - ngOnChanges');
                     for (var change in changes) {
                         this[change] = changes[change] ? changes[change].currentValue : this[change];
                     }

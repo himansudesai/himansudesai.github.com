@@ -29,7 +29,7 @@ System.register(["angular2/platform/browser", "angular2/core", './jquilar.js', '
             JQUIlar = (function () {
                 function JQUIlar(_ngZone) {
                     this._ngZone = _ngZone;
-                    this.resetSliders();
+                    this.initializeSliders();
                     this.fraudDbResults = '';
                     var r = parseInt(Math.random() * 20);
                     this.model = new Model(r);
@@ -37,11 +37,15 @@ System.register(["angular2/platform/browser", "angular2/core", './jquilar.js', '
                     this.transactionNumber = undefined;
                     this.populatedIps = {};
                 }
-                JQUIlar.prototype.slider = function (newVal, attrName) {
+                JQUIlar.prototype.slider = function (newVal, attrName, label) {
                     var _this = this;
                     this._ngZone.run(function () {
+                        var oldVal = _this[attrName];
                         _this[attrName] = newVal;
-                        _this.updateData(_this.model.weightData(attrName, (50 + newVal)));
+                        var oldRatio = 1 + ((oldVal - 50) / 200);
+                        var newRatio = 1 + ((newVal - 50) / 200);
+                        var ratio = newRatio / oldRatio;
+                        _this.updateData(_this.model.weighData(label, ratio));
                     });
                 };
                 JQUIlar.prototype.ipSelected = function (ip) {
@@ -52,7 +56,16 @@ System.register(["angular2/platform/browser", "angular2/core", './jquilar.js', '
                     }
                 };
                 JQUIlar.prototype.resetSliders = function () {
-                    this.transactionScoreWeight = 50;
+                    this.slider(50, 'blockScoreWeight', 'Block Score');
+                    this.slider(50, 'repossesionWeight', 'Repossesion');
+                    this.slider(50, 'multipleAddressesWeight', 'Multiple Addresses');
+                    this.slider(50, 'lowCreditWeight', 'Negative Credit');
+                    this.slider(50, 'lienWeight', 'Lien');
+                    this.slider(50, 'arrestWeight', 'Arrest');
+                    this.initializeSliders();
+                };
+                JQUIlar.prototype.initializeSliders = function () {
+                    this.blockScoreWeight = 50;
                     this.repossesionWeight = 50;
                     this.multipleAddressesWeight = 50;
                     this.lowCreditWeight = 50;
@@ -68,7 +81,7 @@ System.register(["angular2/platform/browser", "angular2/core", './jquilar.js', '
                         selector: 'jquilar',
                     }),
                     core_1.View({
-                        template: "\n    <dashboard [dat]=\"dat\" [hash]=\"dashboardHash\" (select)=\"ipSelected($event)\"></dashboard>\n    <br/>\n    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class=\"whiteonbluishslategrey\" role=\"button\" (click)=\"resetSliders()\">Reset</button>\n    <div class=\"tbl\">\n      <div class=\"cell\">\n        <div class=\"muted small\">Block Score weight: <span class=\"bold\">{{50 + transactionScoreWeight}}</span>%</div>\n        <jquilar-slider id=\"slider1\" [value]=\"transactionScoreWeight\" [step]=\"2\" (stop)=\"slider($event, 'transactionScoreWeight')\"></jquilar-slider>\n\n        <div class=\"muted small\">Repossesion <span weight: <span class=\"bold\">{{50 + repossesionWeight}}</span>%</div>\n        <jquilar-slider id=\"slider2\" [value]=\"repossesionWeight\" (stop)=\"slider($event, 'repossesionWeight')\"></jquilar-slider>\n\n        <div class=\"muted small\">Multiple Addresses weight: <span class=\"bold\">{{50 + multipleAddressesWeight}}</span>%</div>\n        <jquilar-slider id=\"slider3\" [value]=\"multipleAddressesWeight\" (stop)=\"slider($event, 'multipleAddressesWeight')\"></jquilar-slider>\n\n        <div class=\"muted small\">Low Credit weight: <span class=\"bold\">{{50 + lowCreditWeight}}</span>%</div>\n        <jquilar-slider id=\"slider4\" [value]=\"lowCreditWeight\" (stop)=\"slider($event, 'lowCreditWeight')\"></jquilar-slider>\n\n        <div class=\"muted small\">Lien weight: <span class=\"bold\">{{50 + lienWeight}}</span>%</div>\n        <jquilar-slider id=\"slider5\" [value]=\"lienWeight\" (stop)=\"slider($event, 'lienWeight')\"></jquilar-slider>\n\n        <div class=\"muted small\">Arrest weight: <span class=\"bold\">{{50 + arrestWeight}}</span>%</div>\n        <jquilar-slider id=\"slider6\" [value]=\"arrestWeight\" (stop)=\"slider($event, 'arrestWeight')\"></jquilar-slider>\n      </div>\n      <div id=\"fraud-db-results\" class=\"cell\" [innerHTML]=\"fraudDbResults\">\n      </div>\n    </div>\n  ",
+                        template: "\n    <dashboard [dat]=\"dat\" [hash]=\"dashboardHash\" (select)=\"ipSelected($event)\"></dashboard>\n    <br/>\n    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class=\"whiteonbluishslategrey\" role=\"button\" (click)=\"resetSliders()\">Reset</button>\n    <div class=\"tbl\">\n      <div class=\"cell\">\n        <div class=\"muted small\">Block Score weight: <span class=\"bold\">{{100 + (blockScoreWeight - 50)/2}}</span>%</div>\n        <jquilar-slider id=\"slider1\" [value]=\"blockScoreWeight\" [step]=\"2\" (stop)=\"slider($event, 'blockScoreWeight', 'Block Score')\"></jquilar-slider>\n\n        <div class=\"muted small\">Repossesion <span weight: <span class=\"bold\">{{100 + (repossesionWeight - 50)/2}}</span>%</div>\n        <jquilar-slider id=\"slider2\" [value]=\"repossesionWeight\" (stop)=\"slider($event, 'repossesionWeight', 'Repossesion')\"></jquilar-slider>\n\n        <div class=\"muted small\">Multiple Addresses weight: <span class=\"bold\">{{100 + (multipleAddressesWeight - 50)/2}}</span>%</div>\n        <jquilar-slider id=\"slider3\" [value]=\"multipleAddressesWeight\" (stop)=\"slider($event, 'multipleAddressesWeight', 'Multiple Addresses')\"></jquilar-slider>\n\n        <div class=\"muted small\">Low Credit weight: <span class=\"bold\">{{100 + (lowCreditWeight - 50)/2}}</span>%</div>\n        <jquilar-slider id=\"slider4\" [value]=\"lowCreditWeight\" (stop)=\"slider($event, 'lowCreditWeight', 'Negative Credit')\"></jquilar-slider>\n\n        <div class=\"muted small\">Lien weight: <span class=\"bold\">{{100 + (lienWeight - 50)/2}}</span>%</div>\n        <jquilar-slider id=\"slider5\" [value]=\"lienWeight\" (stop)=\"slider($event, 'lienWeight', 'Lien')\"></jquilar-slider>\n\n        <div class=\"muted small\">Arrest weight: <span class=\"bold\">{{100 + (arrestWeight - 50)/2}}</span>%</div>\n        <jquilar-slider id=\"slider6\" [value]=\"arrestWeight\" (stop)=\"slider($event, 'arrestWeight', 'Arrest')\"></jquilar-slider>\n      </div>\n      <div id=\"fraud-db-results\" class=\"cell\" [innerHTML]=\"fraudDbResults\">\n      </div>\n    </div>\n  ",
                         directives: [jquilar_js_1.jqUIlarSlider, dashboard_widget_js_1.DashboardWidget]
                     }), 
                     __metadata('design:paramtypes', [core_1.NgZone])

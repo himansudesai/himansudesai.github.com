@@ -1,5 +1,5 @@
 var cats = {
-  'Transaction Score' : {
+  'Block Score' : {
     color: '#FF54A4',
     rowNum: 1
   },
@@ -66,7 +66,7 @@ Dashboard.prototype.render = function(dat) {
     var ip = keys[0];
     var cur = entry[ip];
     var index = 0;
-    ['Transaction Score', 'Repossesion', 'Multiple Addresses', 'Negative Credit', 'Lien', 'Arrest', 'Risk'].forEach(function(cat) {
+    ['Block Score', 'Repossesion', 'Multiple Addresses', 'Negative Credit', 'Lien', 'Arrest', 'Risk'].forEach(function(cat) {
       d3Data.push({
         column: i,
         row: index++,

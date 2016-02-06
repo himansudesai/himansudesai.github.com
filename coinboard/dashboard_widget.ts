@@ -25,11 +25,9 @@ export class DashboardWidget {
   }
 
   ngAfterContentInit() {
-    console.log('DW - ngAfterContentInit');
   }
 
   ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
-    console.log('DW - ngOnChanges');
     for (let change in changes) {
       this[change] = changes[change] ? changes[change].currentValue : this[change];
     }
