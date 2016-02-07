@@ -50,7 +50,7 @@ var Dashboard = function Dashboard(dat, cb) {
   this.drawText('Block Score', 140, 175, 12, 'lr');
   this.drawText('Repossesion', 136, 205, 12, 'lr');
   this.drawText('Multiple Addresses', 102, 235, 12, 'lr');
-  this.drawText('Negative Credit', 119, 265, 12, 'lr');
+  this.drawText('Low Credit', 145, 265, 12, 'lr');
   this.drawText('Lien', 180, 295, 12, 'lr');
   this.drawText('Arrest', 168, 325, 12, 'lr');
   this.drawText('Total Risk', 150, 355, 12, 'lr');

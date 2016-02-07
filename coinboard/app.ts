@@ -85,7 +85,10 @@ class JQUIlar {
     if (!this.populatedIps[ip]) {
       this.updateData(this.model.populate(ip));
       this.fraudDbResults = this.model.reportFor(ip);
+      console.log('fraudDbResults = ' + this.fraudDbResults);
       this.populatedIps[ip] = true;
+    } else {
+      this.fraudDbResults = this.model.reportFor(ip);
     }
   }
 

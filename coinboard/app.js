@@ -52,7 +52,11 @@ System.register(["angular2/platform/browser", "angular2/core", './jquilar.js', '
                     if (!this.populatedIps[ip]) {
                         this.updateData(this.model.populate(ip));
                         this.fraudDbResults = this.model.reportFor(ip);
+                        console.log('fraudDbResults = ' + this.fraudDbResults);
                         this.populatedIps[ip] = true;
+                    }
+                    else {
+                        this.fraudDbResults = this.model.reportFor(ip);
                     }
                 };
                 JQUIlar.prototype.resetSliders = function () {
