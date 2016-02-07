@@ -17,7 +17,7 @@ import { DashboardWidget } from './dashboard_widget.js';
     <div class="tbl">
       <div class="cell">
         <div class="muted small">Block Score weight: <span class="bold">{{100 + (blockScoreWeight - 50)/2}}</span>%</div>
-        <jquilar-slider id="slider1" [value]="blockScoreWeight" [step]="2" (stop)="slider($event, 'blockScoreWeight', 'Block Score')"></jquilar-slider>
+        <jquilar-slider id="slider1" [value]="blockScoreWeight" (stop)="slider($event, 'blockScoreWeight', 'Block Score')"></jquilar-slider>
 
         <div class="muted small">Repossesion <span weight: <span class="bold">{{100 + (repossesionWeight - 50)/2}}</span>%</div>
         <jquilar-slider id="slider2" [value]="repossesionWeight" (stop)="slider($event, 'repossesionWeight', 'Repossesion')"></jquilar-slider>
