@@ -236,12 +236,30 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                 }
                 jqUIlarMenu.prototype.ngAfterContentInit = function () {
                     console.log('MENU - ngAfterContentInit');
-                    this.jqM = $(this.domElement).find('.jquilar-menu');
-                    // $(this.jqMenu).empty();
-                    // for (let i=0; i<this.menu.length; i++) {
-                    //   $(this.jqMenu).append('<li>' + this.menu[i] + '</li>');
-                    // }
-                    // $(this.jqMenu).menu();
+                };
+                jqUIlarMenu.prototype.buildSubMenuStr = function (subMenu) {
+                    var subStr = '<ul>';
+                    for (var i = 0; i < subMenu.length; i++) {
+                        var item = subMenu[i];
+                        if (typeof item === 'string') {
+                            subStr += '<li>' + item + '</li>';
+                        }
+                        else {
+                            if (typeof item === 'object') {
+                                var label = (Object.keys(item))[0];
+                                var value = item[label];
+                                if (Array.isArray(value)) {
+                                    console.log(label + ' __ SUB has a submenu ' + value);
+                                    subStr += '<li>' + label + this.buildSubMenuStr(value) + '</li>';
+                                }
+                                else {
+                                    console.log('    __ SUB ' + label + ' is ' + (value ? 'enabled' : 'disabled'));
+                                    subStr += '<li class="ui-state-disabled">' + label + '</li>';
+                                }
+                            }
+                        }
+                    }
+                    return (subStr + '</ul>');
                 };
                 jqUIlarMenu.prototype.ngOnChanges = function (changes) {
                     var _this = this;
@@ -249,14 +267,30 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                     for (var change in changes) {
                         this[change] = changes[change] ? changes[change].currentValue : this[change];
                     }
-                    this.jqMenu = $(this.domElement).find('.jquilar-menu');
-                    $(this.jqMenu).empty();
+                    this.jqMenu = $(this.domElement).empty().append('<ul class="jquilar-menu"></ul>');
+                    this.jqMenu = $(this.jqMenu).find(".jquilar-menu");
                     for (var i = 0; i < this.menu.length; i++) {
-                        $(this.jqMenu).append('<li>' + this.menu[i] + '</li>');
+                        var item = this.menu[i];
+                        if (typeof item === 'string') {
+                            $(this.jqMenu).append('<li>' + item + '</li>');
+                        }
+                        else {
+                            if (typeof item === 'object') {
+                                var label = (Object.keys(item))[0];
+                                var value = item[label];
+                                if (Array.isArray(value)) {
+                                    $(this.jqMenu).append('<li>' + label + this.buildSubMenuStr(value) + '</li>');
+                                }
+                                else {
+                                    $(this.jqMenu).append('<li class="ui-state-disabled">' + label + '</li>');
+                                }
+                            }
+                        }
                     }
                     $(this.jqMenu).menu({
-                        select: function (x, ui) {
-                            _this.select.next(x);
+                        select: function (event, ui) {
+                            var selectedItem = event.currentTarget.innerHTML;
+                            _this.select.next(selectedItem);
                         }
                     });
                 };
@@ -265,7 +299,7 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                         selector: 'jquilar-menu',
                         inputs: ['menu'],
                         events: ['select'],
-                        template: '<ul class="jquilar-menu"></ul>'
+                        template: '<div></div>'
                     }),
                     __param(0, core_3.Inject(core_2.ElementRef)), 
                     __metadata('design:paramtypes', [core_2.ElementRef])

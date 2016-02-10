@@ -218,12 +218,12 @@ export class jqUIlarSortable {
   selector: 'jquilar-menu',
   inputs: ['menu'],
   events: ['select'],
-  template: '<ul class="jquilar-menu"></ul>'
+  template: '<div></div>'
 })
 
 export class jqUIlarMenu {
   menu: Array<string>;
-  select: EventEmitter<number>;
+  select: EventEmitter<string>;
   domElement: any;
   jqMenu: any;
 
@@ -236,12 +236,29 @@ export class jqUIlarMenu {
 
   ngAfterContentInit() {
     console.log('MENU - ngAfterContentInit');
-    this.jqM = $(this.domElement).find('.jquilar-menu');
-    // $(this.jqMenu).empty();
-    // for (let i=0; i<this.menu.length; i++) {
-    //   $(this.jqMenu).append('<li>' + this.menu[i] + '</li>');
-    // }
-    // $(this.jqMenu).menu();
+  }
+
+  buildSubMenuStr(subMenu) {
+    var subStr = '<ul>';
+    for (var i=0; i<subMenu.length; i++) {
+      var item = subMenu[i];
+      if (typeof item === 'string') {
+        subStr += '<li>' + item + '</li>';
+      } else {
+        if (typeof item === 'object') {
+          var label = (Object.keys(item))[0];
+          var value = item[label];
+          if (Array.isArray(value)) {
+            console.log(label + ' __ SUB has a submenu ' + value);
+            subStr += '<li>' + label + this.buildSubMenuStr(value) + '</li>';
+          } else {
+            console.log('    __ SUB ' + label + ' is ' + (value ? 'enabled' : 'disabled'));
+            subStr += '<li class="ui-state-disabled">' + label + '</li>';
+          }
+        }
+      }
+    }
+    return (subStr + '</ul>');
   }
 
   ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
@@ -249,14 +266,31 @@ export class jqUIlarMenu {
     for (let change in changes) {
       this[change] = changes[change] ? changes[change].currentValue : this[change];
     }
-    this.jqMenu = $(this.domElement).find('.jquilar-menu');
-    $(this.jqMenu).empty();
-    for (let i=0; i<this.menu.length; i++) {
-      $(this.jqMenu).append('<li>' + this.menu[i] + '</li>');
+    this.jqMenu = $(this.domElement).empty().append('<ul class="jquilar-menu"></ul>');
+    this.jqMenu = $(this.jqMenu).find(".jquilar-menu");
+
+    for (var i=0; i<this.menu.length; i++) {
+      var item = this.menu[i];
+      if (typeof item === 'string') {
+        $(this.jqMenu).append('<li>' + item + '</li>');
+      } else {
+        if (typeof item === 'object') {
+          var label = (Object.keys(item))[0];
+          var value = item[label];
+          if (Array.isArray(value)) {
+            $(this.jqMenu).append('<li>' + label + this.buildSubMenuStr(value) + '</li>');
+          } else {
+            $(this.jqMenu).append('<li class="ui-state-disabled">' + label + '</li>');
+          }
+        }
+      }
     }
+
+
     $(this.jqMenu).menu({
-      select: (x, ui) => {
-        this.select.next(x);
+      select: (event, ui) => {
+        var selectedItem = event.currentTarget.innerHTML;
+        this.select.next(selectedItem);
       }
     });
   }

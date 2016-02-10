@@ -50,8 +50,13 @@ import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, 
     <div class="section-header">
       <span>Menu</span><p class="code-snippet">&lt;jquilar-menu [menu]=&quot;myList&quot; (select)=&quot;func($event)&quot;&gt;&lt;/jquilar-menu&gt;</p>
     </div>
-    <div class="muted big">Current value: {not sure}</div>
-    <jquilar-menu [menu]="myMenu" (select)="menuSelected($event)" class="gold"></jquilar-menu>
+    <div class="muted big">Current value: {{menuSelection}}</div>
+    <jquilar-menu [menu]="menu" (select)="menuSelected($event)" class="gold"></jquilar-menu>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <button class="whiteonbluishslategrey" role="button" (click)="veggiesMenu()">Veggies</button>
   `,
   directives: [jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, jqUIlarMenu]
 })
@@ -61,13 +66,15 @@ class JQUIlar {r
   dateVal: string;
   progressVal: number;
   sortableList: Array<string>;
-  myMenu: Array<string>;
+  menu: Array<any>;
+  menuSelection: string;
+
   constructor(private _ngZone: NgZone) {
     this.sliderVal = 50;
     this.dateVal = undefined; // or something like "01/10/2015"
     this.progressVal = 50;
     this.sortableList = ['Apple', 'Banana', 'Cherry'];
-    this.myMenu = ['One', 'Two', 'Three'];
+    this.menu = [ {Apple: [{Green: ['Mutsu', 'Granny Smith']}, {Red: ['Macintosh', {Washington: false}]}], {Banana: ['Cavendish', 'Plantain']}, {Cherry: false}, 'Date', 'Eggplant'];
   }
 
   sliderStopped(newVal) {
@@ -128,8 +135,14 @@ class JQUIlar {r
     this.sortableList = ['Apple', 'Banana', 'Cherry'];
   }
 
-  menuSelected() {
-    alert('the menu has been selected');
+  menuSelected(item) {
+    this._ngZone.run(() => {
+      this.menuSelection = item;
+    });
+  }
+
+  veggiesMenu() {
+    this.menu = ['foo', 'bar', 'tar'];
   }
 
 }

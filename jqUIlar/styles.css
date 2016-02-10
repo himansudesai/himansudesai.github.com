@@ -39,6 +39,9 @@
   color: white;
   background-color: #6784A1;
 }
+.ui-menu {
+  width: 150px;
+}
 .ui.menu .item img.logo {
     margin-right: 1.5em;
 }
