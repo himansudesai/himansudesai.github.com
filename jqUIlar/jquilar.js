@@ -249,11 +249,9 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                                 var label = (Object.keys(item))[0];
                                 var value = item[label];
                                 if (Array.isArray(value)) {
-                                    console.log(label + ' __ SUB has a submenu ' + value);
                                     subStr += '<li>' + label + this.buildSubMenuStr(value) + '</li>';
                                 }
                                 else {
-                                    console.log('    __ SUB ' + label + ' is ' + (value ? 'enabled' : 'disabled'));
                                     subStr += '<li class="ui-state-disabled">' + label + '</li>';
                                 }
                             }
@@ -290,7 +288,10 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                     $(this.jqMenu).menu({
                         select: function (event, ui) {
                             var selectedItem = event.currentTarget.innerHTML;
-                            _this.select.next(selectedItem);
+                            var numChildren = $(event.currentTarget).children().length;
+                            if (numChildren < 1) {
+                                _this.select.next(selectedItem);
+                            }
                         }
                     });
                 };

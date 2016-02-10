@@ -249,10 +249,8 @@ export class jqUIlarMenu {
           var label = (Object.keys(item))[0];
           var value = item[label];
           if (Array.isArray(value)) {
-            console.log(label + ' __ SUB has a submenu ' + value);
             subStr += '<li>' + label + this.buildSubMenuStr(value) + '</li>';
           } else {
-            console.log('    __ SUB ' + label + ' is ' + (value ? 'enabled' : 'disabled'));
             subStr += '<li class="ui-state-disabled">' + label + '</li>';
           }
         }
@@ -290,7 +288,10 @@ export class jqUIlarMenu {
     $(this.jqMenu).menu({
       select: (event, ui) => {
         var selectedItem = event.currentTarget.innerHTML;
-        this.select.next(selectedItem);
+        var numChildren = $(event.currentTarget).children().length;
+        if (numChildren < 1) { // if real children then user selected non leaf element
+          this.select.next(selectedItem);
+        }
       }
     });
   }
