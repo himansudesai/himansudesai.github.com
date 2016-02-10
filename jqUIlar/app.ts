@@ -50,7 +50,7 @@ import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, 
     <div class="section-header">
       <span>Menu</span><p class="code-snippet">&lt;jquilar-menu [menu]=&quot;myList&quot; (select)=&quot;func($event)&quot;&gt;&lt;/jquilar-menu&gt;</p>
     </div>
-    <div class="muted big">Current value: {{menuSelection}}</div>
+    <div class="muted big">Current selection: {{menuSelection}}</div>
     <jquilar-menu [menu]="menu" (select)="menuSelected($event)" class="gold"></jquilar-menu>
     <br/>
     <br/>

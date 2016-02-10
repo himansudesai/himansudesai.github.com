@@ -240,22 +240,18 @@ export class jqUIlarMenu {
 
   buildSubMenuStr(subMenu) {
     var subStr = '<ul>';
-    for (var i=0; i<subMenu.length; i++) {
-      var item = subMenu[i];
-      if (typeof item === 'string') {
-        subStr += '<li>' + item + '</li>';
-      } else {
-        if (typeof item === 'object') {
-          var label = (Object.keys(item))[0];
-          var value = item[label];
-          if (Array.isArray(value)) {
-            subStr += '<li>' + label + this.buildSubMenuStr(value) + '</li>';
-          } else {
-            subStr += '<li class="ui-state-disabled">' + label + '</li>';
-          }
-        }
-      }
+
+    var itemCb = function(item) {
+      subStr += '<li>' + item + '</li>';
+    };
+    var recursiveCb = function(label, value) {
+      subStr += '<li>' + label + this.buildSubMenuStr(value) + '</li>';
     }
+    var disabledItemCb = function(label) {
+      subStr += '<li class="ui-state-disabled">' + label + '</li>';
+    }
+
+    this.iterateOverShit(subMenu, itemCb.bind(this), recursiveCb.bind(this), disabledItemCb.bind(this));
     return (subStr + '</ul>');
   }
 
@@ -267,23 +263,19 @@ export class jqUIlarMenu {
     this.jqMenu = $(this.domElement).empty().append('<ul class="jquilar-menu"></ul>');
     this.jqMenu = $(this.jqMenu).find(".jquilar-menu");
 
-    for (var i=0; i<this.menu.length; i++) {
-      var item = this.menu[i];
-      if (typeof item === 'string') {
-        $(this.jqMenu).append('<li>' + item + '</li>');
-      } else {
-        if (typeof item === 'object') {
-          var label = (Object.keys(item))[0];
-          var value = item[label];
-          if (Array.isArray(value)) {
-            $(this.jqMenu).append('<li>' + label + this.buildSubMenuStr(value) + '</li>');
-          } else {
-            $(this.jqMenu).append('<li class="ui-state-disabled">' + label + '</li>');
-          }
-        }
-      }
+    var itemCb = function(item) {
+      $(this.jqMenu).append('<li>' + item + '</li>');
+    };
+
+    var recursiveCb = function(label, value) {
+      $(this.jqMenu).append('<li>' + label + this.buildSubMenuStr(value) + '</li>');
     }
 
+    var disabledItemCb = function(label) {
+      $(this.jqMenu).append('<li class="ui-state-disabled">' + label + '</li>');
+    }
+
+    this.iterateOverShit(this.menu, itemCb.bind(this), recursiveCb.bind(this), disabledItemCb.bind(this));
 
     $(this.jqMenu).menu({
       select: (event, ui) => {
@@ -295,4 +287,24 @@ export class jqUIlarMenu {
       }
     });
   }
+
+  iterateOverShit(coll, itemCb, recursiveCb, disabledItemCb) {
+    for (var i=0; i<coll.length; i++) {
+      var item = coll[i];
+      if (typeof item === 'string') {
+        itemCb(item);
+      } else {
+        if (typeof item === 'object') {
+          var label = (Object.keys(item))[0];
+          var value = item[label];
+          if (Array.isArray(value)) {
+            recursiveCb(label, value);
+          } else {
+            disabledItemCb(label);
+          }
+        }
+      }
+    }
+  }
+
 }
