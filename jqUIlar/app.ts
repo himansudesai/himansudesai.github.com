@@ -3,7 +3,7 @@ import {Component, View, EventEmitter, NgZone} from "angular2/core";
 import { NgFor } from "angular2/common";
 import { OnChanges, SimpleChange, OnInit, AfterContentInit, AfterViewInit, OnDestroy, ElementRef } from 'angular2/core';
 import {Inject} from 'angular2/core';
-import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, jqUIlarMenu} from './jquilar.js';
+import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, jqUIlarMenu, jqUIlarEffect} from './jquilar.js';
 
 @Component({
   selector: 'jquilar',
@@ -15,6 +15,8 @@ import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, 
     <p class="grey">currently supported: Slider, Date Picker, Progress Bar, Sortable, Menu</p>
     <p class="grey">support for all widgets and interactions coming soon...</p>
     <br/>
+
+    <!-- Slider -->
     <div class="section-header">
       <span>Slider</span><p class="code-snippet">\n&lt;jquilar-slider [valueObj]=&quot;some_val&quot; (stop)=&quot;func($event)&quot;&gt;&lt;/jquilar-slider&gt;/jquilar-slider&gt;</p>
     </div>
@@ -23,13 +25,21 @@ import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, 
     <jquilar-slider id="slider2" [orientation]="'vertical'" [value]="sliderVal" (stop)="sliderStopped($event)"></jquilar-slider><br/>
     <jquilar-slider id="slider3" [value]="sliderVal" (stop)="sliderStopped($event)"></jquilar-slider>
     <br/>
-    <button class="whiteonbluishslategrey" role="button" (click)="resetSlider()">Reset data</button><br/><br/>
+    <button class="whiteonbluishslategrey" role="button" (click)="resetSlider()">Reset data</button>
+    <br/><br/>
+
+
+    <!-- Date Picker -->
     <div class="section-header">
       <span>Date Picker</span><p class="code-snippet">&lt;jquilar-datepicker [value]=&quot;dateObj&quot; (select)=&quot;func($event)&quot;&gt;&lt;/jquilar-datepicker&gt;</p>
     </div>
     <jquilar-datepicker [value]="dateVal" [changeMonth]="true" [changeYear]="true" (select)="dateSelected($event)" class="gold"></jquilar-datepicker>
     <jquilar-datepicker [value]="dateVal" (select)="dateSelected($event)" class="gold"></jquilar-datepicker><br/><br/>
-    <button class="whiteonbluishslategrey" role="button" (click)="resetDate()">Reset data</button><br/><br/>
+    <button class="whiteonbluishslategrey" role="button" (click)="resetDate()">Reset data</button>
+    <br/><br/>
+
+
+    <!-- Progress Bar -->
     <div class="section-header">
       <span>Progress Bar</span><p class="code-snippet">&lt;jquilar-progressbar [value]=&quot;progressVal&quot; (change)=&quot;progressChanged($event)&quot; class=&quot;gold&quot;&gt;&lt;/jquilar-progressbar&gt;</p>
     </div>
@@ -38,7 +48,11 @@ import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, 
     <jquilar-progressbar [value]="progressVal" (select)="progressChanged($event)" class="gold"></jquilar-progressbar><br/>
     <button class="whiteonbluishslategrey" role="button" (click)="decProgressBar()">-10</button>
     <button class="whiteonbluishslategrey" role="button" (click)="resetProgressBar()">Reset data</button>
-    <button class="whiteonbluishslategrey" role="button" (click)="incProgressBar()">+10</button><br/><br/>
+    <button class="whiteonbluishslategrey" role="button" (click)="incProgressBar()">+10</button>
+    <br/><br/>
+
+
+    <!-- Sortable -->
     <div class="section-header">
       <span>Sortable</span><p class="code-snippet">&lt;jquilar-sortable [list]=&quot;myList&quot; (sort)=&quot;func($event)&quot;&gt;&lt;/jquilar-sortable&gt;</p>
     </div>
@@ -46,35 +60,60 @@ import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, 
     <jquilar-sortable [list]="sortableList" (sort)="listSorted($event)" class="gold"></jquilar-sortable>
     <button class="whiteonbluishslategrey" role="button" (click)="fruitsSortableList()">Reset data</button>
     <button class="whiteonbluishslategrey" role="button" (click)="veggiesSortableList()">Veggies</button>
-    <button class="whiteonbluishslategrey" role="button" (click)="fruitsSortableList()">Fruits</button><br/><br/>
+    <button class="whiteonbluishslategrey" role="button" (click)="fruitsSortableList()">Fruits</button>
+    <br/><br/>
+
+    <!-- Effect -->
+    <div class="section-header">
+      <span>Effect</span>
+    </div>
+    <jquilar-effect [effects]="effectsContainer" >
+      <div class="toggler">
+        <div id="effect" class="ui-widget-content ui-corner-all">
+          <h3 class="ui-widget-header ui-corner-all">Effect</h3>
+          <p>Etiam libero neque, luctus a, eleifend nec, semper at, lorem.</p>
+        </div>
+      </div>
+    </jquilar-effect>
+    <br/>
+    <button class="whiteonbluishslategrey" role="button" (click)="runEffect()">Run Effect</button>
+    <br/><br/>
+
+
+
+    <!-- Menu -->
     <div class="section-header">
       <span>Menu</span><p class="code-snippet">&lt;jquilar-menu [menu]=&quot;myList&quot; (select)=&quot;func($event)&quot;&gt;&lt;/jquilar-menu&gt;</p>
     </div>
-    <div class="muted big">Current selection: {{menuSelection}}</div>
+    <div class="muted big">Last selected: {{menuSelection}}</div>
+    <button class="whiteonbluishslategrey" role="button" (click)="veggiesMenu()">Veggies</button><br/><br/>
     <jquilar-menu [menu]="menu" (select)="menuSelected($event)" class="gold"></jquilar-menu>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <button class="whiteonbluishslategrey" role="button" (click)="veggiesMenu()">Veggies</button>
+    <br/><br/>
+
   `,
-  directives: [jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, jqUIlarMenu]
+  directives: [jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, jqUIlarMenu, jqUIlarEffect]
 })
 
-class JQUIlar {r
+class JQUIlar {
   sliderVal: number;
   dateVal: string;
   progressVal: number;
   sortableList: Array<string>;
   menu: Array<any>;
   menuSelection: string;
+  effectsContainer: Object;
 
   constructor(private _ngZone: NgZone) {
     this.sliderVal = 50;
     this.dateVal = undefined; // or something like "01/10/2015"
     this.progressVal = 50;
     this.sortableList = ['Apple', 'Banana', 'Cherry'];
-    this.menu = [ {Apple: [{Green: ['Mutsu', 'Granny Smith']}, {Red: ['Macintosh', {Washington: false}]}], {Banana: ['Cavendish', 'Plantain']}, {Cherry: false}, 'Date', 'Eggplant'];
+    this.menu = [ {Apple: [{Green: ['Mutsu', 'Granny Smith']}, {Red: ['Macintosh', {Washington: false}]}], {Banana: ['Cavendish', 'Plantain']}, {Cherry: false}, 'Date'];
+    this.effectsContainer = {
+      runEffect: function() {
+        console.log('ERROR - if you see this');
+      }
+    }
   }
 
   sliderStopped(newVal) {
@@ -142,7 +181,11 @@ class JQUIlar {r
   }
 
   veggiesMenu() {
-    this.menu = ['foo', 'bar', 'tar'];
+    this.menu = ['Asparagus', 'Broccoli', 'Carrot'];
+  }
+
+  runEffect() {
+    this.effectsContainer.runEffect('shake');
   }
 
 }

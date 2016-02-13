@@ -13,7 +13,7 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
         return function (target, key) { decorator(target, key, paramIndex); }
     };
     var core_1, core_2, core_3;
-    var jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, jqUIlarMenu;
+    var jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, jqUIlarMenu, jqUIlarEffect;
     return {
         setters:[
             function (core_1_1) {
@@ -234,9 +234,7 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                     this.menu = [];
                     this.jqMenu = undefined;
                 }
-                jqUIlarMenu.prototype.ngAfterContentInit = function () {
-                    console.log('MENU - ngAfterContentInit');
-                };
+                jqUIlarMenu.prototype.ngAfterContentInit = function () { };
                 jqUIlarMenu.prototype.buildSubMenuStr = function (subMenu) {
                     var subStr = '<ul>';
                     var itemCb = function (item) {
@@ -248,12 +246,11 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                     var disabledItemCb = function (label) {
                         subStr += '<li class="ui-state-disabled">' + label + '</li>';
                     };
-                    this.iterateOverShit(subMenu, itemCb.bind(this), recursiveCb.bind(this), disabledItemCb.bind(this));
+                    this.iterateOverMenu(subMenu, itemCb.bind(this), recursiveCb.bind(this), disabledItemCb.bind(this));
                     return (subStr + '</ul>');
                 };
                 jqUIlarMenu.prototype.ngOnChanges = function (changes) {
                     var _this = this;
-                    console.log('ngOnChanges for menu');
                     for (var change in changes) {
                         this[change] = changes[change] ? changes[change].currentValue : this[change];
                     }
@@ -268,7 +265,7 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                     var disabledItemCb = function (label) {
                         $(this.jqMenu).append('<li class="ui-state-disabled">' + label + '</li>');
                     };
-                    this.iterateOverShit(this.menu, itemCb.bind(this), recursiveCb.bind(this), disabledItemCb.bind(this));
+                    this.iterateOverMenu(this.menu, itemCb.bind(this), recursiveCb.bind(this), disabledItemCb.bind(this));
                     $(this.jqMenu).menu({
                         select: function (event, ui) {
                             var selectedItem = event.currentTarget.innerHTML;
@@ -279,7 +276,7 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                         }
                     });
                 };
-                jqUIlarMenu.prototype.iterateOverShit = function (coll, itemCb, recursiveCb, disabledItemCb) {
+                jqUIlarMenu.prototype.iterateOverMenu = function (coll, itemCb, recursiveCb, disabledItemCb) {
                     for (var i = 0; i < coll.length; i++) {
                         var item = coll[i];
                         if (typeof item === 'string') {
@@ -312,6 +309,44 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                 return jqUIlarMenu;
             }());
             exports_1("jqUIlarMenu", jqUIlarMenu);
+            // Effect
+            jqUIlarEffect = (function () {
+                function jqUIlarEffect(elementRef) {
+                    this.domElement = elementRef.nativeElement;
+                    this.change = new core_1.EventEmitter();
+                }
+                jqUIlarEffect.prototype.ngAfterContentInit = function () {
+                };
+                jqUIlarEffect.prototype.ngOnChanges = function (changes) {
+                    var _this = this;
+                    var cb = function () {
+                        console.log('IN CB CB CB');
+                        setTimeout(function () {
+                            var child = $(_this.domElement).children()[0];
+                            $(child).fadeIn();
+                        }, 200);
+                    };
+                    for (var change in changes) {
+                        console.log('attr/val = ' + change + '/' + changes[change].currentValue);
+                        this[change] = changes[change] ? changes[change].currentValue : this[change];
+                    }
+                    this.effects.runEffect = function (effectType, option1, option2, option3, option4) {
+                        var child = $(_this.domElement).children()[0];
+                        $(child).effect(effectType, option1 || {}, option2 || 1000, cb);
+                    };
+                };
+                jqUIlarEffect = __decorate([
+                    core_1.Component({
+                        selector: 'jquilar-effect',
+                        inputs: ['effects'],
+                        template: "\n              <div class=\"jquilar-effect\">\n                <ng-content></ng-content>\n              </div>\n            "
+                    }),
+                    __param(0, core_3.Inject(core_2.ElementRef)), 
+                    __metadata('design:paramtypes', [core_2.ElementRef])
+                ], jqUIlarEffect);
+                return jqUIlarEffect;
+            }());
+            exports_1("jqUIlarEffect", jqUIlarEffect);
         }
     }
 });

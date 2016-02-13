@@ -234,13 +234,10 @@ export class jqUIlarMenu {
     this.jqMenu = undefined;
   }
 
-  ngAfterContentInit() {
-    console.log('MENU - ngAfterContentInit');
-  }
+  ngAfterContentInit() {}
 
   buildSubMenuStr(subMenu) {
     var subStr = '<ul>';
-
     var itemCb = function(item) {
       subStr += '<li>' + item + '</li>';
     };
@@ -251,12 +248,12 @@ export class jqUIlarMenu {
       subStr += '<li class="ui-state-disabled">' + label + '</li>';
     }
 
-    this.iterateOverShit(subMenu, itemCb.bind(this), recursiveCb.bind(this), disabledItemCb.bind(this));
+    this.iterateOverMenu(subMenu, itemCb.bind(this), recursiveCb.bind(this), disabledItemCb.bind(this));
+
     return (subStr + '</ul>');
   }
 
   ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
-    console.log('ngOnChanges for menu');
     for (let change in changes) {
       this[change] = changes[change] ? changes[change].currentValue : this[change];
     }
@@ -266,16 +263,14 @@ export class jqUIlarMenu {
     var itemCb = function(item) {
       $(this.jqMenu).append('<li>' + item + '</li>');
     };
-
     var recursiveCb = function(label, value) {
       $(this.jqMenu).append('<li>' + label + this.buildSubMenuStr(value) + '</li>');
     }
-
     var disabledItemCb = function(label) {
       $(this.jqMenu).append('<li class="ui-state-disabled">' + label + '</li>');
     }
 
-    this.iterateOverShit(this.menu, itemCb.bind(this), recursiveCb.bind(this), disabledItemCb.bind(this));
+    this.iterateOverMenu(this.menu, itemCb.bind(this), recursiveCb.bind(this), disabledItemCb.bind(this));
 
     $(this.jqMenu).menu({
       select: (event, ui) => {
@@ -288,7 +283,7 @@ export class jqUIlarMenu {
     });
   }
 
-  iterateOverShit(coll, itemCb, recursiveCb, disabledItemCb) {
+  iterateOverMenu(coll, itemCb, recursiveCb, disabledItemCb) {
     for (var i=0; i<coll.length; i++) {
       var item = coll[i];
       if (typeof item === 'string') {
@@ -307,4 +302,51 @@ export class jqUIlarMenu {
     }
   }
 
+}
+
+
+
+// Effect
+@Component({
+  selector: 'jquilar-effect',
+  inputs: ['effects'],
+  template: `
+              <div class="jquilar-effect">
+                <ng-content></ng-content>
+              </div>
+            `
+})
+
+export class jqUIlarEffect {
+  change: EventEmitter<number>;
+  domElement: any;
+  effects: Object;
+
+  constructor( @Inject(ElementRef) elementRef: ElementRef) {
+    this.domElement = elementRef.nativeElement;
+    this.change = new EventEmitter();
+  }
+
+  ngAfterContentInit() {
+  }
+
+  ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
+
+    var cb = () => {
+      console.log('IN CB CB CB');
+      setTimeout(() => {
+        var child = $(this.domElement).children()[0];
+        $(child).fadeIn();
+      }, 200 );
+    };
+
+    for (let change in changes) {
+      console.log('attr/val = ' + change + '/' + changes[change].currentValue);
+      this[change] = changes[change] ? changes[change].currentValue : this[change];
+    }
+    this.effects.runEffect = (effectType, option1, option2, option3, option4) => {
+      var child = $(this.domElement).children()[0];
+      $(child).effect(effectType, option1 || {}, option2 || 1000, cb);
+    }
+  }
 }
