@@ -52,6 +52,35 @@ import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, 
     <br/><br/>
 
 
+    <!-- Menu -->
+    <div class="section-header">
+      <span>Menu</span><p class="code-snippet">&lt;jquilar-menu [menu]=&quot;myList&quot; (select)=&quot;func($event)&quot;&gt;&lt;/jquilar-menu&gt;</p>
+    </div>
+    <div class="muted big">Last selected: {{menuSelection}}</div>
+    <button class="whiteonbluishslategrey" role="button" (click)="veggiesMenu()">Veggies</button><br/><br/>
+    <jquilar-menu [menu]="menu" (select)="menuSelected($event)" class="gold"></jquilar-menu>
+    <br/><br/><br/><br/><br/><br/><br/>
+
+    <!-- Effect -->
+    <div class="section-header">
+      <span>Effect</span><p class="code-snippet">&lt;jquilar-effect [effects]=&quot;effectsContainer&quot;&gt;&lt;/jquilar-menu&gt;</p>
+    </div>
+    <jquilar-effect [effects]="effectsContainer">
+      <div class="toggler">
+        <div id="effect" class="ui-widget-content ui-corner-all">
+          <h3 class="ui-widget-header ui-corner-all">Help, I'm trapped in a glass box</h3>
+          <p><img style="float: right;" src="./images/puppy.png">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+          </p>
+        </div>
+      </div>
+    </jquilar-effect>
+    <br/>
+    <button class="whiteonbluishslategrey" role="button" (click)="runEffect()">Run Effect</button>
+    <br/><br/>
+
+
     <!-- Sortable -->
     <div class="section-header">
       <span>Sortable</span><p class="code-snippet">&lt;jquilar-sortable [list]=&quot;myList&quot; (sort)=&quot;func($event)&quot;&gt;&lt;/jquilar-sortable&gt;</p>
@@ -61,33 +90,6 @@ import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, 
     <button class="whiteonbluishslategrey" role="button" (click)="fruitsSortableList()">Reset data</button>
     <button class="whiteonbluishslategrey" role="button" (click)="veggiesSortableList()">Veggies</button>
     <button class="whiteonbluishslategrey" role="button" (click)="fruitsSortableList()">Fruits</button>
-    <br/><br/>
-
-    <!-- Effect -->
-    <div class="section-header">
-      <span>Effect</span>
-    </div>
-    <jquilar-effect [effects]="effectsContainer" >
-      <div class="toggler">
-        <div id="effect" class="ui-widget-content ui-corner-all">
-          <h3 class="ui-widget-header ui-corner-all">Effect</h3>
-          <p>Etiam libero neque, luctus a, eleifend nec, semper at, lorem.</p>
-        </div>
-      </div>
-    </jquilar-effect>
-    <br/>
-    <button class="whiteonbluishslategrey" role="button" (click)="runEffect()">Run Effect</button>
-    <br/><br/>
-
-
-
-    <!-- Menu -->
-    <div class="section-header">
-      <span>Menu</span><p class="code-snippet">&lt;jquilar-menu [menu]=&quot;myList&quot; (select)=&quot;func($event)&quot;&gt;&lt;/jquilar-menu&gt;</p>
-    </div>
-    <div class="muted big">Last selected: {{menuSelection}}</div>
-    <button class="whiteonbluishslategrey" role="button" (click)="veggiesMenu()">Veggies</button><br/><br/>
-    <jquilar-menu [menu]="menu" (select)="menuSelected($event)" class="gold"></jquilar-menu>
     <br/><br/>
 
   `,
@@ -185,7 +187,7 @@ class JQUIlar {
   }
 
   runEffect() {
-    this.effectsContainer.runEffect('shake');
+    this.effectsContainer.runEffect('puff');
   }
 
 }

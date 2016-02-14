@@ -333,11 +333,10 @@ export class jqUIlarEffect {
   ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
 
     var cb = () => {
-      console.log('IN CB CB CB');
       setTimeout(() => {
         var child = $(this.domElement).children()[0];
         $(child).fadeIn();
-      }, 200 );
+      }, 350 );
     };
 
     for (let change in changes) {

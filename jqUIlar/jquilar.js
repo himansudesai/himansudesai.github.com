@@ -320,11 +320,10 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                 jqUIlarEffect.prototype.ngOnChanges = function (changes) {
                     var _this = this;
                     var cb = function () {
-                        console.log('IN CB CB CB');
                         setTimeout(function () {
                             var child = $(_this.domElement).children()[0];
                             $(child).fadeIn();
-                        }, 200);
+                        }, 350);
                     };
                     for (var change in changes) {
                         console.log('attr/val = ' + change + '/' + changes[change].currentValue);
