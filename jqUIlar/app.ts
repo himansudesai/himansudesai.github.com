@@ -65,7 +65,7 @@ import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, 
     <div class="section-header">
       <span>Effect</span><p class="code-snippet">&lt;jquilar-effect [effects]=&quot;effectsContainer&quot;&gt;&lt;/jquilar-menu&gt;</p>
     </div>
-    <jquilar-effect [effects]="effectsContainer">
+    <jquilar-effect [effects]="effectsContainer" (completed)="effectCompleted()">
       <div class="toggler">
         <div id="effect" class="ui-widget-content ui-corner-all">
           <h3 class="ui-widget-header ui-corner-all">Help, I'm trapped in a glass box</h3>
@@ -188,6 +188,10 @@ class JQUIlar {
 
   runEffect() {
     this.effectsContainer.runEffect('puff');
+  }
+
+  effectCompleted() {
+    console.log('effect completed');
   }
 
 }

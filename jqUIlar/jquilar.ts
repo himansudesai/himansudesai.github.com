@@ -310,6 +310,7 @@ export class jqUIlarMenu {
 @Component({
   selector: 'jquilar-effect',
   inputs: ['effects'],
+  events: ['completed'],
   template: `
               <div class="jquilar-effect">
                 <ng-content></ng-content>
@@ -318,13 +319,13 @@ export class jqUIlarMenu {
 })
 
 export class jqUIlarEffect {
-  change: EventEmitter<number>;
+  completed: EventEmitter<number>;
   domElement: any;
   effects: Object;
 
   constructor( @Inject(ElementRef) elementRef: ElementRef) {
     this.domElement = elementRef.nativeElement;
-    this.change = new EventEmitter();
+    this.completed = new EventEmitter();
   }
 
   ngAfterContentInit() {
@@ -333,10 +334,7 @@ export class jqUIlarEffect {
   ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
 
     var cb = () => {
-      setTimeout(() => {
-        var child = $(this.domElement).children()[0];
-        $(child).fadeIn();
-      }, 350 );
+      this.completed.next();
     };
 
     for (let change in changes) {
@@ -346,6 +344,10 @@ export class jqUIlarEffect {
     this.effects.runEffect = (effectType, option1, option2, option3, option4) => {
       var child = $(this.domElement).children()[0];
       $(child).effect(effectType, option1 || {}, option2 || 1000, cb);
+    }
+    this.effects.restoreElement = () => {
+      var child = $(this.domElement).children()[0];
+      $(child).fadeIn();
     }
   }
 }

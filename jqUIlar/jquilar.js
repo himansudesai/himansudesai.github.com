@@ -313,17 +313,14 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
             jqUIlarEffect = (function () {
                 function jqUIlarEffect(elementRef) {
                     this.domElement = elementRef.nativeElement;
-                    this.change = new core_1.EventEmitter();
+                    this.completed = new core_1.EventEmitter();
                 }
                 jqUIlarEffect.prototype.ngAfterContentInit = function () {
                 };
                 jqUIlarEffect.prototype.ngOnChanges = function (changes) {
                     var _this = this;
                     var cb = function () {
-                        setTimeout(function () {
-                            var child = $(_this.domElement).children()[0];
-                            $(child).fadeIn();
-                        }, 350);
+                        _this.completed.next();
                     };
                     for (var change in changes) {
                         console.log('attr/val = ' + change + '/' + changes[change].currentValue);
@@ -333,11 +330,16 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                         var child = $(_this.domElement).children()[0];
                         $(child).effect(effectType, option1 || {}, option2 || 1000, cb);
                     };
+                    this.effects.restoreElement = function () {
+                        var child = $(_this.domElement).children()[0];
+                        $(child).fadeIn();
+                    };
                 };
                 jqUIlarEffect = __decorate([
                     core_1.Component({
                         selector: 'jquilar-effect',
                         inputs: ['effects'],
+                        events: ['completed'],
                         template: "\n              <div class=\"jquilar-effect\">\n                <ng-content></ng-content>\n              </div>\n            "
                     }),
                     __param(0, core_3.Inject(core_2.ElementRef)), 
