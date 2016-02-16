@@ -309,7 +309,7 @@ export class jqUIlarMenu {
 // Effect
 @Component({
   selector: 'jquilar-effect',
-  inputs: ['effects'],
+  inputs: ['effectsHandle'],
   events: ['completed'],
   template: `
               <div class="jquilar-effect">
@@ -318,10 +318,11 @@ export class jqUIlarMenu {
             `
 })
 
+
 export class jqUIlarEffect {
   completed: EventEmitter<number>;
   domElement: any;
-  effects: Object;
+  effectsHandle: Object;
 
   constructor( @Inject(ElementRef) elementRef: ElementRef) {
     this.domElement = elementRef.nativeElement;
@@ -341,11 +342,11 @@ export class jqUIlarEffect {
       console.log('attr/val = ' + change + '/' + changes[change].currentValue);
       this[change] = changes[change] ? changes[change].currentValue : this[change];
     }
-    this.effects.runEffect = (effectType, option1, option2, option3, option4) => {
+    this.effectsHandle.runEffect = (effectType, option1, option2, option3, option4) => {
       var child = $(this.domElement).children()[0];
-      $(child).effect(effectType, option1 || {}, option2 || 1000, cb);
+      $(child).effect(effectType, option1 || {}, option2 || 1200, cb);
     }
-    this.effects.restoreElement = () => {
+    this.effectsHandle.restoreElement = () => {
       var child = $(this.domElement).children()[0];
       $(child).fadeIn();
     }

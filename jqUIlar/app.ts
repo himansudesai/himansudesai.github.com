@@ -65,7 +65,7 @@ import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, 
     <div class="section-header">
       <span>Effect</span><p class="code-snippet">&lt;jquilar-effect [effects]=&quot;effectsContainer&quot;&gt;&lt;/jquilar-menu&gt;</p>
     </div>
-    <jquilar-effect [effects]="effectsContainer" (completed)="effectCompleted()">
+    <jquilar-effect [effectsHandle]="effectsHandle" (completed)="effectCompleted()">
       <div class="toggler">
         <div id="effect" class="ui-widget-content ui-corner-all">
           <h3 class="ui-widget-header ui-corner-all">Help, I'm trapped in a glass box</h3>
@@ -77,6 +77,7 @@ import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, 
       </div>
     </jquilar-effect>
     <br/>
+    <select id="effected" #sel (change)="effectTypeChanged(sel)"><option *ngFor="#effect of effectTypes">{{effect}}</option></select>
     <button class="whiteonbluishslategrey" role="button" (click)="runEffect()">Run Effect</button>
     <br/><br/>
 
@@ -93,7 +94,7 @@ import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, 
     <br/><br/>
 
   `,
-  directives: [jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, jqUIlarMenu, jqUIlarEffect]
+  directives: [NgFor, jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, jqUIlarMenu, jqUIlarEffect]
 })
 
 class JQUIlar {
@@ -103,19 +104,23 @@ class JQUIlar {
   sortableList: Array<string>;
   menu: Array<any>;
   menuSelection: string;
-  effectsContainer: Object;
+  effectsHandle: Object;
+  effectTypes: Array<string>;
+  selectedEffect: string;
 
   constructor(private _ngZone: NgZone) {
     this.sliderVal = 50;
     this.dateVal = undefined; // or something like "01/10/2015"
     this.progressVal = 50;
     this.sortableList = ['Apple', 'Banana', 'Cherry'];
-    this.menu = [ {Apple: [{Green: ['Mutsu', 'Granny Smith']}, {Red: ['Macintosh', {Washington: false}]}], {Banana: ['Cavendish', 'Plantain']}, {Cherry: false}, 'Date'];
-    this.effectsContainer = {
+    this.menu = [ { Apple: [{ Green: ['Mutsu', 'Granny Smith'] }, { Red: ['Macintosh', { Washington: false }] }], { Banana: ['Cavendish', 'Plantain'] }, { Cherry: false }, 'Date'];
+    this.effectsHandle = {
       runEffect: function() {
-        console.log('ERROR - if you see this');
+        console.log('ERROR - this function should have been overwritten by the jquilar library');
       }
     }
+    this.effectTypes = ['explode', 'puff', 'bounce', 'shake', 'blind', 'fade', 'fold', 'pulsate', 'highlight'];
+    this.selectedEffect = this.effectTypes[0];
   }
 
   sliderStopped(newVal) {
@@ -187,11 +192,15 @@ class JQUIlar {
   }
 
   runEffect() {
-    this.effectsContainer.runEffect('puff');
+    this.effectsHandle.runEffect(this.selectedEffect);
   }
 
   effectCompleted() {
-    console.log('effect completed');
+    this.effectsHandle.restoreElement();
+  }
+
+  effectTypeChanged(sel) {
+    this.selectedEffect = sel.value;
   }
 
 }

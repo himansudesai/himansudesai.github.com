@@ -326,11 +326,11 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                         console.log('attr/val = ' + change + '/' + changes[change].currentValue);
                         this[change] = changes[change] ? changes[change].currentValue : this[change];
                     }
-                    this.effects.runEffect = function (effectType, option1, option2, option3, option4) {
+                    this.effectsHandle.runEffect = function (effectType, option1, option2, option3, option4) {
                         var child = $(_this.domElement).children()[0];
-                        $(child).effect(effectType, option1 || {}, option2 || 1000, cb);
+                        $(child).effect(effectType, option1 || {}, option2 || 1200, cb);
                     };
-                    this.effects.restoreElement = function () {
+                    this.effectsHandle.restoreElement = function () {
                         var child = $(_this.domElement).children()[0];
                         $(child).fadeIn();
                     };
@@ -338,7 +338,7 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                 jqUIlarEffect = __decorate([
                     core_1.Component({
                         selector: 'jquilar-effect',
-                        inputs: ['effects'],
+                        inputs: ['effectsHandle'],
                         events: ['completed'],
                         template: "\n              <div class=\"jquilar-effect\">\n                <ng-content></ng-content>\n              </div>\n            "
                     }),
