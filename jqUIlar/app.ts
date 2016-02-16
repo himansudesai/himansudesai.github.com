@@ -12,7 +12,7 @@ import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, 
   template: `
     <br/>
     <p class="grey">jquilar.js is on github @ https://github.com/himansudesai/jquilar.js</p>
-    <p class="grey">currently supported: Slider, Date Picker, Progress Bar, Sortable, Menu</p>
+    <p class="grey">currently supported: Effect, Sortable, Slider, Date Picker, Progress Bar, Menu</p>
     <p class="grey">support for all widgets and interactions coming soon...</p>
     <br/>
 
