@@ -8,8 +8,10 @@
   font-size: 250%;
 }
 .code-snippet {
-  font-size: 25%;
-  color: grey;
+    font-size: 25%;
+    color: #C33E41;
+    font-weight: bold;
+    font-family: monospace;
 }
 #slider1 .jquilar-slider{
   width: 400px;
