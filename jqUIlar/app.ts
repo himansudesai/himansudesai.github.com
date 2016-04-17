@@ -28,7 +28,6 @@ import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, 
     <button class="whiteonbluishslategrey" role="button" (click)="resetSlider()">Reset data</button>
     <br/><br/>
 
-
     <!-- Date Picker -->
     <div class="section-header">
       <span>Date Picker</span><p class="code-snippet">&lt;jquilar-datepicker [value]=&quot;dateObj&quot; (select)=&quot;func($event)&quot;&gt;&lt;/jquilar-datepicker&gt;</p>
