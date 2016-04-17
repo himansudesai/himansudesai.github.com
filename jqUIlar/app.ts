@@ -3,7 +3,7 @@ import {Component, View, EventEmitter, NgZone} from "angular2/core";
 import { NgFor } from "angular2/common";
 import { OnChanges, SimpleChange, OnInit, AfterContentInit, AfterViewInit, OnDestroy, ElementRef } from 'angular2/core';
 import {Inject} from 'angular2/core';
-import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, jqUIlarMenu, jqUIlarEffect} from './jquilar.js';
+import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, jqUIlarMenu, jqUIlarEffect, jqUIlar, jqUIlarAccordion} from './jquilar.js';
 
 @Component({
   selector: 'jquilar',
@@ -70,8 +70,7 @@ import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, 
         <div id="effect" class="ui-widget-content ui-corner-all">
           <h3 class="ui-widget-header ui-corner-all">Help, I'm trapped in a glass box</h3>
           <p><img style="float: right;" src="./images/puppy.png">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.          
           </p>
         </div>
       </div>
@@ -79,6 +78,16 @@ import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, 
     <br/>
     <select id="effected" #sel (change)="effectTypeChanged(sel)"><option *ngFor="#effect of effectTypes">{{effect}}</option></select>
     <button class="whiteonbluishslategrey" role="button" (click)="runEffect()">Run Effect</button>
+    <br/><br/>
+
+    <!-- Accordion -->
+    <div class="section-header">
+      <span>Accordion</span><p class="code-snippet">&lt;jquilar-accordion [sections]=&quot;sectionData&quot;&gt; &lt;/jquilar-accordion&gt;</p>
+    </div>
+    <jquilar-accordion [sections]="accordionData"></jquilar-accordion>
+    <br/>
+    <button class="whiteonbluishslategrey" role="button" (click)="setAccordionDataToDogs()">Dogs</button>
+    <button class="whiteonbluishslategrey" role="button" (click)="setAccordionDataToCats()">Cats</button>
     <br/><br/>
 
 
@@ -94,7 +103,7 @@ import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, 
     <br/><br/>
 
   `,
-  directives: [NgFor, jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, jqUIlarMenu, jqUIlarEffect]
+  directives: [NgFor, jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, jqUIlarMenu, jqUIlarEffect, jqUIlarAccordion]
 })
 
 class JQUIlar {
@@ -107,13 +116,14 @@ class JQUIlar {
   effectsHandle: Object;
   effectTypes: Array<string>;
   selectedEffect: string;
+  accordionData: Array<Object>;
 
   constructor(private _ngZone: NgZone) {
     this.sliderVal = 50;
     this.dateVal = undefined; // or something like "01/10/2015"
     this.progressVal = 50;
     this.sortableList = ['Apple', 'Banana', 'Cherry'];
-    this.menu = [ { Apple: [{ Green: ['Mutsu', 'Granny Smith'] }, { Red: ['Macintosh', { Washington: false }] }], { Banana: ['Cavendish', 'Plantain'] }, { Cherry: false }, 'Date'];
+    this.menu = [ { Apple: [{ Green: ['Mutsu', 'Granny Smith'] }, { Red: ['Macintosh', { Washington: false }] }]}, { Banana: ['Cavendish', 'Plantain'] }, { Cherry: false }, 'Date'];
     this.effectsHandle = {
       runEffect: function() {
         console.log('ERROR - this function should have been overwritten by the jquilar library');
@@ -121,6 +131,7 @@ class JQUIlar {
     }
     this.effectTypes = ['explode', 'puff', 'bounce', 'shake', 'blind', 'fade', 'fold', 'pulsate', 'highlight'];
     this.selectedEffect = this.effectTypes[0];
+    this.setAccordionDataToDogs();
   }
 
   sliderStopped(newVal) {
@@ -201,6 +212,52 @@ class JQUIlar {
 
   effectTypeChanged(sel) {
     this.selectedEffect = sel.value;
+  }
+
+  setAccordionDataToDogs() {
+    this.accordionData = [
+       {
+         heading: 'Labrador',
+         body: `<img src="./images/lab.jpg">`
+       },
+       {
+         heading: 'Terrier',
+         body: `<img src="./images/terrier.jpg">`
+       },
+       {
+         heading: 'Malamute',
+         body: `<img src="./images/malamute.jpg">`
+       },
+       {
+         heading: 'Beagle',
+         body: `<img src="./images/beagle.jpg">`
+       }
+    ];
+  }
+  
+  setAccordionDataToCats() {
+    this.accordionData = [
+       {
+         heading: 'Persion',
+         body: `<img src="images/persian.jpg" alt="Persian" />`
+       },
+       {
+         heading: 'Toyger',
+         body: `<img src="images/toyger.jpg" alt="Terrier" />`
+       },
+       {
+         heading: 'Tabby',
+         body: `<img src="images/tabby.jpg" alt="Malamute" />`
+       },
+       {
+         heading: 'Serengiti',
+         body: `
+            <div>
+              <img src="images/serengeti.jpg" alt="Beagle" /> <br/>
+              <span class="indianred">I am scared. Where is my mommy?</span>
+            </div>`
+       }
+    ];
   }
 
 }

@@ -1,4 +1,12 @@
-#effect { width: 540px; height: 500px; padding: 0.4em; position: relative; }
+div.jquilar-accordion {
+  width: 550px;
+}
+
+.jquilar-accordion .ui-accordion-content {
+  height: 400px;
+}
+
+#effect { width: 640px; height: 350px; padding: 0.4em; position: relative; }
 #effect h3 { margin: 0; padding: 0.4em; text-align: center; }
 .ui-effects-transfer { border: 2px dotted gray; }
 
@@ -8,27 +16,21 @@
   font-size: 250%;
 }
 .code-snippet {
-    font-size: 25%;
+    font-size: 30%;
     color: #C33E41;
     font-weight: bold;
     font-family: monospace;
 }
-#slider1 .jquilar-slider{
+#slider1 .jquilar-slider, #slider3 .jquilar-slider {
   width: 400px;
 }
 #slider2 .jquilar-slider {
   height: 200px;
 }
-#slider3 .jquilar-slider{
-  width: 400px;
-}
 .centered {
   text-align: center;
 }
-.angular-red {
-  color: #C33E41;
-}
-#page-title {
+.angular-red, #page-title {
   color: #C33E41;
 }
 .big {

@@ -1,5 +1,4 @@
 System.register(["angular2/core", 'angular2/core'], function(exports_1) {
-    "use strict";
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -13,7 +12,7 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
         return function (target, key) { decorator(target, key, paramIndex); }
     };
     var core_1, core_2, core_3;
-    var jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, jqUIlarMenu, jqUIlarEffect;
+    var jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, jqUIlarMenu, jqUIlarEffect, jqUIlarAccordion;
     return {
         setters:[
             function (core_1_1) {
@@ -42,7 +41,7 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                         this[change] = changes[change] ? changes[change].currentValue : this[change];
                     }
                     if (!this.slider) {
-                        this.slider = this.domElement.querySelectorAll('.jquilar-slider');
+                        this.slider = $(this.domElement).find('.jquilar-slider');
                         $(this.slider).slider({
                             stop: function (event, ui) {
                                 _this.stop.next(ui.value);
@@ -66,7 +65,7 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                     __metadata('design:paramtypes', [core_2.ElementRef])
                 ], jqUIlarSlider);
                 return jqUIlarSlider;
-            }());
+            })();
             exports_1("jqUIlarSlider", jqUIlarSlider);
             // jquery-ui datepicker
             jqUIlarDatePicker = (function () {
@@ -123,7 +122,7 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                     __metadata('design:paramtypes', [core_2.ElementRef])
                 ], jqUIlarDatePicker);
                 return jqUIlarDatePicker;
-            }());
+            })();
             exports_1("jqUIlarDatePicker", jqUIlarDatePicker);
             // jquery-ui progressbar
             jqUIlarProgressBar = (function () {
@@ -173,7 +172,7 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                     __metadata('design:paramtypes', [core_2.ElementRef])
                 ], jqUIlarProgressBar);
                 return jqUIlarProgressBar;
-            }());
+            })();
             exports_1("jqUIlarProgressBar", jqUIlarProgressBar);
             // jquery-ui sortable
             jqUIlarSortable = (function () {
@@ -224,7 +223,7 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                     __metadata('design:paramtypes', [core_2.ElementRef])
                 ], jqUIlarSortable);
                 return jqUIlarSortable;
-            }());
+            })();
             exports_1("jqUIlarSortable", jqUIlarSortable);
             // jquery-ui menu
             jqUIlarMenu = (function () {
@@ -307,9 +306,9 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                     __metadata('design:paramtypes', [core_2.ElementRef])
                 ], jqUIlarMenu);
                 return jqUIlarMenu;
-            }());
+            })();
             exports_1("jqUIlarMenu", jqUIlarMenu);
-            // Effect
+            // jquery-ui effect
             jqUIlarEffect = (function () {
                 function jqUIlarEffect(elementRef) {
                     this.domElement = elementRef.nativeElement;
@@ -323,7 +322,6 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                         _this.completed.next();
                     };
                     for (var change in changes) {
-                        console.log('attr/val = ' + change + '/' + changes[change].currentValue);
                         this[change] = changes[change] ? changes[change].currentValue : this[change];
                     }
                     this.effectsHandle.runEffect = function (effectType, option1, option2, option3, option4) {
@@ -346,8 +344,51 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                     __metadata('design:paramtypes', [core_2.ElementRef])
                 ], jqUIlarEffect);
                 return jqUIlarEffect;
-            }());
+            })();
             exports_1("jqUIlarEffect", jqUIlarEffect);
+            // jquery-ui accordion
+            jqUIlarAccordion = (function () {
+                function jqUIlarAccordion(elementRef) {
+                    this.domElement = elementRef.nativeElement;
+                    this.zzz = new core_1.EventEmitter();
+                    this.accordion = undefined;
+                    this.sections = [];
+                }
+                jqUIlarAccordion.prototype.ngAfterContentInit = function () {
+                    this.accordion = $(this.domElement).find('.jquilar-accordion');
+                    $(this.accordion).accordion();
+                };
+                jqUIlarAccordion.prototype.ngOnChanges = function (changes) {
+                    for (var change in changes) {
+                        console.log('++++ accordion change ' + change);
+                        this[change] = changes[change] ? changes[change].currentValue : this[change];
+                    }
+                    //    if (!this.accordion) {
+                    this.accordion = $(this.domElement).empty().append('<div class="jquilar-accordion"></div>');
+                    this.accordion = $(this.accordion).find(".jquilar-accordion");
+                    console.log('++++ num sections = ' + this.sections.length);
+                    for (var idx = 0; idx < this.sections.length; idx++) {
+                        var section = this.sections[idx];
+                        console.log('    ++++ section = ' + JSON.stringify(section));
+                        $(this.accordion).append('<h3>' + section.heading + '</h3>');
+                        $(this.accordion).append('<div>' + section.body + '</div>');
+                    }
+                    $(this.accordion).accordion();
+                    //    }
+                };
+                jqUIlarAccordion = __decorate([
+                    core_1.Component({
+                        selector: 'jquilar-accordion',
+                        inputs: ['sections'],
+                        events: ['zzz'],
+                        template: "\n              <div class=\"jquilar-accordion\">\n                <ng-content></ng-content>\n              </div>\n            "
+                    }),
+                    __param(0, core_3.Inject(core_2.ElementRef)), 
+                    __metadata('design:paramtypes', [core_2.ElementRef])
+                ], jqUIlarAccordion);
+                return jqUIlarAccordion;
+            })();
+            exports_1("jqUIlarAccordion", jqUIlarAccordion);
         }
     }
 });
