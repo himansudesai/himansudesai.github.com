@@ -12,7 +12,7 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
         return function (target, key) { decorator(target, key, paramIndex); }
     };
     var core_1, core_2, core_3;
-    var jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, jqUIlarMenu, jqUIlarEffect, jqUIlarAccordion;
+    var jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, jqUIlarMenu, jqUIlarEffect, jqUIlarAccordion, jqUIlarTooltip;
     return {
         setters:[
             function (core_1_1) {
@@ -350,7 +350,6 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
             jqUIlarAccordion = (function () {
                 function jqUIlarAccordion(elementRef) {
                     this.domElement = elementRef.nativeElement;
-                    this.zzz = new core_1.EventEmitter();
                     this.accordion = undefined;
                     this.sections = [];
                 }
@@ -360,27 +359,21 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                 };
                 jqUIlarAccordion.prototype.ngOnChanges = function (changes) {
                     for (var change in changes) {
-                        console.log('++++ accordion change ' + change);
                         this[change] = changes[change] ? changes[change].currentValue : this[change];
                     }
-                    //    if (!this.accordion) {
                     this.accordion = $(this.domElement).empty().append('<div class="jquilar-accordion"></div>');
                     this.accordion = $(this.accordion).find(".jquilar-accordion");
-                    console.log('++++ num sections = ' + this.sections.length);
                     for (var idx = 0; idx < this.sections.length; idx++) {
                         var section = this.sections[idx];
-                        console.log('    ++++ section = ' + JSON.stringify(section));
                         $(this.accordion).append('<h3>' + section.heading + '</h3>');
                         $(this.accordion).append('<div>' + section.body + '</div>');
                     }
                     $(this.accordion).accordion();
-                    //    }
                 };
                 jqUIlarAccordion = __decorate([
                     core_1.Component({
                         selector: 'jquilar-accordion',
                         inputs: ['sections'],
-                        events: ['zzz'],
                         template: "\n              <div class=\"jquilar-accordion\">\n                <ng-content></ng-content>\n              </div>\n            "
                     }),
                     __param(0, core_3.Inject(core_2.ElementRef)), 
@@ -389,6 +382,38 @@ System.register(["angular2/core", 'angular2/core'], function(exports_1) {
                 return jqUIlarAccordion;
             })();
             exports_1("jqUIlarAccordion", jqUIlarAccordion);
+            // jquery-ui tooltip
+            jqUIlarTooltip = (function () {
+                function jqUIlarTooltip(elementRef) {
+                    this.domElement = elementRef.nativeElement;
+                    this.accordion = undefined;
+                    this.tooltip = '';
+                }
+                jqUIlarTooltip.prototype.ngAfterContentInit = function () {
+                    this.jqTooltip = $(this.domElement).find('.jquilar-tooltip');
+                    $(this.jqTooltip).attr('title', this.tooltip);
+                    $(this.jqTooltip).tooltip();
+                };
+                jqUIlarTooltip.prototype.ngOnChanges = function (changes) {
+                    for (var change in changes) {
+                        this[change] = changes[change] ? changes[change].currentValue : this[change];
+                    }
+                    this.jqTooltip = $(this.domElement).find('.jquilar-tooltip');
+                    $(this.jqTooltip).attr('title', this.tooltip);
+                    $(this.jqTooltip).tooltip();
+                };
+                jqUIlarTooltip = __decorate([
+                    core_1.Component({
+                        selector: 'jquilar-tooltip',
+                        inputs: ['tooltip'],
+                        template: "\n              <div class=\"jquilar-tooltip\">\n                <ng-content></ng-content>\n              </div>\n            "
+                    }),
+                    __param(0, core_3.Inject(core_2.ElementRef)), 
+                    __metadata('design:paramtypes', [core_2.ElementRef])
+                ], jqUIlarTooltip);
+                return jqUIlarTooltip;
+            })();
+            exports_1("jqUIlarTooltip", jqUIlarTooltip);
         }
     }
 });

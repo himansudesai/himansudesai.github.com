@@ -3,7 +3,7 @@ import {Component, View, EventEmitter, NgZone} from "angular2/core";
 import { NgFor } from "angular2/common";
 import { OnChanges, SimpleChange, OnInit, AfterContentInit, AfterViewInit, OnDestroy, ElementRef } from 'angular2/core';
 import {Inject} from 'angular2/core';
-import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, jqUIlarMenu, jqUIlarEffect, jqUIlar, jqUIlarAccordion} from './jquilar.js';
+import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, jqUIlarMenu, jqUIlarEffect, jqUIlarAccordion, jqUIlarTooltip } from './jquilar.js';
 
 @Component({
   selector: 'jquilar',
@@ -37,7 +37,6 @@ import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, 
     <button class="whiteonbluishslategrey" role="button" (click)="resetDate()">Reset data</button>
     <br/><br/>
 
-
     <!-- Progress Bar -->
     <div class="section-header">
       <span>Progress Bar</span><p class="code-snippet">&lt;jquilar-progressbar [value]=&quot;progressVal&quot; (change)=&quot;progressChanged($event)&quot; class=&quot;gold&quot;&gt;&lt;/jquilar-progressbar&gt;</p>
@@ -50,8 +49,7 @@ import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, 
     <button class="whiteonbluishslategrey" role="button" (click)="incProgressBar()">+10</button>
     <br/><br/>
 
-
-    <!-- Menu -->
+  <!-- Menu -->
     <div class="section-header">
       <span>Menu</span><p class="code-snippet">&lt;jquilar-menu [menu]=&quot;myList&quot; (select)=&quot;func($event)&quot;&gt;&lt;/jquilar-menu&gt;</p>
     </div>
@@ -90,6 +88,19 @@ import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, 
     <br/><br/>
 
 
+    <!-- Tooltip -->
+    <div class="section-header">
+      <span>Tooltip</span><p class="code-snippet">&lt;jquilar-tooltip [tooltip]=&quot;tip&quot;&gt; &lt;/jquilar-tooltip&gt;</p>
+    </div>
+    <jquilar-tooltip [tooltip]="tip">
+      <label>Age:&nbsp;</label>
+      <input />
+      <br/><span class="grey">Hover to see tooltip, before/after hitting the button below</span>
+    </jquilar-tooltip>
+    <button class="whiteonbluishslategrey" role="button" (click)="changeTooltip()">Change Tooltip</button>
+    <br/><br/>
+
+
     <!-- Sortable -->
     <div class="section-header">
       <span>Sortable</span><p class="code-snippet">&lt;jquilar-sortable [list]=&quot;myList&quot; (sort)=&quot;func($event)&quot;&gt;&lt;/jquilar-sortable&gt;</p>
@@ -100,10 +111,10 @@ import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, 
     <button class="whiteonbluishslategrey" role="button" (click)="veggiesSortableList()">Veggies</button>
     <button class="whiteonbluishslategrey" role="button" (click)="fruitsSortableList()">Fruits</button>
     <br/><br/>
-
   `,
-  directives: [NgFor, jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, jqUIlarMenu, jqUIlarEffect, jqUIlarAccordion]
+  directives: [ NgFor, jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, jqUIlarMenu, jqUIlarEffect, jqUIlarAccordion, jqUIlarTooltip ]
 })
+
 
 class JQUIlar {
   sliderVal: number;
@@ -116,6 +127,7 @@ class JQUIlar {
   effectTypes: Array<string>;
   selectedEffect: string;
   accordionData: Array<Object>;
+  tip: String;
 
   constructor(private _ngZone: NgZone) {
     this.sliderVal = 50;
@@ -131,6 +143,7 @@ class JQUIlar {
     this.effectTypes = ['explode', 'puff', 'bounce', 'shake', 'blind', 'fade', 'fold', 'pulsate', 'highlight'];
     this.selectedEffect = this.effectTypes[0];
     this.setAccordionDataToDogs();
+    this.tip = 'We ask for your age, only for statistical purposes';
   }
 
   sliderStopped(newVal) {
@@ -257,6 +270,10 @@ class JQUIlar {
             </div>`
        }
     ];
+  }
+  
+  changeTooltip() {
+    this.tip = 'Most likely, your age will be used against you!';
   }
 
 }

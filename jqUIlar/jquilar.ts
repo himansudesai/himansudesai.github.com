@@ -356,7 +356,6 @@ export class jqUIlarEffect {
 @Component({
   selector: 'jquilar-accordion',
   inputs: ['sections'],
-  events: ['zzz'],
   template: `
               <div class="jquilar-accordion">
                 <ng-content></ng-content>
@@ -366,13 +365,11 @@ export class jqUIlarEffect {
 
 export class jqUIlarAccordion {
   sections: Array<Map<string, string>>;
-  zzz: EventEmitter<number>;
   domElement: any;
   accordion: any;
 
   constructor( @Inject(ElementRef) elementRef: ElementRef) {
     this.domElement = elementRef.nativeElement;
-    this.zzz = new EventEmitter();
     this.accordion = undefined;
     this.sections = [];
   }
@@ -384,20 +381,53 @@ export class jqUIlarAccordion {
 
   ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
     for (let change in changes) {
-      console.log('++++ accordion change ' + change);
       this[change] = changes[change] ? changes[change].currentValue : this[change];
     }
-//    if (!this.accordion) {
-      this.accordion = $(this.domElement).empty().append('<div class="jquilar-accordion"></div>');
-      this.accordion = $(this.accordion).find(".jquilar-accordion");
-      console.log('++++ num sections = ' + this.sections.length);
-      for (var idx=0; idx<this.sections.length; idx++) {
-        var section = this.sections[idx];
-        console.log('    ++++ section = ' + JSON.stringify(section));
-        $(this.accordion).append('<h3>' + section.heading + '</h3>');
-        $(this.accordion).append('<div>' + section.body + '</div>');
-      }
-      $(this.accordion).accordion();
-//    }
+    this.accordion = $(this.domElement).empty().append('<div class="jquilar-accordion"></div>');
+    this.accordion = $(this.accordion).find(".jquilar-accordion");
+    for (var idx=0; idx<this.sections.length; idx++) {
+      var section = this.sections[idx];
+      $(this.accordion).append('<h3>' + section.heading + '</h3>');
+      $(this.accordion).append('<div>' + section.body + '</div>');
+    }
+    $(this.accordion).accordion();
+  }
+}
+
+// jquery-ui tooltip
+@Component({
+  selector: 'jquilar-tooltip',
+  inputs: ['tooltip'],
+  template: `
+              <div class="jquilar-tooltip">
+                <ng-content></ng-content>
+              </div>
+            `
+})
+
+export class jqUIlarTooltip {
+  tooltip: String;
+  domElement: any;
+  jqTooltip: any;
+
+  constructor( @Inject(ElementRef) elementRef: ElementRef) {
+    this.domElement = elementRef.nativeElement;
+    this.accordion = undefined;
+    this.tooltip = '';
+  }
+
+  ngAfterContentInit() {
+     this.jqTooltip = $(this.domElement).find('.jquilar-tooltip');
+      $(this.jqTooltip).attr('title', this.tooltip);
+      $(this.jqTooltip).tooltip();
+  }
+
+  ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
+    for (let change in changes) {
+      this[change] = changes[change] ? changes[change].currentValue : this[change];
+    }
+     this.jqTooltip = $(this.domElement).find('.jquilar-tooltip');
+      $(this.jqTooltip).attr('title', this.tooltip);
+      $(this.jqTooltip).tooltip();
   }
 }
