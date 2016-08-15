@@ -3,7 +3,7 @@ import {Component, View, EventEmitter, NgZone} from "angular2/core";
 import { NgFor } from "angular2/common";
 import { OnChanges, SimpleChange, OnInit, AfterContentInit, AfterViewInit, OnDestroy, ElementRef } from 'angular2/core';
 import {Inject} from 'angular2/core';
-import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, jqUIlarMenu, jqUIlarEffect, jqUIlarAccordion, jqUIlarTooltip } from './jquilar.js';
+import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, jqUIlarMenu, jqUIlarEffect, jqUIlarAccordion, jqUIlarTooltip, jqUIlarDraggable } from './jquilar.js';
 
 @Component({
   selector: 'jquilar',
@@ -101,6 +101,19 @@ import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, 
     <br/><br/>
 
 
+    <!-- Draggable -->
+    <div class="section-header">
+      <span>Draggable</span><p class="code-snippet">&lt;jquilar-draggable&gt; &lt;div&gt;Drag Me Around&lt;div&gt;  &lt;/jquilar-draggable&gt;</p>
+    </div>
+    <jquilar-draggable>
+      <div id="draghi" class="ui-widget-content">
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x2191;</span><br/>
+        <span>&#x2190; &nbsp; &#x2192;</span><br/>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x2193;</span><br/>
+      </div>
+    </jquilar-draggable>
+
+
     <!-- Sortable -->
     <div class="section-header">
       <span>Sortable</span><p class="code-snippet">&lt;jquilar-sortable [list]=&quot;myList&quot; (sort)=&quot;func($event)&quot;&gt;&lt;/jquilar-sortable&gt;</p>
@@ -112,7 +125,7 @@ import { jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, 
     <button class="whiteonbluishslategrey" role="button" (click)="fruitsSortableList()">Fruits</button>
     <br/><br/>
   `,
-  directives: [ NgFor, jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, jqUIlarMenu, jqUIlarEffect, jqUIlarAccordion, jqUIlarTooltip ]
+  directives: [ NgFor, jqUIlarSlider, jqUIlarDatePicker, jqUIlarProgressBar, jqUIlarSortable, jqUIlarMenu, jqUIlarEffect, jqUIlarAccordion, jqUIlarTooltip, jqUIlarDraggable ]
 })
 
 

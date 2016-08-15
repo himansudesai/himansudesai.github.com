@@ -12,10 +12,10 @@ div.jquilar-accordion {
 .section-header {
   color: darkgoldenrod;
   border-bottom: 1px solid #CCC;
-  font-size: 250%;
+  font-size: 3vh;
 }
 .code-snippet {
-    font-size: 30%;
+    font-size: 1.2vh;
     color: #C33E41;
     font-weight: bold;
     font-family: monospace;
@@ -33,7 +33,7 @@ div.jquilar-accordion {
   color: #C33E41;
 }
 .big {
-  font-size: 3vh;
+  font-size: 2vh;
   font-weight: bold;
 }
 .muted {
@@ -45,6 +45,9 @@ div.jquilar-accordion {
 .whiteonbluishslategrey {
   color: white;
   background-color: #6784A1;
+}
+#draghi {
+  width: 45px;
 }
 .ui-menu {
   width: 150px;

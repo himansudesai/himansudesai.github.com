@@ -21,8 +21,8 @@ export class jqUIlarSlider {
   constructor( @Inject(ElementRef) elementRef: ElementRef) {
     this.domElement = elementRef.nativeElement;
     this.stop = new EventEmitter();
-    this.value = 0;
     this.slider = undefined;
+    this.value = 0;
     this.orientation = 'horizontal';
     this.step = 1;
   }
@@ -412,7 +412,6 @@ export class jqUIlarTooltip {
 
   constructor( @Inject(ElementRef) elementRef: ElementRef) {
     this.domElement = elementRef.nativeElement;
-    this.accordion = undefined;
     this.tooltip = '';
   }
 
@@ -430,4 +429,31 @@ export class jqUIlarTooltip {
       $(this.jqTooltip).attr('title', this.tooltip);
       $(this.jqTooltip).tooltip();
   }
+}
+
+// jquery-ui draggable
+@Component({
+  selector: 'jquilar-draggable',
+  template: `
+              <div class="jquilar-draggable">
+                <ng-content></ng-content>
+              </div>
+            `
+})
+
+export class jqUIlarDraggable {
+  tooltip: String;
+  domElement: any;
+  jqDraggable: any;
+
+  constructor( @Inject(ElementRef) elementRef: ElementRef) {
+    this.domElement = elementRef.nativeElement;
+  }
+
+  ngAfterContentInit() {
+     this.jqDraggable = $(this.domElement).find('.jquilar-draggable');
+      $(this.jqDraggable).draggable();
+  }
+
+  ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {}
 }
