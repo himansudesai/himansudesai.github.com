@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html ng-app="musicApp">
+  <head>
+
+    <meta name="viewport" content="minimum-scale=1.0, width=device-width, maximum-scale=1.0, user-scalable=no"/>
+    <meta charset="utf-8">
+
+    <title>Zymergen Frontend Code Test</title>
+
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/styles.css">
+
+    <script type="text/javascript" src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="./node_modules/angular/angular.min.js"></script>
+
+  </head>
+
+  <body>
+    <p>This app has an Express server and an Angular frontend. It uses the iTunes music API. You will be editing only the index.html and the albumsCtrl.js. 
+    <ol>
+        <li>Use the iTunes api endpoint provided in the albumsCtrl.js file to retrieve a list of all album names by The Beatles. </li>
+        <li>Display the albums with artwork on the page.</li>
+        <li>Display the albums sorted by release date.</li>
+        <li>Display 3 rows of results.</li>
+    </ol>
+
+    <div ng-controller="albumsCtrl" class="albums col-md-12">
+        <div class="albums-table">
+            <div ng-repeat="row in rows" class="albums-row">
+                <div ng-repeat="album in row" class="album-cell">
+                    <p><span class="album-name">{{album.collectionName}}</span><span> ({{year(album.releaseDate)}}) </span></p>
+                    <img src="{{album.artworkUrl100}}">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/albumsCtrl.js"></script>
+  </body>
+
+</html>
